@@ -5,7 +5,9 @@
         <div class="modal-header">
           <img src="../assets/apod_logo.svg" alt="">
           <div class="col d-flex align-items-center justify-content-end">
-            <i type="button" class="fa-regular fa-heart fa-xl me-3" @click="likeImage(item)"></i>
+            <i v-if="item.image_is_liked" type="button" class="fa-solid fa-heart fa-xl me-3" style="color: #f66151;" @click="unlikeImage(item)"></i>
+            <i v-else type="button" class="fa-regular fa-heart fa-xl me-3" @click="likeImage(item)"></i>
+
             <i type="button" class="fa-solid fa-download fa-xl me-3" @click="downloadImage(item)"></i>
             <i type="button" class="fa-solid fa-xmark fa-2xl" data-bs-dismiss="modal"></i>
           </div>
@@ -19,6 +21,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import ModalBody from './ModalBody.vue'
 
 export default {
@@ -32,8 +35,47 @@ export default {
     }
   },
   methods: {
-    likeImage (item) {
-      console.log(item)
+    async likeImage (item) {
+      const data = JSON.stringify({
+        date: item.date
+      })
+
+      await axios
+        .post('/api/v1/like_image/', data, {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': 'csrftoken'
+          }
+        })
+        .then(response => {
+          console.log(response)
+          item.image_is_liked = true
+          item.image_likes_count += 1
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    async unlikeImage (item) {
+      const data = JSON.stringify({
+        date: item.date
+      })
+
+      await axios
+        .post('/api/v1/unlike_image/', data, {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': 'csrftoken'
+          }
+        })
+        .then(response => {
+          console.log(response)
+          item.image_is_liked = false
+          item.image_likes_count -= 1
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     downloadImage (item) {
       const imageUrl = item.image_url

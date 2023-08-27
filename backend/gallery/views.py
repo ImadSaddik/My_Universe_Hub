@@ -15,7 +15,7 @@ from .serializers import GallerySerializer
 
 class getArchive(APIView):
     def get(self, request, format=None):
-        addTodayPictureIfPossible()
+        # addTodayPictureIfPossible()
         
         entries = Gallery.objects.all()
         serializer = GallerySerializer(entries, many=True)
@@ -92,3 +92,29 @@ def getImageAndExplanation(url):
         img_url = None
 
     return img_url, explanation
+
+
+@api_view(['POST'])
+def likeImage(request):
+    date = json.loads(request.body)['date']
+    entry = Gallery.objects.get(date=date)
+    
+    entry.image_is_liked = True
+    entry.image_likes_count += 1
+    
+    entry.save()
+    
+    return JsonResponse({'message': 'Image liked successfully!'}, safe=False)
+    
+    
+@api_view(['POST'])
+def unlikeImage(request):
+    date = json.loads(request.body)['date']
+    entry = Gallery.objects.get(date=date)
+    
+    entry.image_is_liked = False
+    entry.image_likes_count -= 1
+    
+    entry.save()
+    
+    return JsonResponse({'message': 'Image unliked successfully!'}, safe=False)
