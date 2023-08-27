@@ -13,6 +13,8 @@ class Gallery(models.Model):
     title = models.CharField(max_length=100)
     explanation = models.TextField()
     image_url = models.CharField(max_length=150)
+    image_is_liked = models.BooleanField(default=False)
+    image_likes_count = models.IntegerField(default=0)
     keywords = models.ManyToManyField(Keyword)
     
     def __str__(self):
