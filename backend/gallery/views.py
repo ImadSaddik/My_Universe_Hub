@@ -127,3 +127,11 @@ def search(request, query):
     serializer = GallerySerializer(entries, many=True)
     
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getSortedArchive(request):
+    entries = Gallery.objects.order_by('-image_likes_count')
+    serializer = GallerySerializer(entries, many=True)
+    
+    return Response(serializer.data)

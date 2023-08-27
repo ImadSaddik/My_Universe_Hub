@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import TodayPicture from '../views/TodayPicture.vue'
+import TodayPictureView from '../views/TodayPictureView.vue'
+import TrendingView from '../views/TrendingView.vue'
 
 const routes = [
   {
@@ -11,7 +12,12 @@ const routes = [
   {
     path: '/today',
     name: 'today',
-    component: TodayPicture
+    component: TodayPictureView
+  },
+  {
+    path: '/trending',
+    name: 'trending',
+    component: TrendingView
   }
 ]
 

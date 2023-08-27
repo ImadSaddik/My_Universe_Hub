@@ -11,6 +11,7 @@
         <div class="navbar-nav">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
           <a class="nav-link" href="/today">Today's picture</a>
+          <a class="nav-link" href="/trending">Trending</a>
         </div>
       </div>
     </div>

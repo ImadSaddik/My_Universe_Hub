@@ -8,4 +8,5 @@ urlpatterns = [
     path('like_image/', views.likeImage),
     path('unlike_image/', views.unlikeImage),
     path('search/<str:query>/', views.search),
+    path('trending/', views.getSortedArchive),
 ]

@@ -22,7 +22,7 @@
 import axios from 'axios'
 
 export default {
-  name: 'TodayPicture',
+  name: 'TodayPictureView',
   components: {
   },
   data () {

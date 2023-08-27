@@ -2,26 +2,27 @@
   <div class="container-fluid mt-3">
     <div class="row gx-3">
       <GalleryColumn
-        :archive="limitedArchive"
-        :sliceStart="0"
-        :sliceEnd="Math.ceil(limitedArchive.length / 3)"
+        :archive="firstSublist"
         @selected-item="$emit('selected-item', $event)"
       />
       <GalleryColumn
-        :archive="limitedArchive"
-        :sliceStart="Math.ceil(limitedArchive.length / 3)"
-        :sliceEnd="Math.ceil(2 * limitedArchive.length / 3)"
+        :archive="secondSublist"
         @selected-item="$emit('selected-item', $event)"
       />
       <GalleryColumn
-        :archive="limitedArchive"
-        :sliceStart="Math.ceil(2 * limitedArchive.length / 3)"
-        :sliceEnd="limitedArchive.length"
+        :archive="thirdSublist"
         @selected-item="$emit('selected-item', $event)"
       />
     </div>
     <div v-if="showLoadMore" class="row mx-0 mb-3">
-      <div type="button" class="col border py-4 d-flex align-items-center justify-content-center" @click="increaseLimit">
+      <div
+        type="button"
+        class="col border py-4 d-flex align-items-center justify-content-center"
+        :class="{ 'border-dark': isHovering }"
+        @mouseover="isHovering = true"
+        @mouseleave="isHovering = false"
+        @click="increaseLimit"
+      >
         Load more
       </div>
     </div>
@@ -40,10 +41,30 @@ export default {
   data () {
     return {
       selectedItem: null,
-      limit: 100
+      limit: 100,
+      isHovering: false
     }
   },
   computed: {
+    sublists () {
+      const sublists = [[], [], []]
+
+      for (let i = 0; i < this.limitedArchive.length; i++) {
+        const sublistIndex = i % 3
+        sublists[sublistIndex].push(this.limitedArchive[i])
+      }
+
+      return sublists
+    },
+    firstSublist () {
+      return this.sublists[0]
+    },
+    secondSublist () {
+      return this.sublists[1]
+    },
+    thirdSublist () {
+      return this.sublists[2]
+    },
     limitedArchive () {
       return this.archive.slice(0, this.limit)
     },
