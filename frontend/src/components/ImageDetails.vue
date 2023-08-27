@@ -4,7 +4,11 @@
       <div class="modal-content">
         <div class="modal-header">
           <img src="../assets/apod_logo.svg" alt="">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="col d-flex align-items-center justify-content-end">
+            <i type="button" class="fa-regular fa-heart fa-xl me-3" @click="likeImage(item)"></i>
+            <i type="button" class="fa-solid fa-download fa-xl me-3" @click="downloadImage(item)"></i>
+            <i type="button" class="fa-solid fa-xmark fa-2xl" data-bs-dismiss="modal"></i>
+          </div>
         </div>
         <div class="modal-body">
           <ModalBody :item="item" />
@@ -28,6 +32,19 @@ export default {
     }
   },
   methods: {
+    likeImage (item) {
+      console.log(item)
+    },
+    downloadImage (item) {
+      const imageUrl = item.image
+      const anchorTag = document.createElement('a')
+      anchorTag.href = imageUrl
+      anchorTag.target = '_blank'
+
+      document.body.appendChild(anchorTag)
+      anchorTag.click()
+      document.body.removeChild(anchorTag)
+    }
   }
 }
 </script>

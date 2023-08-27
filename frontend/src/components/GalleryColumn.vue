@@ -13,17 +13,11 @@
             <div class="col">
               <h5 class="card-subtitle">{{ item.title }}</h5>
             </div>
-            <div class="col-auto">
-              <!-- <i type="button" class="fa-solid fa-heart fa-xl" @click="likeImage(item)"></i> -->
-            </div>
           </div>
           <div class="row flex-grow-1"></div>
           <div class="row align-items-center">
             <div class="col">
               <img src="../assets/apod_logo_white.svg" alt="">
-            </div>
-            <div class="col-auto">
-              <!-- <i type="button" class="fa-solid fa-download fa-xl" @click="downloadImage(item)"></i> -->
             </div>
           </div>
         </div>
@@ -44,19 +38,6 @@ export default {
     }
   },
   methods: {
-    likeImage (item) {
-      console.log(item)
-    },
-    downloadImage (item) {
-      const imageUrl = item.image
-      const anchorTag = document.createElement('a')
-      anchorTag.href = imageUrl
-      anchorTag.download = item.image
-
-      document.body.appendChild(anchorTag)
-      anchorTag.click()
-      document.body.removeChild(anchorTag)
-    }
   }
 }
 </script>
