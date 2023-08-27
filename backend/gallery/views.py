@@ -1,5 +1,4 @@
 import json
-import asyncio
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
@@ -27,10 +26,7 @@ class getArchive(APIView):
 def addTodayPictureIfPossible():
     response = getTodayPicture(request=None)
     item = json.loads(response.content)
-    
-    date = item['date'].replace(':', '')
-    date = datetime.strptime(date, '%Y %B %d')
-    item['date'] = date.strftime('%Y-%m-%d')
+    item['date'] = convertDate(item['date'])
     
     try:
         Gallery.objects.get(date=item['date'])
@@ -45,6 +41,12 @@ def addTodayPictureIfPossible():
         )
         
         entry.save()
+        
+        
+def convertDate(date):
+    date = date.replace(':', '')
+    date = datetime.strptime(date, '%Y-%m-%d')
+    return date.strftime('%Y %B %d')
 
 
 def getTodayPicture(request):
