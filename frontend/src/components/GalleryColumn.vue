@@ -1,19 +1,20 @@
 <template>
   <div class="col py-3">
-    <div
-      v-for="(item, index) in archive.slice(sliceStart, sliceEnd)"
-      :key="index"
-      class="image-container mb-3"
-    >
-      <img :src="item.image" v-lazy="item.image" class="img-fluid" alt="">
-      <div class="overlay">
+    <div v-for="(item, index) in archive.slice(sliceStart, sliceEnd)" :key="index" class="image-container mb-3">
+      <img
+        :src="item.image"
+        v-lazy="item.image"
+        class="img-fluid"
+        alt=""
+      >
+      <div class="overlay" @click="$emit('selectedItem', item)" data-bs-toggle="modal" data-bs-target="#exampleModal">
         <div class="overlay-content d-flex flex-column h-100">
           <div class="row align-items-center">
             <div class="col">
               <h5 class="card-subtitle">{{ item.title }}</h5>
             </div>
             <div class="col-auto">
-              <i type="button" class="fa-solid fa-heart fa-xl" @click="likeImage(item)"></i>
+              <!-- <i type="button" class="fa-solid fa-heart fa-xl" @click="likeImage(item)"></i> -->
             </div>
           </div>
           <div class="row flex-grow-1"></div>
@@ -22,7 +23,7 @@
               <img src="../assets/apod_logo_white.svg" alt="">
             </div>
             <div class="col-auto">
-              <i type="button" class="fa-solid fa-download fa-xl" @click="downloadImage(item)"></i>
+              <!-- <i type="button" class="fa-solid fa-download fa-xl" @click="downloadImage(item)"></i> -->
             </div>
           </div>
         </div>
@@ -39,6 +40,7 @@ export default {
   },
   data () {
     return {
+      selectedItem: null
     }
   },
   methods: {
@@ -63,6 +65,7 @@ export default {
 .image-container {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 
 .overlay {

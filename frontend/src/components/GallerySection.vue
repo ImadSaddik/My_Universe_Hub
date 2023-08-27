@@ -5,16 +5,19 @@
         :archive="archive"
         :sliceStart="0"
         :sliceEnd="Math.floor(archive.length / 3)"
+        @selected-item="$emit('selected-item', $event)"
       />
       <GalleryColumn
         :archive="archive"
         :sliceStart="Math.floor(archive.length / 3)"
         :sliceEnd="Math.floor(2 * archive.length / 3)"
+        @selected-item="$emit('selected-item', $event)"
       />
       <GalleryColumn
         :archive="archive"
         :sliceStart="Math.floor(2 * archive.length / 3)"
         :sliceEnd="archive.length"
+        @selected-item="$emit('selected-item', $event)"
       />
     </div>
   </div>
@@ -31,6 +34,7 @@ export default {
   },
   data () {
     return {
+      selectedItem: null
     }
   },
   methods: {
