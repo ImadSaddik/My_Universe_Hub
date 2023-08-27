@@ -69,7 +69,7 @@ def scrape_a_tag(a_tag):
     dictionary['date'] = date
     dictionary['title'] = title
     dictionary['url'] = url
-    dictionary['image'] = image
+    dictionary['image_url'] = image
     dictionary['explanation'] = explanation
 
     return dictionary

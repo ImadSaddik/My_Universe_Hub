@@ -33,7 +33,7 @@ export default {
       const imageUrl = this.item.image_url
       const anchorTag = document.createElement('a')
       anchorTag.href = imageUrl
-      anchorTag.download = imageUrl
+      anchorTag.target = '_blank'
 
       document.body.appendChild(anchorTag)
       anchorTag.click()
