@@ -1,13 +1,14 @@
 <template>
-  <button
-      v-if="showBackToTopButton"
-      class="btn btn-primary top-0 start-0"
-      @click="scrollToTop"
-    >
-      Back to Top
-  </button>
   <SearchSection />
   <GallerySection :archive="archive" />
+
+  <i
+    v-if="showBackToTopButton"
+    type="button"
+    class="fs-1 fa-solid fa-circle-arrow-up fa-2xl go-up-button"
+    @click="scrollToTop"
+  >
+  </i>
 </template>
 
 <script>
@@ -57,3 +58,15 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .go-up-button {
+    position: fixed;
+    bottom: 1.5em;
+    right: 1em;
+    cursor: pointer;
+    color: #3584e4;
+    z-index: 3;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+</style>

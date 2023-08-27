@@ -1,6 +1,10 @@
 <template>
   <div class="col py-3">
-    <div v-for="(item, index) in archive.slice(sliceStart, sliceEnd)" :key="index" class="image-container mb-3">
+    <div
+      v-for="(item, index) in archive.slice(sliceStart, sliceEnd)"
+      :key="index"
+      class="image-container mb-3"
+    >
       <img :src="item.image" v-lazy="item.image" class="img-fluid" alt="">
       <div class="overlay">
         <div class="overlay-content d-flex flex-column h-100">
