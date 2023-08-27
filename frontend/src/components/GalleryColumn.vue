@@ -2,8 +2,8 @@
   <div class="col py-3">
     <div v-for="(item, index) in archive.slice(sliceStart, sliceEnd)" :key="index" class="image-container mb-3">
       <img
-        :src="item.image"
-        v-lazy="item.image"
+        :src="item.image_url"
+        v-lazy="item.image_url"
         class="img-fluid"
         alt=""
       >

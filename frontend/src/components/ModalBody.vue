@@ -7,7 +7,7 @@
     </div>
     <div class="row mt-5">
       <div class="col d-flex justify-content-center">
-        <img type="button" :src="item.image" class="img-fluid rounded-4" alt="" @click="downloadImage">
+        <img type="button" :src="item.image_url" class="img-fluid rounded-4" alt="" @click="downloadImage">
       </div>
     </div>
     <div class="row mt-5 mb-3">
@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     downloadImage () {
-      const imageUrl = this.item.image
+      const imageUrl = this.item.image_url
       const anchorTag = document.createElement('a')
       anchorTag.href = imageUrl
       anchorTag.download = imageUrl

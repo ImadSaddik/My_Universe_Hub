@@ -36,7 +36,7 @@ export default {
       console.log(item)
     },
     downloadImage (item) {
-      const imageUrl = item.image
+      const imageUrl = item.image_url
       const anchorTag = document.createElement('a')
       anchorTag.href = imageUrl
       anchorTag.target = '_blank'

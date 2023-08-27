@@ -1,7 +1,8 @@
-import pickle
+import json
+import asyncio
 import requests
 from bs4 import BeautifulSoup
-import concurrent.futures
+from datetime import datetime
 
 from django.http import JsonResponse
 
@@ -9,17 +10,41 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
+from .models import Gallery
+from .serializers import GallerySerializer
 
-def getArchive(request):
-    with open('/home/imad/Projects/APOD/website/backend/gallery/archive.pickle', 'rb') as f:
-        data = pickle.load(f)
+
+class getArchive(APIView):
+    def get(self, request, format=None):
+        addTodayPictureIfPossible()
         
-    data_with_no_null_urls = []
-    for item in data:
-        if item['image'] != None:
-            data_with_no_null_urls.append(item)
+        entries = Gallery.objects.all()
+        serializer = GallerySerializer(entries, many=True)
         
-    return JsonResponse(data_with_no_null_urls, safe=False)
+        return Response(serializer.data)
+    
+    
+def addTodayPictureIfPossible():
+    response = getTodayPicture(request=None)
+    item = json.loads(response.content)
+    
+    date = item['date'].replace(':', '')
+    date = datetime.strptime(date, '%Y %B %d')
+    item['date'] = date.strftime('%Y-%m-%d')
+    
+    try:
+        Gallery.objects.get(date=item['date'])
+        print("Today's picture is already in the database.")
+    except:
+        print("Today's picture is not in the database.")
+        entry = Gallery.objects.create(
+            date=item['date'],
+            title=item['title'],
+            explanation=item['explanation'],
+            image_url=item['image'],
+        )
+        
+        entry.save()
 
 
 def getTodayPicture(request):
