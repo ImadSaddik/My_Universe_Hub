@@ -14,7 +14,7 @@
                 class="form-control rounded-pill py-2 px-4"
                 placeholder="Andromeda galaxy"
                 v-model="searchQuery"
-                @keydown.enter.prevent="search"
+                @keydown.enter.prevent="$emit('search', searchQuery)"
                 aria-describedby="basic-addon1"
               >
             </div>
@@ -36,9 +36,6 @@ export default {
     }
   },
   methods: {
-    search () {
-      console.log(this.searchQuery)
-    }
   }
 }
 </script>

@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 
+from django.db.models import Q
 from django.http import JsonResponse
 
 from rest_framework.views import APIView
@@ -118,3 +119,11 @@ def unlikeImage(request):
     entry.save()
     
     return JsonResponse({'message': 'Image unliked successfully!'}, safe=False)
+
+
+@api_view(['GET'])
+def search(request, query):
+    entries = Gallery.objects.filter(Q(explanation__icontains=query))
+    serializer = GallerySerializer(entries, many=True)
+    
+    return Response(serializer.data)

@@ -40,23 +40,20 @@ export default {
   data () {
     return {
       selectedItem: null,
-      limit: 100,
-      showLoadMore: true
+      limit: 100
     }
   },
   computed: {
     limitedArchive () {
       return this.archive.slice(0, this.limit)
+    },
+    showLoadMore () {
+      return this.limit < this.archive.length
     }
   },
   methods: {
     increaseLimit () {
       this.limit += 100
-
-      if (this.limit > this.archive.length) {
-        this.limit = this.archive.length
-        this.showLoadMore = false
-      }
     }
   }
 }

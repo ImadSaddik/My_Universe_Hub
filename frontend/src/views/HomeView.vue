@@ -1,5 +1,5 @@
 <template>
-  <SearchSection />
+  <SearchSection @search="(query) => search(query)" />
   <GallerySection :archive="archive" @selected-item="(value) => selectedItem = value" />
   <BackToTopVue />
   <ImageDetails :item="selectedItem" />
@@ -40,6 +40,21 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    async search (query) {
+      if (query.trim().length === 0) {
+        this.getArchive()
+      } else {
+        await axios
+          .get(`/api/v1/search/${query}/`)
+          .then(response => {
+            this.archive = response.data
+            console.log(response.data)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     }
   }
 }
