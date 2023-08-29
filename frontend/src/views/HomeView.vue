@@ -31,11 +31,11 @@ export default {
   },
   methods: {
     async getArchive () {
+      axios.defaults.headers.common.Authorization = ''
       await axios
         .get('/api/v1/gallery/')
         .then(response => {
           this.archive = response.data
-          console.log(response.data)
         })
         .catch(error => {
           console.log(error)

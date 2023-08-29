@@ -8,10 +8,34 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-          <a class="nav-link" href="/today">Today's picture</a>
-          <a class="nav-link" href="/trending">Trending</a>
+        <div class="row w-100 navbar-nav">
+          <div class="col d-flex align-items-center">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            <a class="nav-link" href="/today">Today's picture</a>
+            <a class="nav-link" href="/trending">Trending</a>
+          </div>
+          <div class="col-auto d-flex align-items-center">
+            <div v-show="isLoggedOff">
+              <a
+                href="login"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                data-bs-title="Log in"
+              >
+                <i type="button" class="ms-3 fa-solid fa-arrow-right-to-bracket fa-lg" style="color: #000;"></i>
+              </a>
+            </div>
+            <div v-show="!isLoggedOff">
+              {{ getUsername }}
+              <a
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                data-bs-title="Log out"
+              >
+                <i type="button" class="ms-3 fa-solid fa-door-open fa-lg" style="color: #a51d2d;" @click="logOut"></i>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -19,7 +43,33 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'NavBar'
+  name: 'NavBar',
+  computed: {
+    isLoggedOff () {
+      return this.$store.state.token === ''
+    },
+    getUsername () {
+      return this.$store.state.username
+    }
+  },
+  data () {
+    return {
+    }
+  },
+  methods: {
+    logOut () {
+      axios.defaults.headers.common.Authorization = ''
+      console.log('Logging out')
+
+      localStorage.removeItem('token')
+      localStorage.removeItem('username')
+
+      this.$store.commit('removeToken')
+      this.$store.commit('removeUsername')
+    }
+  }
 }
 </script>

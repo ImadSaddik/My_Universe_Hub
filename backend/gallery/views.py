@@ -38,7 +38,7 @@ def addTodayPictureIfPossible():
             date=item['date'],
             title=item['title'],
             explanation=item['explanation'],
-            image_url=item['image'],
+            image_url=item['image_url'],
         )
         
         entry.save()
@@ -46,8 +46,7 @@ def addTodayPictureIfPossible():
         
 def convertDate(date):
     date = date.replace(':', '')
-    date = datetime.strptime(date, '%Y-%m-%d')
-    return date.strftime('%Y %B %d')
+    return datetime.strptime(date, '%Y %B %d').date()
 
 
 def getTodayPicture(request):
