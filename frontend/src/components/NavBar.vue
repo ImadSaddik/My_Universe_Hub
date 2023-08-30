@@ -10,10 +10,38 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="row w-100 navbar-nav">
           <div class="col d-flex align-items-center">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-            <a class="nav-link" href="/today">Today's picture</a>
-            <a class="nav-link" href="/trending">Trending</a>
-            <a class="nav-link" href="/favourites">Favourites</a>
+            <a
+              class="nav-link"
+              :class="{ active: getSelectedNavbarItem === HOME_PAGE }"
+              href="/"
+              @click="handleNavbarItemClick(HOME_PAGE)"
+            >
+            Home
+            </a>
+            <a
+              class="nav-link"
+              :class="{ active: getSelectedNavbarItem === TODAY_PAGE }"
+              href="/today"
+              @click="handleNavbarItemClick(TODAY_PAGE)"
+            >
+            Today's picture
+            </a>
+            <a
+              class="nav-link"
+              :class="{ active: getSelectedNavbarItem === TRENDING_PAGE }"
+              href="/trending"
+              @click="handleNavbarItemClick(TRENDING_PAGE)"
+            >
+            Trending
+            </a>
+            <a
+              class="nav-link"
+              :class="{ active: getSelectedNavbarItem === FAVOURITES_PAGE }"
+              href="/favourites"
+              @click="handleNavbarItemClick(FAVOURITES_PAGE)"
+            >
+            Favourites
+            </a>
           </div>
           <div class="col-auto d-flex align-items-center">
             <div v-show="isLoggedOff">
@@ -54,10 +82,21 @@ export default {
     },
     getUsername () {
       return this.$store.state.username
+    },
+    getSelectedNavbarItem () {
+      return localStorage.getItem('selectedNavbarItem')
     }
+  },
+  mounted () {
+    this.selectedNavbarItem = localStorage.getItem('selectedNavbarItem')
   },
   data () {
     return {
+      selectedNavbarItem: '',
+      HOME_PAGE: 'home',
+      TODAY_PAGE: 'today',
+      TRENDING_PAGE: 'trending',
+      FAVOURITES_PAGE: 'favourites'
     }
   },
   methods: {
@@ -71,6 +110,10 @@ export default {
 
       this.$store.commit('removeToken')
       this.$store.commit('removeUsername')
+    },
+    handleNavbarItemClick (item) {
+      this.selectedNavbarItem = item
+      localStorage.setItem('selectedNavbarItem', item)
     }
   }
 }
