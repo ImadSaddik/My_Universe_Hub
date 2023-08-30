@@ -61,6 +61,9 @@ export default {
   computed: {
     isLoggedOff () {
       return this.$store.state.token === ''
+    },
+    getUsername () {
+      return this.$store.state.username
     }
   },
   data () {
@@ -91,8 +94,10 @@ export default {
         })
     },
     async unlikeImage (item) {
+      this.$emit('unlike-image', item)
       const data = JSON.stringify({
-        date: item.date
+        date: item.date,
+        username: this.getUsername
       })
 
       await axios

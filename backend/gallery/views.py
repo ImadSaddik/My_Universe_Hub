@@ -146,3 +146,16 @@ def getSortedArchive(request):
     serializer = GallerySerializer(entries, many=True)
     
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getFavouritesArchive(request, username):
+    user = User.objects.get(username=username)
+    entries = Gallery.objects.filter(liked_by_users=user)
+    
+    for entry in entries:
+        entry.image_is_liked = True
+    
+    serializer = GallerySerializer(entries, many=True)
+    
+    return Response(serializer.data)

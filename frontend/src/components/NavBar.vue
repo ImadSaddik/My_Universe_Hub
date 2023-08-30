@@ -13,6 +13,7 @@
             <a class="nav-link active" aria-current="page" href="/">Home</a>
             <a class="nav-link" href="/today">Today's picture</a>
             <a class="nav-link" href="/trending">Trending</a>
+            <a class="nav-link" href="/favourites">Favourites</a>
           </div>
           <div class="col-auto d-flex align-items-center">
             <div v-show="isLoggedOff">

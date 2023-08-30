@@ -4,6 +4,7 @@ import TodayPictureView from '../views/TodayPictureView.vue'
 import TrendingView from '../views/TrendingView.vue'
 import LogInView from '../views/LogInView.vue'
 import SignUpView from '../views/SignUpView.vue'
+import FavouritesView from '../views/FavouritesView.vue'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignUpView
+  },
+  {
+    path: '/favourites',
+    name: 'favourites',
+    component: FavouritesView
   }
 ]
 

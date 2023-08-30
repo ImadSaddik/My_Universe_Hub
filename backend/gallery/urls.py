@@ -9,4 +9,5 @@ urlpatterns = [
     path('unlike_image/', views.unlikeImage),
     path('search/<str:query>/', views.search),
     path('trending/', views.getSortedArchive),
+    path('favourites/<str:username>/', views.getFavouritesArchive),
 ]
