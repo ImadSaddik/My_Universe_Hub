@@ -61,8 +61,9 @@ export default {
   },
   methods: {
     logOut () {
-      axios.defaults.headers.common.Authorization = ''
       console.log('Logging out')
+      this.$emit('logged-out')
+      axios.defaults.headers.common.Authorization = ''
 
       localStorage.removeItem('token')
       localStorage.removeItem('username')

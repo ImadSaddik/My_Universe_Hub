@@ -35,7 +35,16 @@ export default {
       await axios
         .get('/api/v1/gallery/')
         .then(response => {
+          const username = localStorage.getItem('username')
           this.archive = response.data
+
+          for (let i = 0; i < this.archive.length; i++) {
+            if (this.archive[i].liked_by_users.includes(username)) {
+              this.archive[i].image_is_liked = true
+            } else {
+              this.archive[i].image_is_liked = false
+            }
+          }
         })
         .catch(error => {
           console.log(error)

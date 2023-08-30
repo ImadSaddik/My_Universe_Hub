@@ -5,8 +5,36 @@
         <div class="modal-header">
           <img src="../assets/apod_logo.svg" alt="">
           <div class="col d-flex align-items-center justify-content-end">
-            <i v-if="item.image_is_liked" type="button" class="fa-solid fa-heart fa-xl me-3" style="color: #f66151;" @click="unlikeImage(item)"></i>
-            <i v-else type="button" class="fa-regular fa-heart fa-xl me-3" @click="likeImage(item)"></i>
+            {{item.image_likes_count}}
+            <div v-if="item.image_is_liked">
+              <i
+                type="button"
+                class="ms-2 fa-solid fa-heart fa-xl me-3"
+                style="color: #f66151;"
+                @click="unlikeImage(item)"
+              >
+              </i>
+
+            </div>
+            <div v-else>
+              <i
+                v-if="isLoggedOff"
+                :disabled="isLoggedOff"
+                class="ms-2 fa-regular fa-heart fa-xl me-3"
+                style="color: #77767b;"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                data-bs-title="Log in first to like this image"
+              >
+              </i>
+              <i
+                v-else
+                type="button"
+                class="ms-2 fa-regular fa-heart fa-xl me-3"
+                @click="likeImage(item)"
+              >
+              </i>
+            </div>
 
             <i type="button" class="fa-solid fa-download fa-xl me-3" @click="downloadImage(item)"></i>
             <i type="button" class="fa-solid fa-xmark fa-2xl" data-bs-dismiss="modal"></i>
@@ -30,6 +58,11 @@ export default {
   components: {
     ModalBody
   },
+  computed: {
+    isLoggedOff () {
+      return this.$store.state.token === ''
+    }
+  },
   data () {
     return {
     }
@@ -37,7 +70,8 @@ export default {
   methods: {
     async likeImage (item) {
       const data = JSON.stringify({
-        date: item.date
+        date: item.date,
+        username: localStorage.getItem('username')
       })
 
       await axios

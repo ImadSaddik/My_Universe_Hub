@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Keyword(models.Model):
@@ -16,9 +17,14 @@ class Gallery(models.Model):
     image_is_liked = models.BooleanField(default=False)
     image_likes_count = models.IntegerField(default=0)
     keywords = models.ManyToManyField(Keyword)
+    liked_by_users = models.ManyToManyField(User, related_name='liked_images')
     
     def __str__(self):
         return self.title
+    
+    def update_likes(self):
+        self.image_likes_count = self.liked_by_users.count()
+        self.save()
     
     class Meta:
         ordering = ['-date']

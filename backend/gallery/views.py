@@ -4,7 +4,8 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest
+from django.contrib.auth.models import User
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -96,26 +97,37 @@ def getImageAndExplanation(url):
 
 @api_view(['POST'])
 def likeImage(request):
-    date = json.loads(request.body)['date']
-    entry = Gallery.objects.get(date=date)
+    data = json.loads(request.body)
+    date = data['date']
+    username = data['username']
     
-    entry.image_is_liked = True
-    entry.image_likes_count += 1
-    
-    entry.save()
-    
-    return JsonResponse({'message': 'Image liked successfully!'}, safe=False)
+    try:
+        entry = Gallery.objects.get(date=date)
+        user = User.objects.get(username=username)
+        
+        if user not in entry.liked_by_users.all():
+            entry.liked_by_users.add(user)
+            entry.update_likes()
+            entry.save()
+        
+        return JsonResponse({'message': 'Image liked successfully!'}, safe=False)
+    except:
+        return HttpResponseBadRequest('Image not found!')
     
     
 @api_view(['POST'])
 def unlikeImage(request):
-    date = json.loads(request.body)['date']
+    data = json.loads(request.body)
+    date = data['date']
+    username = data['username']
+    
     entry = Gallery.objects.get(date=date)
+    user = User.objects.get(username=username)
     
-    entry.image_is_liked = False
-    entry.image_likes_count -= 1
-    
-    entry.save()
+    if user in entry.liked_by_users.all():
+        entry.liked_by_users.remove(user)
+        entry.update_likes()
+        entry.save()
     
     return JsonResponse({'message': 'Image unliked successfully!'}, safe=False)
 
