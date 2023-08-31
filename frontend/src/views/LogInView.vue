@@ -7,6 +7,10 @@
         <div class="row px-5 pb-5 d-flex justify-content-center">
           <div class="col-8">
             <h1 class="display-5 fs-1 fw-bold text-white mb-4">Log In</h1>
+            <div v-if="showAlertDialog" class="alert alert-warning alert-dismissible fade show rounded-3" role="alert">
+              <strong>Error! </strong> {{ errorMessage }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="showAlertDialog = false"></button>
+            </div>
             <form @submit.prevent="submitForm">
               <div class="mb-3">
                 <input
@@ -56,7 +60,9 @@ export default {
     return {
       username: '',
       password: '',
-      showHidePassword: true
+      showHidePassword: true,
+      showAlertDialog: false,
+      errorMessage: ''
     }
   },
   computed: {
@@ -91,6 +97,8 @@ export default {
         })
         .catch(error => {
           console.log(error)
+          this.showAlertDialog = true
+          this.errorMessage = 'Invalid username or password.'
         })
     }
   }

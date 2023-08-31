@@ -7,6 +7,12 @@
         <div class="row px-5 pb-5 d-flex justify-content-center">
           <div class="col-8">
             <h1 class="display-5 fs-1 fw-bold text-white mb-4">Sign Up</h1>
+            <div v-if="showAlertDialog" class="alert alert-warning alert-dismissible fade show rounded-3" role="alert">
+              <div v-for="error in errors" :key="error">
+                <strong>Error! </strong> {{ error }}
+              </div>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="showAlertDialog = false"></button>
+            </div>
             <form @submit.prevent="submitForm">
               <div class="mb-3">
                 <input
@@ -63,6 +69,7 @@ export default {
       password: '',
       repeatPassword: '',
       showHidePassword: true,
+      showAlertDialog: false,
       errors: []
     }
   },
@@ -78,27 +85,38 @@ export default {
         this.errors.push('The password field is required.')
       }
 
+      if (this.repeatPassword === '') {
+        this.errors.push('The repeat password field is required.')
+      }
+
       if (this.password !== this.repeatPassword) {
         this.errors.push('The two password fields didn\'t match.')
       }
 
-      if (!this.errors.length) {
-        const formData = {
-          username: this.username,
-          password: this.password
-        }
-
-        axios.defaults.headers.common.Authorization = ''
-        await axios
-          .post('/api/v1/users/', formData)
-          .then(response => {
-            this.$router.push('/login')
-            console.log('successfully signed up')
-          })
-          .catch(error => {
-            console.log(error)
-          })
+      if (this.errors.length) {
+        this.showAlertDialog = true
+        return
       }
+
+      const formData = {
+        username: this.username,
+        password: this.password
+      }
+
+      axios.defaults.headers.common.Authorization = ''
+      await axios
+        .post('/api/v1/users/', formData)
+        .then(response => {
+          this.errors = []
+          this.showAlertDialog = false
+          this.$router.push('/login')
+          console.log('successfully signed up')
+        })
+        .catch(error => {
+          console.log(error)
+          this.errors.push('Something went wrong. Please try again.')
+          this.showAlertDialog = true
+        })
     }
   }
 }
