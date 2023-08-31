@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <i
+  <div >
+    <img
       v-if="showBackToTopButton"
+      src="../assets/circle-arrow-up-solid.svg"
       type="button"
-      class="fs-1 fa-solid fa-circle-arrow-up fa-2xl go-up-button"
+      class="img go-up-button"
       @click="scrollToTop"
     >
-    </i>
   </div>
 </template>
 
@@ -43,11 +43,10 @@ export default {
 <style scoped>
   .go-up-button {
     position: fixed;
-    bottom: 1.5em;
-    right: 1em;
+    width: 40px;
+    bottom: 1.75em;
+    right: 1.5em;
     cursor: pointer;
-    color: #3584e4;
     z-index: 3;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 </style>
