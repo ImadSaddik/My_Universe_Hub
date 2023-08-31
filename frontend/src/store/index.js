@@ -5,7 +5,8 @@ export default createStore({
   state: {
     isAuthenticated: false,
     token: localStorage.getItem('token') || '',
-    username: localStorage.getItem('username') || ''
+    username: localStorage.getItem('username') || '',
+    selectedNavbarItem: localStorage.getItem('selectedNavbarItem') || ''
   },
   getters: {
   },
@@ -23,6 +24,9 @@ export default createStore({
     },
     removeUsername (state) {
       state.username = ''
+    },
+    setSelectedNavbarItem (state, selectedNavbarItem) {
+      state.selectedNavbarItem = selectedNavbarItem
     }
   },
   actions: {

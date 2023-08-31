@@ -76,6 +76,9 @@ export default {
           localStorage.setItem('username', this.username)
           this.$store.commit('setUsername', this.username)
 
+          localStorage.setItem('selectedNavbarItem', 'home')
+          this.$store.commit('setSelectedNavbarItem', 'home')
+
           const toPath = this.$route.query.to || '/'
           this.$router.push(toPath)
           console.log('successfully logged in')

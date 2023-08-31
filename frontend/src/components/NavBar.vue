@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid px-5">
-      <RouterLink class="navbar-brand" to="/">
+      <a class="navbar-brand" href="/" @click="handleNavbarItemClick(HOME_PAGE)">
         <img src="../assets/apod_logo.svg" alt="">
-      </RouterLink>
+      </a>
       <button
         class="navbar-toggler"
         type="button"
@@ -58,7 +58,7 @@
                 data-bs-toggle="tooltip"
                 data-bs-placement="bottom"
                 data-bs-title="Log in"
-                @click="handleNavbarItemClick('')"
+                @click="handleNavbarItemClick(NONE)"
               >
                 <i type="button" class="ms-3 fa-solid fa-arrow-right-to-bracket fa-lg" style="color: #000;"></i>
               </a>
@@ -69,7 +69,6 @@
                 data-bs-toggle="tooltip"
                 data-bs-placement="bottom"
                 data-bs-title="Log out"
-                @click="handleNavbarItemClick('')"
               >
                 <i type="button" class="ms-3 fa-solid fa-door-open fa-lg" style="color: #a51d2d;" @click="logOut"></i>
               </a>
@@ -94,18 +93,19 @@ export default {
       return this.$store.state.username
     },
     getSelectedNavbarItem () {
-      return localStorage.getItem('selectedNavbarItem')
+      return this.$store.state.selectedNavbarItem
     }
   },
   mounted () {
-    this.selectedNavbarItem = localStorage.getItem('selectedNavbarItem')
+    // this.handleNavbarItemClick(this.HOME_PAGE)
   },
   data () {
     return {
       HOME_PAGE: 'home',
       TODAY_PAGE: 'today',
       TRENDING_PAGE: 'trending',
-      FAVOURITES_PAGE: 'favourites'
+      FAVOURITES_PAGE: 'favourites',
+      NONE: ''
     }
   },
   methods: {
