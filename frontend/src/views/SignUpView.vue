@@ -1,31 +1,50 @@
 <template>
-  <section class="container-fluid">
-    <div class="row">
-      <div class="col pt-5 d-flex justify-content-center">
-        <img :src="currentImage" class="img-fluid rounded-3" alt="" style="width: 70%;">
-      </div>
-      <div class="col p-5">
-        <h5 class="fs-3 mb-4">Sign up</h5>
-        <form class="pe-5" @submit.prevent="submitForm">
-          <div class="mb-3">
-            <label for="exampleInputUsername" class="form-label">Username</label>
-            <input type="text" class="form-control" id="exampleInputUsername" v-model="username">
+  <section class="container-fluid" style="height: calc(100vh - 70px)">
+    <div class="position-relative h-100 d-flex flex-column">
+      <img src="../assets/Sign_up_bg.jpg" class="img-fluid custom-image" alt="...">
+
+      <div class="container position-absolute top-50 start-50 translate-middle align-self-center">
+        <div class="row px-5 pb-5 d-flex justify-content-center">
+          <div class="col-8">
+            <h1 class="display-5 fs-1 fw-bold text-white mb-4">Sign Up</h1>
+            <form @submit.prevent="submitForm">
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control rounded-3 py-2 px-3"
+                  placeholder="Username"
+                  id="exampleInputUsername"
+                  v-model="username">
+              </div>
+              <div class="mb-3">
+                <input
+                  class="form-control rounded-3 py-2 px-3"
+                  placeholder="Password"
+                  id="exampleInputPassword1"
+                  v-model="password"
+                  :type="showHidePassword ? 'password' : 'text'">
+              </div>
+              <div class="mb-3">
+                <input
+                  class="form-control rounded-3 py-2 px-3"
+                  placeholder="Repeat password"
+                  id="exampleInputPassword2"
+                  v-model="repeatPassword"
+                  :type="showHidePassword ? 'password' : 'text'">
+              </div>
+              <div class="mb-3 form-check">
+                <label class="form-check-label text-white" for="showHidePasswordCheckBox">{{ showHidePassword ? 'Show password' : 'Hide password' }}</label>
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="showHidePasswordCheckBox"
+                  @click="showHidePassword = !showHidePassword">
+              </div>
+              <p class="text-white">Or <a href="/login">Click here</a>, if you already have an account.</p>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
           </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input class="form-control" id="exampleInputPassword1" v-model="password" :type="showHidePassword ? 'password' : 'text'">
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword2" class="form-label">Repeat password</label>
-            <input class="form-control" id="exampleInputPassword2" v-model="repeatPassword" :type="showHidePassword ? 'password' : 'text'">
-          </div>
-          <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="showHidePasswordCheckBox" @click="showHidePassword = !showHidePassword">
-            <label class="form-check-label" for="showHidePasswordCheckBox">{{ showHidePassword ? 'Show password' : 'Hide password' }}</label>
-          </div>
-          <p>Or <a href="/login">Click here</a>, if you already have an account.</p>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        </div>
       </div>
     </div>
   </section>
@@ -40,8 +59,6 @@ export default {
   },
   data () {
     return {
-      images: ['Log_in_bg_1.jpg', 'Log_in_bg_2.jpg', 'Log_in_bg_3.jpg'],
-      currentIndex: 0,
       username: '',
       password: '',
       repeatPassword: '',
@@ -49,18 +66,7 @@ export default {
       errors: []
     }
   },
-  computed: {
-    currentImage () {
-      return require(`@/assets/${this.images[this.currentIndex]}`)
-    }
-  },
-  created () {
-    this.imageInterval = setInterval(this.changeImage, 5000)
-  },
   methods: {
-    changeImage () {
-      this.currentIndex = (this.currentIndex + 1) % this.images.length
-    },
     async submitForm () {
       this.errors = []
 
@@ -94,9 +100,14 @@ export default {
           })
       }
     }
-  },
-  beforeUnmount () {
-    clearInterval(this.imageInterval)
   }
 }
 </script>
+
+<style scoped>
+  .custom-image {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4);
+  }
+</style>
