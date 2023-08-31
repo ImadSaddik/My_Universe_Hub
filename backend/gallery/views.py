@@ -1,4 +1,5 @@
 import json
+import datetime
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
@@ -17,11 +18,13 @@ from .serializers import GallerySerializer
 
 class getArchive(APIView):
     def get(self, request, format=None):
-        # addTodayPictureIfPossible()
-        
         entries = Gallery.objects.all()
-        serializer = GallerySerializer(entries, many=True)
         
+        today = datetime.now().today().date()
+        if today != entries[0].date:
+            addTodayPictureIfPossible()
+        
+        serializer = GallerySerializer(entries, many=True)
         return Response(serializer.data)
     
     
@@ -50,7 +53,19 @@ def convertDate(date):
     return datetime.strptime(date, '%Y %B %d').date()
 
 
+@api_view(['GET'])
 def getTodayPicture(request):
+    todayEntry = Gallery.objects.all()[0]
+    today = datetime.now().today().date()
+    
+    if today == todayEntry.date:
+        serializer = GallerySerializer(todayEntry)
+        return Response(serializer.data)
+    else:
+        return getPicture()
+    
+    
+def getPicture():
     source = requests.get('https://apod.nasa.gov/apod/archivepix.html').text
     soup = BeautifulSoup(source, 'lxml')
     

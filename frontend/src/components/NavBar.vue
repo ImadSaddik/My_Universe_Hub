@@ -4,7 +4,15 @@
       <RouterLink class="navbar-brand" to="/">
         <img src="../assets/apod_logo.svg" alt="">
       </RouterLink>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -50,6 +58,7 @@
                 data-bs-toggle="tooltip"
                 data-bs-placement="bottom"
                 data-bs-title="Log in"
+                @click="handleNavbarItemClick('')"
               >
                 <i type="button" class="ms-3 fa-solid fa-arrow-right-to-bracket fa-lg" style="color: #000;"></i>
               </a>
@@ -60,6 +69,7 @@
                 data-bs-toggle="tooltip"
                 data-bs-placement="bottom"
                 data-bs-title="Log out"
+                @click="handleNavbarItemClick('')"
               >
                 <i type="button" class="ms-3 fa-solid fa-door-open fa-lg" style="color: #a51d2d;" @click="logOut"></i>
               </a>
@@ -92,7 +102,6 @@ export default {
   },
   data () {
     return {
-      selectedNavbarItem: '',
       HOME_PAGE: 'home',
       TODAY_PAGE: 'today',
       TRENDING_PAGE: 'trending',
@@ -112,7 +121,6 @@ export default {
       this.$store.commit('removeUsername')
     },
     handleNavbarItemClick (item) {
-      this.selectedNavbarItem = item
       localStorage.setItem('selectedNavbarItem', item)
     }
   }
