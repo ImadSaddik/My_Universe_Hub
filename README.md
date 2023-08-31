@@ -45,7 +45,7 @@ Follow these steps to get the project up and running:
 
 2. Navigate to the project directory:
    ```bash
-   cd apod_website_redesigned
+   cd apod_website_redesign
    ```
 
 3. Install backend dependencies (assuming you have Python and pip installed):
