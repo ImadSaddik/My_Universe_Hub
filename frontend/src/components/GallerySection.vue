@@ -67,7 +67,16 @@ export default {
     }
   },
   mounted () {
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', this.handleWindowResize)
+  },
+  beforeUnmount () {
+    window.removeEventListener('resize', this.handleWindowResize)
+  },
+  methods: {
+    increaseLimit () {
+      this.limit += 100
+    },
+    handleWindowResize () {
       this.screenWidth = window.innerWidth
       if (this.screenWidth >= this.breakPoints.lg) {
         this.numberOfSublists = 3
@@ -76,11 +85,6 @@ export default {
       } else {
         this.numberOfSublists = 1
       }
-    })
-  },
-  methods: {
-    increaseLimit () {
-      this.limit += 100
     }
   }
 }
