@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid mt-3">
     <div class="position-relative d-flex flex-column">
       <img src="../assets/search_background.jpg" class="img-fluid custom-image" alt="...">
 
