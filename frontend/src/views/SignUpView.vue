@@ -4,8 +4,8 @@
       <img src="../assets/Sign_up_bg.jpg" class="img-fluid custom-image" alt="...">
 
       <div class="container position-absolute top-50 start-50 translate-middle align-self-center">
-        <div class="row px-5 pb-5 d-flex justify-content-center">
-          <div class="col-6">
+        <div class="row px-2 px-sm-5 pb-5 d-flex justify-content-center">
+          <div class="col col-sm-6">
             <h1 class="display-5 fs-1 fw-bold text-white mb-4">Sign Up</h1>
             <div v-if="showAlertDialog" class="alert alert-warning alert-dismissible fade show rounded-3" role="alert">
               <div v-for="error in errors" :key="error">

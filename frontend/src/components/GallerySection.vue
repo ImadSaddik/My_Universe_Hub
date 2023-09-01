@@ -2,15 +2,9 @@
   <div class="container-fluid mt-3">
     <div class="row gx-3">
       <GalleryColumn
-        :archive="firstSublist"
-        @selected-item="$emit('selected-item', $event)"
-      />
-      <GalleryColumn
-        :archive="secondSublist"
-        @selected-item="$emit('selected-item', $event)"
-      />
-      <GalleryColumn
-        :archive="thirdSublist"
+        v-for="(sublist, index) in sublists"
+        :key="index"
+        :archive="sublist"
         @selected-item="$emit('selected-item', $event)"
       />
     </div>
@@ -38,32 +32,19 @@ export default {
   components: {
     GalleryColumn
   },
-  data () {
-    return {
-      selectedItem: null,
-      limit: 100,
-      isHovering: false
-    }
-  },
   computed: {
     sublists () {
-      const sublists = [[], [], []]
+      const sublists = []
+      for (let i = 0; i < this.numberOfSublists; i++) {
+        sublists.push([])
+      }
 
       for (let i = 0; i < this.limitedArchive.length; i++) {
-        const sublistIndex = i % 3
+        const sublistIndex = i % this.numberOfSublists
         sublists[sublistIndex].push(this.limitedArchive[i])
       }
 
       return sublists
-    },
-    firstSublist () {
-      return this.sublists[0]
-    },
-    secondSublist () {
-      return this.sublists[1]
-    },
-    thirdSublist () {
-      return this.sublists[2]
     },
     limitedArchive () {
       return this.archive.slice(0, this.limit)
@@ -71,6 +52,31 @@ export default {
     showLoadMore () {
       return this.limit < this.archive.length
     }
+  },
+  data () {
+    return {
+      selectedItem: null,
+      limit: 100,
+      isHovering: false,
+      screenWidth: window.innerWidth,
+      breakPoints: {
+        lg: 992,
+        sm: 576
+      },
+      numberOfSublists: 3
+    }
+  },
+  mounted () {
+    window.addEventListener('resize', () => {
+      this.screenWidth = window.innerWidth
+      if (this.screenWidth >= this.breakPoints.lg) {
+        this.numberOfSublists = 3
+      } else if (this.screenWidth < this.breakPoints.lg && this.screenWidth >= this.breakPoints.sm) {
+        this.numberOfSublists = 2
+      } else {
+        this.numberOfSublists = 1
+      }
+    })
   },
   methods: {
     increaseLimit () {

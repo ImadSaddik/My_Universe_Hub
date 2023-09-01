@@ -1,5 +1,5 @@
 <template>
-  <div class="container pt-5">
+  <div class="container pt-2 pt-sm-5">
     <div class="row my-3 d-flex flex-column">
       <div class="col d-flex justify-content-center">
         <h1 class="fs-4 card-text">{{ data.title }}</h1>
@@ -36,12 +36,12 @@
         </div>
       </div>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-4 mt-sm-5">
       <div class="col d-flex justify-content-center">
         <img type="button" :src="data.image_url" class="img-fluid rounded-4" alt="" @click="downloadImage">
       </div>
     </div>
-    <div class="row mt-5 mb-3">
+    <div class="row mt-4 mt-sm-5 mb-3">
       <div class="col px-3">
         <p class="card-text">{{ data.explanation }}</p>
       </div>

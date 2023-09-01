@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 from django.db.models import Q
-from django.http import JsonResponse, HttpResponseBadRequest
+from django.http import JsonResponse, HttpResponseBadRequest, HttpRequest
 from django.contrib.auth.models import User
 
 from rest_framework.views import APIView
@@ -29,7 +29,10 @@ class getArchive(APIView):
     
     
 def addTodayPictureIfPossible():
-    response = getTodayPicture(request=None)
+    request = HttpRequest()
+    request.method = 'GET'
+    response = getTodayPicture(request)
+    
     item = json.loads(response.content)
     item['date'] = convertDate(item['date'])
     

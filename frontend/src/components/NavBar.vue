@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid px-5">
+    <div class="container-fluid px-sm-5">
       <a class="navbar-brand" href="/" @click="handleNavbarItemClick(HOME_PAGE)">
         <img src="../assets/apod_logo.svg" alt="">
       </a>
@@ -17,7 +17,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="row w-100 navbar-nav">
-          <div class="col d-flex align-items-center">
+          <div class="col d-lg-flex align-items-center">
             <a
               class="nav-link"
               :class="{ active: getSelectedNavbarItem === HOME_PAGE }"
@@ -50,6 +50,7 @@
             >
             Favourites
             </a>
+            <hr class="d-block d-lg-none">
           </div>
           <div class="col-auto d-flex align-items-center">
             <div v-show="isLoggedOff">

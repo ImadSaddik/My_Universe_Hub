@@ -26,6 +26,9 @@ export default {
       selectedItem: ''
     }
   },
+  created () {
+    this.$store.commit('setSelectedNavbarItem', 'home')
+  },
   mounted () {
     this.getArchive()
   },
