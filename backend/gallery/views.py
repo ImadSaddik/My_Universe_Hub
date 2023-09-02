@@ -22,33 +22,33 @@ class getArchive(APIView):
         
         today = datetime.now().today().date()
         if today != entries[0].date:
-            addTodayPictureIfPossible()
+            addNonExistingImages()
         
         serializer = GallerySerializer(entries, many=True)
         return Response(serializer.data)
     
     
-def addTodayPictureIfPossible():
-    request = HttpRequest()
-    request.method = 'GET'
-    response = getTodayPicture(request)
+def addNonExistingImages():
+    a_tags = getATags()
     
-    item = json.loads(response.content)
-    item['date'] = convertDate(item['date'])
-    
-    try:
-        Gallery.objects.get(date=item['date'])
-        print("Today's picture is already in the database.")
-    except:
-        print("Today's picture is not in the database.")
-        entry = Gallery.objects.create(
-            date=item['date'],
-            title=item['title'],
-            explanation=item['explanation'],
-            image_url=item['image_url'],
-        )
+    for tag in a_tags:
+        item = scrape_a_tag(tag)
+        item['date'] = convertDate(item['date'])
         
-        entry.save()
+        try:
+            Gallery.objects.get(date=item['date'])
+            print(f"{item['date']} is already in the database.")
+            break
+        except:
+            print(f"{item['date']} is not in the database.")
+            entry = Gallery.objects.create(
+                date=item['date'],
+                title=item['title'],
+                explanation=item['explanation'],
+                image_url=item['image_url'],
+            )
+            
+            entry.save()
         
         
 def convertDate(date):
@@ -65,18 +65,22 @@ def getTodayPicture(request):
         serializer = GallerySerializer(todayEntry)
         return Response(serializer.data)
     else:
-        return getPicture()
+        return getLatestPicture()
     
     
-def getPicture():
+def getLatestPicture():
+    a_tags = getATags()
+    
+    data = scrape_a_tag(a_tags[0])
+    return JsonResponse(data, safe=False)
+
+
+def getATags():
     source = requests.get('https://apod.nasa.gov/apod/archivepix.html').text
     soup = BeautifulSoup(source, 'lxml')
     
     b_tag = soup.find_all('b')[1]
-    a_tags = b_tag.find_all('a')
-    
-    data = scrape_a_tag(a_tags[0])
-    return JsonResponse(data, safe=False)
+    return b_tag.find_all('a')
     
 
 def scrape_a_tag(a_tag):
