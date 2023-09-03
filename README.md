@@ -9,7 +9,6 @@ Welcome to the **APOD Redesigned** repository! This project aims to improve and 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Project Overview
 
