@@ -58,13 +58,18 @@ def convertDate(date):
 
 @api_view(['GET'])
 def getTodayPicture(request):
-    todayEntry = Gallery.objects.all()[0]
-    today = datetime.now().today().date()
-    
-    if today == todayEntry.date:
-        serializer = GallerySerializer(todayEntry)
-        return Response(serializer.data)
-    else:
+    try:
+        todayEntry = Gallery.objects.all()[0]
+        today = datetime.now().today().date()
+        
+        if today == todayEntry.date:
+            serializer = GallerySerializer(todayEntry)
+            return Response(serializer.data)
+        else:
+            print('Today\'s image is not in the database. Adding it now...')
+            return getLatestPicture()
+    except:
+        print('Today\'s image is not in the database. Adding it now...')
         return getLatestPicture()
     
     
@@ -143,15 +148,18 @@ def unlikeImage(request):
     date = data['date']
     username = data['username']
     
-    entry = Gallery.objects.get(date=date)
-    user = User.objects.get(username=username)
-    
-    if user in entry.liked_by_users.all():
-        entry.liked_by_users.remove(user)
-        entry.update_likes()
-        entry.save()
-    
-    return JsonResponse({'message': 'Image unliked successfully!'}, safe=False)
+    try:
+        entry = Gallery.objects.get(date=date)
+        user = User.objects.get(username=username)
+        
+        if user in entry.liked_by_users.all():
+            entry.liked_by_users.remove(user)
+            entry.update_likes()
+            entry.save()
+        
+        return JsonResponse({'message': 'Image unliked successfully!'}, safe=False)
+    except:
+        return HttpResponseBadRequest('Image not found!')
 
 
 @api_view(['GET'])
