@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 from django.db.models import Q
-from django.http import JsonResponse, HttpResponseBadRequest, HttpRequest
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.contrib.auth.models import User
 
 from rest_framework.views import APIView
@@ -33,8 +33,10 @@ def addNonExistingImages():
     
     for tag in a_tags:
         item = scrape_a_tag(tag)
-        item['date'] = convertDate(item['date'])
+        if item['image_url'] is None:
+            continue
         
+        item['date'] = convertDate(item['date'])
         try:
             Gallery.objects.get(date=item['date'])
             print(f"{item['date']} is already in the database.")
