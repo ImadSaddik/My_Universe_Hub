@@ -71,6 +71,7 @@ export default {
   },
   mounted () {
     this.getTodayPicture()
+    document.title = 'Today\'s Picture'
   },
   methods: {
     async getTodayPicture () {

@@ -39,6 +39,7 @@ export default {
   },
   mounted () {
     this.getTrendingArchive()
+    document.title = 'Trending - NASA Images'
   },
   methods: {
     async getTrendingArchive () {

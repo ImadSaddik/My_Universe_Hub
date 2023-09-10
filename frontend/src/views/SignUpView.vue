@@ -63,6 +63,9 @@ export default {
   name: 'SignUpView',
   components: {
   },
+  mounted () {
+    document.title = 'Sign Up'
+  },
   data () {
     return {
       username: '',

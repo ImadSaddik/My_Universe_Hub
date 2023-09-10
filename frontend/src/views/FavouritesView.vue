@@ -39,6 +39,7 @@ export default {
   },
   mounted () {
     this.getFavouritesArchive()
+    document.title = 'Favourites'
   },
   data () {
     return {

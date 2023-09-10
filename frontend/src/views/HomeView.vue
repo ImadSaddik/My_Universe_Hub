@@ -31,6 +31,7 @@ export default {
   },
   mounted () {
     this.getArchive()
+    document.title = 'NASA Images'
   },
   methods: {
     async getArchive () {

@@ -59,6 +59,9 @@ export default {
   name: 'LogInView',
   components: {
   },
+  mounted () {
+    document.title = 'Log In'
+  },
   data () {
     return {
       username: '',
@@ -67,8 +70,6 @@ export default {
       showAlertDialog: false,
       errorMessage: ''
     }
-  },
-  computed: {
   },
   methods: {
     async submitForm () {
