@@ -1,50 +1,55 @@
 <template>
   <div class="container pt-2 pt-sm-5">
-    <div class="row my-3 d-flex flex-column">
-      <div class="col d-flex justify-content-center">
-        <h1 class="fs-4 card-text">{{ data.title }}</h1>
-      </div>
-      <div v-if="Object.keys(data).length" class="mt-2 col d-flex justify-content-center">
-        {{ data.image_likes_count }}
-        <div v-if="isLoggedIn">
-          <i
-            v-if="data.image_is_liked"
-            type="button"
-            class="ms-2 fa-solid fa-heart fa-xl me-3"
-            style="color: #f66151;"
-            @click="unlikeImage(data)"
-          >
-          </i>
-          <i
-            v-else
-            type="button"
-            class="ms-2 fa-regular fa-heart fa-xl me-3"
-            @click="likeImage(data)"
-          >
-          </i>
+    <div v-if="data.image_url !== null">
+      <div class="row my-3 d-flex flex-column">
+        <div class="col d-flex justify-content-center">
+          <h1 class="fs-4 card-text">{{ data.title }}</h1>
         </div>
-        <div v-else>
-          <i
-            :disabled="!isLoggedIn"
-            class="ms-2 fa-regular fa-heart fa-xl me-3"
-            style="color: #77767b;"
-            data-bs-toggle="tooltip"
-            data-bs-placement="bottom"
-            data-bs-title="Log in first to like this image"
-          >
-          </i>
+        <div v-if="Object.keys(data).length" class="mt-2 col d-flex justify-content-center">
+          {{ data.image_likes_count }}
+          <div v-if="isLoggedIn">
+            <i
+              v-if="data.image_is_liked"
+              type="button"
+              class="ms-2 fa-solid fa-heart fa-xl me-3"
+              style="color: #f66151;"
+              @click="unlikeImage(data)"
+            >
+            </i>
+            <i
+              v-else
+              type="button"
+              class="ms-2 fa-regular fa-heart fa-xl me-3"
+              @click="likeImage(data)"
+            >
+            </i>
+          </div>
+          <div v-else>
+            <i
+              :disabled="!isLoggedIn"
+              class="ms-2 fa-regular fa-heart fa-xl me-3"
+              style="color: #77767b;"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              data-bs-title="Log in first to like this image"
+            >
+            </i>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4 mt-sm-5">
+        <div class="col d-flex justify-content-center">
+          <img type="button" :src="data.image_url" class="img-fluid rounded-4" alt="" @click="downloadImage">
+        </div>
+      </div>
+      <div class="row mt-4 mt-sm-5 mb-3">
+        <div class="col px-3">
+          <p class="card-text">{{ data.explanation }}</p>
         </div>
       </div>
     </div>
-    <div class="row mt-4 mt-sm-5">
-      <div class="col d-flex justify-content-center">
-        <img type="button" :src="data.image_url" class="img-fluid rounded-4" alt="" @click="downloadImage">
-      </div>
-    </div>
-    <div class="row mt-4 mt-sm-5 mb-3">
-      <div class="col px-3">
-        <p class="card-text">{{ data.explanation }}</p>
-      </div>
+    <div v-else class="row d-flex align-items-center justify-content-center" style="height: calc(80vh);">
+      <h5 class="nav-link text-center">No image for today 😔, see you tomorrow</h5>
     </div>
   </div>
 </template>

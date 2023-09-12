@@ -1,6 +1,6 @@
 <template>
   <SearchSection @search="(query) => search(query)" />
-  <GallerySection :archive="archive" @selected-item="(value) => selectedItem = value" />
+  <GallerySection :archive="getUpdatedArchive" @selected-item="(value) => selectedItem = value" />
   <BackToTopVue />
   <ImageDetails :item="selectedItem" />
 </template>
@@ -19,6 +19,20 @@ export default {
     GallerySection,
     BackToTopVue,
     ImageDetails
+  },
+  computed: {
+    getUpdatedArchive () {
+      if (this.isUserLoggedOff) {
+        console.log('User is logged off')
+        return this.removeLikes()
+      } else {
+        console.log('User is logged in')
+        return this.updateArchiveLikes()
+      }
+    },
+    isUserLoggedOff () {
+      return this.$store.state.token === ''
+    }
   },
   data () {
     return {
@@ -39,16 +53,7 @@ export default {
       await axios
         .get('/api/v1/gallery/')
         .then(response => {
-          const username = localStorage.getItem('username')
           this.archive = response.data
-
-          for (let i = 0; i < this.archive.length; i++) {
-            if (this.archive[i].liked_by_users.includes(username)) {
-              this.archive[i].image_is_liked = true
-            } else {
-              this.archive[i].image_is_liked = false
-            }
-          }
         })
         .catch(error => {
           console.log(error)
@@ -68,6 +73,24 @@ export default {
             console.log(error)
           })
       }
+    },
+    removeLikes () {
+      for (let i = 0; i < this.archive.length; i++) {
+        this.archive[i].image_is_liked = false
+      }
+      return this.archive
+    },
+    updateArchiveLikes () {
+      const username = localStorage.getItem('username')
+
+      for (let i = 0; i < this.archive.length; i++) {
+        if (this.archive[i].liked_by_users.includes(username)) {
+          this.archive[i].image_is_liked = true
+        } else {
+          this.archive[i].image_is_liked = false
+        }
+      }
+      return this.archive
     }
   }
 }

@@ -1,5 +1,5 @@
 import json
-import datetime
+from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
@@ -113,12 +113,11 @@ def getImageAndExplanation(url):
 
     p_tags = soup.find_all('p')
     img_tag = soup.find('img')
+    explanation = p_tags[2].get_text()
 
     try:
-        explanation = p_tags[2].get_text()
         img_url = f'https://apod.nasa.gov/apod/{img_tag["src"]}'
     except:
-        explanation = None
         img_url = None
 
     return img_url, explanation

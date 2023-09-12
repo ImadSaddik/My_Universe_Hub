@@ -60,6 +60,7 @@ export default {
     },
     updateArchiveLikes () {
       const username = localStorage.getItem('username')
+      
       for (let i = 0; i < this.archive.length; i++) {
         if (this.archive[i].liked_by_users.includes(username)) {
           this.archive[i].image_is_liked = true
