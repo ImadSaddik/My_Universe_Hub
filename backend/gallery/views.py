@@ -60,19 +60,17 @@ def convertDate(date):
 
 @api_view(['GET'])
 def getTodayPicture(request):
-    try:
-        todayEntry = Gallery.objects.all()[0]
-        today = datetime.now().today().date()
-        
-        if today == todayEntry.date:
-            serializer = GallerySerializer(todayEntry)
-            return Response(serializer.data)
-        else:
-            print('Today\'s image is not in the database. Adding it now...')
-            return getLatestPicture()
-    except:
+    todayEntry = Gallery.objects.all()[0]
+    today = datetime.now().today().date()
+
+    if today != todayEntry.date:
         print('Today\'s image is not in the database. Adding it now...')
-        return getLatestPicture()
+
+        addNonExistingImages()
+        todayEntry = Gallery.objects.all()[0]
+        
+    serializer = GallerySerializer(todayEntry)
+    return Response(serializer.data)
     
     
 def getLatestPicture():
@@ -165,7 +163,10 @@ def unlikeImage(request):
 
 @api_view(['GET'])
 def search(request, query):
-    entries = Gallery.objects.filter(Q(explanation__icontains=query))
+    search_words = query.split()
+    search_pattern = r'\b(?:' + '|'.join(search_words) + r')\b'
+    
+    entries = Gallery.objects.filter(Q(explanation__iregex=search_pattern))
     serializer = GallerySerializer(entries, many=True)
     
     return Response(serializer.data)
