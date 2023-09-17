@@ -163,7 +163,7 @@ def unlikeImage(request):
 
 @api_view(['GET'])
 def search(request, query):
-    search_words = query.split()
+    search_words = query.split(',')
     search_pattern = r'\b(?:' + '|'.join(search_words) + r')\b'
     
     entries = Gallery.objects.filter(Q(explanation__iregex=search_pattern))

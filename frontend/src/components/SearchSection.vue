@@ -7,7 +7,7 @@
         <div class="row px-sm-5 pb-sm-5">
           <div class="col px-4">
             <h1 class="fs-4 fs-sm-1 fw-bold text-white">APOD</h1>
-            <p class="fs-6 fw-light text-white">Enter a date or keyword to search for an Astronomy Picture of the Day</p>
+            <p class="fs-6 fw-light text-white">Discover images by entering keywords separated by commas. Find the image you are looking for.</p>
             <div class="input-group mb-3">
               <input
                 type="text"
