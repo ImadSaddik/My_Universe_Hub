@@ -2,13 +2,18 @@
 
 Welcome to the **APOD Redesigned** repository! This project aims to improve and enhance the user experience of NASA's Astronomy Picture of the Day (APOD) website by leveraging the power of Django and Vue.js. If you're a space enthusiast who loves visualizing the cosmos through captivating images, this project will provide you with an improved interface and additional features to make your astronomical journey even more exciting.
 
+Watch the full tutorial [here](https://youtu.be/kvoKKJ2zsts?si=GTlOPbKAAtVH6Yyv)
+
 ## Table of Contents
 
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
+- [APOD Redesigned: Astronomy Picture Of the Day](#apod-redesigned-astronomy-picture-of-the-day)
+  - [Table of Contents](#table-of-contents)
+  - [Project Overview](#project-overview)
+  - [Features](#features)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
+  - [Acknowledgements](#acknowledgements)
 
 ## Project Overview
 
