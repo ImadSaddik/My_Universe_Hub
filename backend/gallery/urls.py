@@ -10,4 +10,5 @@ urlpatterns = [
     path('search/<str:query>/', views.search, name='search'),
     path('trending/', views.getSortedArchive, name='get_sorted_archive'),
     path('favourites/<str:username>/', views.getFavouritesArchive, name='get_favourites_archive'),
+    path('reset_password/', views.resetPassword, name='reset_password'),
 ]

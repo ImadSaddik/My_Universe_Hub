@@ -5,6 +5,7 @@ import TrendingView from '../views/TrendingView.vue'
 import LogInView from '../views/LogInView.vue'
 import SignUpView from '../views/SignUpView.vue'
 import FavouritesView from '../views/FavouritesView.vue'
+import ResetPasswordView from '../views/ResetPasswordView.vue'
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/favourites',
     name: 'favourites',
     component: FavouritesView
+  },
+  {
+    path: '/reset_password',
+    name: 'resetpassword',
+    component: ResetPasswordView
   }
 ]
 

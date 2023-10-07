@@ -42,6 +42,7 @@
                   @click="showHidePassword = !showHidePassword"
                 >
               </div>
+              <p class="text-white">Forgot password? <a href="/reset_password">Click here</a></p>
               <p class="text-white">Or <a href="/signup">Click here</a>, if you don't have an account.</p>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>

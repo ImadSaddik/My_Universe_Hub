@@ -6,13 +6,20 @@
       <div class="container position-absolute top-50 start-50 translate-middle align-self-center">
         <div class="row px-2 px-sm-5 pb-5 d-flex justify-content-center">
           <div class="col col-sm-6">
-            <h1 class="display-5 fs-1 fw-bold text-white mb-4">Sign Up</h1>
-            <div v-if="showAlertDialog" class="alert alert-warning alert-dismissible fade show rounded-3" role="alert">
+            <h1 class="display-5 fs-1 fw-bold text-white mb-4">Reset password</h1>
+
+            <div v-if="showErrorDialog" class="alert alert-warning alert-dismissible fade show rounded-3" role="alert">
               <div v-for="error in errors" :key="error">
                 <strong>Error! </strong> {{ error }}
               </div>
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="showAlertDialog = false"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="showErrorDialog = false"></button>
             </div>
+
+            <div v-if="showSuccessDialog" class="alert alert-success alert-dismissible fade show rounded-3" role="alert">
+              <strong>Success! </strong> {{ successMessage }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="showSuccessDialog = false"></button>
+            </div>
+
             <form @submit.prevent="submitForm">
               <div class="input-group input-group-sm mb-3">
                 <input
@@ -25,7 +32,7 @@
               <div class="input-group input-group-sm mb-3">
                 <input
                   class="form-control rounded-3 py-2 px-3"
-                  placeholder="Password"
+                  placeholder="New password"
                   id="exampleInputPassword1"
                   v-model="password"
                   :type="showHidePassword ? 'password' : 'text'">
@@ -33,7 +40,7 @@
               <div class="input-group input-group-sm mb-3">
                 <input
                   class="form-control rounded-3 py-2 px-3"
-                  placeholder="Repeat password"
+                  placeholder="Repeat new password"
                   id="exampleInputPassword2"
                   v-model="repeatPassword"
                   :type="showHidePassword ? 'password' : 'text'">
@@ -46,7 +53,7 @@
                   id="showHidePasswordCheckBox"
                   @click="showHidePassword = !showHidePassword">
               </div>
-              <p class="text-white">Or <a href="/login">Click here</a>, if you already have an account.</p>
+              <p class="text-white">Or <a href="/login">Click here</a>, to go back to the log in page.</p>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
           </div>
@@ -60,20 +67,24 @@
 import axios from 'axios'
 
 export default {
-  name: 'SignUpView',
+  name: 'ResetPasswordView',
   components: {
   },
   mounted () {
-    document.title = 'Sign Up'
+    document.title = 'Reset Password'
   },
   data () {
     return {
       username: '',
       password: '',
       repeatPassword: '',
-      showHidePassword: true,
-      showAlertDialog: false,
-      errors: []
+
+      successMessage: '',
+      errors: [],
+
+      showSuccessDialog: false,
+      showErrorDialog: false,
+      showHidePassword: true
     }
   },
   methods: {
@@ -82,24 +93,29 @@ export default {
         return
       }
 
-      const formData = {
+      const resetData = JSON.stringify({
         username: this.username,
-        password: this.password
-      }
+        newPassword: this.password
+      })
 
-      axios.defaults.headers.common.Authorization = ''
       await axios
-        .post('/api/v1/users/', formData)
-        .then(response => {
-          this.errors = []
-          this.showAlertDialog = false
+        .post('/api/v1/reset_password/', resetData, {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': 'csrftoken'
+          }
+        })
+        .then((response) => {
+          this.successMessage = response.data.message
+          this.showSuccessDialog = true
+
           this.$router.push('/login')
           console.log('successfully signed up')
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error)
-          this.errors.push('Something went wrong. Please try again.')
-          this.showAlertDialog = true
+          this.errorMessage = 'Something went wrong. Please try again later.'
+          this.showErrorDialog = true
         })
     },
     errorExist () {
@@ -122,7 +138,7 @@ export default {
       }
 
       if (this.errors.length) {
-        this.showAlertDialog = true
+        this.showErrorDialog = true
         return true
       }
     }

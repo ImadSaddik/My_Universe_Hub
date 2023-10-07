@@ -126,18 +126,18 @@ def likeImage(request):
     data = json.loads(request.body)
     date = data['date']
     username = data['username']
-    
+
     try:
         entry = Gallery.objects.get(date=date)
         user = User.objects.get(username=username)
-        
+
         if user not in entry.liked_by_users.all():
             entry.liked_by_users.add(user)
             entry.update_likes()
             entry.save()
-        
+
         return JsonResponse({'message': 'Image liked successfully!'}, safe=False)
-    except:
+    except Exception:
         return HttpResponseBadRequest('Image not found!')
     
     
@@ -146,18 +146,18 @@ def unlikeImage(request):
     data = json.loads(request.body)
     date = data['date']
     username = data['username']
-    
+
     try:
         entry = Gallery.objects.get(date=date)
         user = User.objects.get(username=username)
-        
+
         if user in entry.liked_by_users.all():
             entry.liked_by_users.remove(user)
             entry.update_likes()
             entry.save()
-        
+
         return JsonResponse({'message': 'Image unliked successfully!'}, safe=False)
-    except:
+    except Exception:
         return HttpResponseBadRequest('Image not found!')
 
 
@@ -191,3 +191,20 @@ def getFavouritesArchive(request, username):
     serializer = GallerySerializer(entries, many=True)
     
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def resetPassword(request):
+    data = json.loads(request.body)
+    username = data['username']
+    newPassword = data['newPassword']
+    
+    try:    
+        user = User.objects.get(username=username)
+        user.set_password(newPassword)
+        user.save()
+        
+        return JsonResponse({'message': 'Password reset successfully!'}, safe=False)
+    
+    except Exception:
+        return HttpResponseBadRequest('User not found!')
