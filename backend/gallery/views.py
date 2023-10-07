@@ -203,8 +203,7 @@ def resetPassword(request):
         user = User.objects.get(username=username)
         user.set_password(newPassword)
         user.save()
-        
         return JsonResponse({'message': 'Password reset successfully!'}, safe=False)
     
-    except Exception:
+    except User.DoesNotExist:
         return HttpResponseBadRequest('User not found!')

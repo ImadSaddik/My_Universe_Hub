@@ -15,11 +15,6 @@
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="showErrorDialog = false"></button>
             </div>
 
-            <div v-if="showSuccessDialog" class="alert alert-success alert-dismissible fade show rounded-3" role="alert">
-              <strong>Success! </strong> {{ successMessage }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="showSuccessDialog = false"></button>
-            </div>
-
             <form @submit.prevent="submitForm">
               <div class="input-group input-group-sm mb-3">
                 <input
@@ -79,10 +74,8 @@ export default {
       password: '',
       repeatPassword: '',
 
-      successMessage: '',
       errors: [],
 
-      showSuccessDialog: false,
       showErrorDialog: false,
       showHidePassword: true
     }
@@ -106,15 +99,14 @@ export default {
           }
         })
         .then((response) => {
-          this.successMessage = response.data.message
-          this.showSuccessDialog = true
+          this.showErrorDialog = false
 
           this.$router.push('/login')
           console.log('successfully signed up')
         })
         .catch((error) => {
           console.log(error)
-          this.errorMessage = 'Something went wrong. Please try again later.'
+          this.errors.push(error.response.data)
           this.showErrorDialog = true
         })
     },
