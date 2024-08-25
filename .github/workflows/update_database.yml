@@ -31,4 +31,5 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add .
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update APOD data" && git push)
+          DATE=$(date +'%d-%m-%Y')
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Add entry $DATE to database"  && git push)
