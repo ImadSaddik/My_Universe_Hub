@@ -27,6 +27,8 @@ jobs:
         run: python backend/gallery/update_database_workflow.py
 
       - name: Commit and push if changes
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
