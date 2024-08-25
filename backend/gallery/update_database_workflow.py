@@ -1,8 +1,19 @@
+import os
+import sys
+import django
 import requests
 
-from .models import Gallery
 from bs4 import BeautifulSoup
 from datetime import datetime
+
+dir_path = os.path.dirname(os.path.realpath(__file__)) # /backend/gallery
+root_dir = os.path.abspath(os.path.join(dir_path, os.pardir)) # /backend
+sys.path.append(root_dir)
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")
+django.setup()
+
+from gallery.models import Gallery
 
 
 def addNonExistingImages():
