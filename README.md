@@ -17,7 +17,6 @@ Watch the full tutorial [here](https://youtu.be/kvoKKJ2zsts?si=GTlOPbKAAtVH6Yyv)
 
 ## Project Overview
 
-
 The original APOD website by NASA delivers awe-inspiring astronomical images and descriptions on a daily basis. However, its interface, though informative, can feel outdated. Navigating through the website often involves clicking on multiple links to access images, which can be time-consuming and less user-friendly. This project aims to bring a fresh look and fell to the website and enhances user interaction. Our goal is to provide a seamless and visually pleasing way for users to explore and enjoy the cosmos effortlessly.
 
 Using the power of `BeautifulSoup`, this project scrapes data from NASA's official APOD website, extracting images, titles, explanations, and other relevant information. The redesigned web application offers various pages and features to enhance user engagement.
@@ -43,33 +42,39 @@ Using the power of `BeautifulSoup`, this project scrapes data from NASA's offici
 Follow these steps to get the project up and running:
 
 1. Clone this repository:
+
    ```bash
    git clone https://github.com/ImadSaddik/apod_website_redesign.git
    ```
 
 2. Navigate to the project directory:
+
    ```bash
    cd apod_website_redesign
    ```
 
 3. Install backend dependencies (assuming you have Python and pip installed):
+
    ```bash
    cd backend
    pip install -r requirements.txt
    ```
-   
+
 4. Start Django:
+
    ```bash
    python manage.py runserver
    ```
 
 5. Install frontend dependencies:
+
    ```bash
    cd frontend
-   npm install
+   npm install --legacy-peer-deps
    ```
 
 6. Start the development server:
+
    ```bash
    npm run serve
    ```
