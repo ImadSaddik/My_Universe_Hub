@@ -45,8 +45,11 @@ export default {
 <style scoped>
 .image-container {
   position: relative;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  width: 100%;
 }
 
 .overlay {

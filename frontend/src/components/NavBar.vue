@@ -65,7 +65,7 @@
               </a>
             </div>
             <div v-show="!isLoggedOff">
-              {{ getUsername }}
+              {{ getEmail }}
               <a
                 data-bs-toggle="tooltip"
                 data-bs-placement="bottom"
@@ -90,15 +90,15 @@ export default {
     isLoggedOff () {
       return this.$store.state.token === ''
     },
-    getUsername () {
-      return this.$store.state.username
+    getEmail() {
+      return this.$store.state.email;
     },
     getSelectedNavbarItem () {
       return this.$store.state.selectedNavbarItem
     }
   },
   mounted () {
-    // this.handleNavbarItemClick(this.HOME_PAGE)
+    this.handleNavbarItemClick(this.HOME_PAGE)
   },
   data () {
     return {
@@ -119,7 +119,7 @@ export default {
       localStorage.removeItem('username')
 
       this.$store.commit('removeToken')
-      this.$store.commit('removeUsername')
+      this.$store.commit('removeEmail')
     },
     handleNavbarItemClick (item) {
       localStorage.setItem('selectedNavbarItem', item)

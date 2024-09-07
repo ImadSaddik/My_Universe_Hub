@@ -19,13 +19,15 @@
             </h1>
 
             <div
-              v-if="resetLinkSent"
+              v-if="passwordChangedSuccess"
               class="alert alert-success alert-dismissible fade show"
               role="alert"
             >
-              Check your email for a link to reset your password.
+              Your password has been reset successfully. You can now
+              <router-link to="/login">log in</router-link> with your new
+              password.
               <button
-                @click="resetLinkSent = false"
+                @click="passwordChangedSuccess = false"
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="alert"
@@ -48,24 +50,38 @@
               ></button>
             </div>
 
-            <div class="row m-0 p-0 input-group input-group-sm">
-              <label for="email" class="mb-2 p-0 fw-bold text-white"
-                >Email Address</label
-              >
-              <input
-                id="email"
-                type="email"
-                class="form-control rounded-3 py-2 px-3 mb-4"
-                placeholder="Your email"
-                v-model="email"
-              />
+            <div class="row input-group input-group-sm">
+              <div class="col">
+                <label for="new_password" class="mb-2 fw-bold text-white"
+                  >New password</label
+                >
+                <input
+                  id="new_password"
+                  type="password"
+                  class="form-control rounded-3 py-2 px-3"
+                  placeholder="Your new password"
+                  v-model="new_password"
+                />
+
+                <label for="re_new_password" class="mt-3 mb-2 fw-bold text-white"
+                  >Confirm new password</label
+                >
+                <input
+                  id="re_new_password"
+                  type="password"
+                  class="form-control rounded-3 py-2 px-3"
+                  placeholder="Confirm new password"
+                  v-model="re_new_password"
+                />
+
+                <button
+                  @click="confirmResetPassword"
+                  class="btn btn-primary mt-4"
+                >
+                  Reset password
+                </button>
+              </div>
             </div>
-            <p class="text-white">
-              Or <a href="/login">Click here</a>, to go back to the log in page.
-            </p>
-            <button @click="resetPassword" class="btn btn-primary">
-              Submit
-            </button>
           </div>
         </div>
       </div>
@@ -77,54 +93,43 @@
 import axios from "axios";
 
 export default {
-  name: "ResetPasswordView",
-  components: {},
-  mounted() {
-    document.title = "Reset Password";
-  },
+  name: "ResetPassword",
   data() {
     return {
-      email: "",
-      resetLinkSent: false,
+      new_password: "",
+      re_new_password: "",
+      passwordChangedSuccess: false,
       errorOccurred: false,
       errorMessage: "",
     };
   },
   methods: {
-    async resetPassword() {
-      if (this.errorExist()) {
-        return;
-      }
-
+    async confirmResetPassword() {
       const data = JSON.stringify({
-        email: this.email,
+        uid: this.$route.params.uid,
+        token: this.$route.params.token,
+        new_password: this.new_password,
+        re_new_password: this.re_new_password,
       });
 
       await axios
-        .post("/api/v1/users/reset_password/", data, {
+        .post("/api/v1/users/reset_password_confirm/", data, {
           headers: {
             "Content-Type": "application/json",
             "X-CSRFToken": "csrftoken",
           },
         })
         .then((response) => {
-          this.resetLinkSent = true;
-          this.errorOccurred = false;
+          this.passwordChangedSuccess = true;
         })
         .catch((error) => {
-          console.log(error);
-          this.errorMessage = error.response.data.detail;
           this.errorOccurred = true;
+          this.errorMessage = Object.values(error.response.data)[0][0];
         });
     },
-    errorExist() {
-      if (this.email === "") {
-        this.errorOccurred = true;
-        this.errorMessage = "Email is required.";
-        return true;
-      }
-      return false;
-    },
+  },
+  mounted() {
+    document.title = "Reset password confirmation";
   },
 };
 </script>
