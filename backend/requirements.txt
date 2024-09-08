@@ -5,3 +5,4 @@ django-cors-headers==4.2.0
 djoser==2.2.0
 Requests==2.31.0
 lxml==4.9.3
+python-dotenv==1.0.1
