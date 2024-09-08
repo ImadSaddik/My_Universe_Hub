@@ -13,7 +13,7 @@
         <div
           class="row px-2 px-sm-5 pb-5 d-flex justify-content-center align-items-center"
         >
-          <div class="p-0 col col-sm-6">
+          <div class="col col-sm-7 outer-card-container">
             <h1 class="display-5 fs-1 fw-bold text-white mb-4">
               Reset password
             </h1>
@@ -48,24 +48,24 @@
               ></button>
             </div>
 
-            <div class="row m-0 p-0 input-group input-group-sm">
-              <label for="email" class="mb-2 p-0 fw-bold text-white"
-                >Email Address</label
-              >
+            <label for="exampleInputEmail" class="mb-1">Email</label>
+            <div class="input-container">
+              <i class="fas fa-envelope input-icon"></i>
               <input
-                id="email"
-                type="email"
-                class="form-control rounded-3 py-2 px-3 mb-4"
-                placeholder="Your email"
+                class="input-field"
+                placeholder="Email"
+                id="exampleInputEmail"
                 v-model="email"
+                type="email"
               />
             </div>
-            <p class="text-white">
-              Or <a href="/login">Click here</a>, to go back to the log in page.
-            </p>
-            <button @click="resetPassword" class="btn btn-primary">
+
+            <button @click="resetPassword" class="custom-btn custom-btn-white my-3">
               Submit
             </button>
+            <p class="text-white text-center m-0 my-2">
+              Go back to the <router-link to="/login">Log in</router-link> page. 
+            </p>
           </div>
         </div>
       </div>

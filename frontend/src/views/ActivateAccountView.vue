@@ -1,8 +1,8 @@
 <template>
-  <section class="container-fluid" style="height: calc(100vh - 70px)">
+  <section class="container-fluid m-0 p-3" style="height: calc(100vh - 3.5rem)">
     <div class="position-relative h-100 d-flex flex-column">
       <img
-        src="../assets/Sign_up_bg.jpg"
+        src="../assets/activation_page_bg.jpg"
         class="img-fluid custom-image"
         alt="..."
       />
@@ -13,16 +13,18 @@
         <div
           class="row px-2 px-sm-5 pb-5 d-flex justify-content-center align-items-center"
         >
-          <div class="p-0 col col-sm-6">
+          <div class="p-0 col">
             <h1 class="display-5 fs-1 fw-bold text-white mb-4">
               Activation status
             </h1>
-            <p v-if="activationStatus" class="text-white">
-              Account activated successfully. You can now <router-link to="/login">log in</router-link>.
-            </p>
-            <p v-else-if="activationStatus === false" class="text-white">
-              Account activation failed. Please try again.
-            </p>
+            <div class="card-container">
+              <p v-if="activationStatus" class="text-black m-0">
+                <i class="fas fa-check-circle me-1"></i> Account activated successfully. You can now <router-link to="/login">log in</router-link>.
+              </p>
+              <p v-else-if="!activationStatus" class="text-black m-0">
+                <i class="fas fa-times-circle me-1"></i> Account activation failed. Please try again.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -76,6 +78,13 @@ export default {
 .custom-image {
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.4);
+  filter: brightness(0.6);
+}
+
+.card-container {
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: white;
+  color: black;
 }
 </style>

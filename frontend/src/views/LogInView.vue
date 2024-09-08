@@ -11,7 +11,7 @@
         class="container position-absolute top-50 start-50 translate-middle align-self-center"
       >
         <div class="row px-2 px-sm-5 pb-5 d-flex justify-content-center">
-          <div class="col col-sm-6">
+          <div class="col col-sm-7 outer-card-container">
             <h1 class="display-5 fs-1 fw-bold text-white mb-4">Log In</h1>
             <div
               v-if="showAlertDialog"
@@ -28,44 +28,42 @@
               ></button>
             </div>
             <form @submit.prevent="submitForm">
-              <div class="input-group input-group-sm mb-3">
+              <label for="exampleInputEmail" class="mb-1">Email</label>
+              <div class="input-container">
+                <i class="fas fa-envelope input-icon"></i>
                 <input
-                  type="email"
-                  class="form-control rounded-3 py-2 px-3"
-                  placeholder="Your Email"
+                  class="input-field"
+                  placeholder="Email"
+                  id="exampleInputEmail"
                   v-model="email"
+                  type="email"
                 />
               </div>
-              <div class="input-group input-group-sm mb-3">
+
+              <label for="exampleInputPassword1" class="mb-1">Password</label>
+              <div class="input-container">
+                <i class="fas fa-lock input-icon"></i>
                 <input
-                  class="form-control rounded-3 py-2 px-3"
-                  placeholder="Your password"
+                  class="input-field"
+                  placeholder="Password"
+                  id="exampleInputPassword1"
                   v-model="password"
                   :type="showHidePassword ? 'password' : 'text'"
                 />
+                <i
+                  class="fas toggle-password-icon"
+                  :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
+                  @click="togglePasswordVisibility"
+                ></i>
               </div>
-              <div class="mb-3 form-check">
-                <label
-                  class="form-check-label text-white"
-                  for="showHidePasswordCheckBox"
-                >
-                  {{ showHidePassword ? "Show password" : "Hide password" }}
-                </label>
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  id="showHidePasswordCheckBox"
-                  @click="showHidePassword = !showHidePassword"
-                />
-              </div>
-              <p class="text-white">
-                Forgot password? <a href="/reset_password">Click here</a>
+
+              <button type="submit" class="custom-btn custom-btn-white my-3">Submit</button>
+              <p class="text-white text-center m-0 my-2">
+                Forgot password? <router-link to="/reset_password">Click here</router-link>
               </p>
-              <p class="text-white">
-                Or <a href="/signup">Click here</a>, if you don't have an
-                account.
+              <p class="text-white text-center m-0">
+                Don't have an account? <router-link to="/signup">Sign up</router-link>
               </p>
-              <button type="submit" class="btn btn-primary">Submit</button>
             </form>
           </div>
         </div>
