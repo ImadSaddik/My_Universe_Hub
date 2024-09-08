@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="height: 3.5rem">
     <div class="container-fluid px-sm-5">
       <a class="navbar-brand" href="/" @click="handleNavbarItemClick(HOME_PAGE)">
         <img src="../assets/apod_logo.svg" alt="">
@@ -111,12 +111,11 @@ export default {
   },
   methods: {
     logOut () {
-      console.log('Logging out')
       this.$emit('logged-out')
       axios.defaults.headers.common.Authorization = ''
 
       localStorage.removeItem('token')
-      localStorage.removeItem('username')
+      localStorage.removeItem('email')
 
       this.$store.commit('removeToken')
       this.$store.commit('removeEmail')

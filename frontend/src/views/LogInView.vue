@@ -132,7 +132,6 @@ export default {
           this.$store.commit("setSelectedNavbarItem", "home");
 
           this.$router.push({ name: "home", replace: true });
-          console.log("successfully logged in");
         })
         .catch((error) => {
           this.showAlertDialog = true;

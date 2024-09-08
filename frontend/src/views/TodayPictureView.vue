@@ -65,9 +65,9 @@ export default {
     isLoggedIn () {
       return this.$store.state.token !== ''
     },
-    getUsername () {
-      return this.$store.state.username
-    }
+    getEmail() {
+      return this.$store.state.email;
+    },
   },
   data () {
     return {
@@ -83,17 +83,14 @@ export default {
       await axios
         .get('/api/v1/today/')
         .then(response => {
-          const username = this.getUsername
-          console.log(username)
+          const email = this.getEmail
           this.data = response.data
-          console.log(response.data)
 
-          if (username) {
-            this.data.image_is_liked = response.data.liked_by_users.includes(username)
+          if (email) {
+            this.data.image_is_liked = response.data.liked_by_users.includes(email)
           }
         })
         .catch(error => {
-          console.log(error)
         })
     },
     downloadImage () {
@@ -109,7 +106,7 @@ export default {
     async likeImage (item) {
       const data = JSON.stringify({
         date: item.date,
-        username: this.getUsername
+        email: this.getEmail
       })
 
       await axios
@@ -120,18 +117,16 @@ export default {
           }
         })
         .then(response => {
-          console.log(response)
           item.image_is_liked = true
           item.image_likes_count += 1
         })
         .catch(error => {
-          console.log(error)
         })
     },
     async unlikeImage (item) {
       const data = JSON.stringify({
         date: item.date,
-        username: this.getUsername
+        email: this.getEmail
       })
 
       await axios
@@ -142,12 +137,10 @@ export default {
           }
         })
         .then(response => {
-          console.log(response)
           item.image_is_liked = false
           item.image_likes_count -= 1
         })
         .catch(error => {
-          console.log(error)
         })
     }
   }

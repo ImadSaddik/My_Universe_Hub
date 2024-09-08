@@ -62,9 +62,9 @@ export default {
     isLoggedOff () {
       return this.$store.state.token === ''
     },
-    getUsername () {
-      return this.$store.state.username
-    }
+    getEmail() {
+      return this.$store.state.email;
+    },
   },
   data () {
     return {
@@ -74,7 +74,7 @@ export default {
     async likeImage (item) {
       const data = JSON.stringify({
         date: item.date,
-        username: localStorage.getItem('username')
+        email: localStorage.getItem('email')
       })
 
       await axios
@@ -85,19 +85,17 @@ export default {
           }
         })
         .then(response => {
-          console.log(response)
           item.image_is_liked = true
           item.image_likes_count += 1
         })
         .catch(error => {
-          console.log(error)
         })
     },
     async unlikeImage (item) {
       this.$emit('unlike-image', item)
       const data = JSON.stringify({
         date: item.date,
-        username: this.getUsername
+        email: this.getEmail
       })
 
       await axios
@@ -108,12 +106,10 @@ export default {
           }
         })
         .then(response => {
-          console.log(response)
           item.image_is_liked = false
           item.image_likes_count -= 1
         })
         .catch(error => {
-          console.log(error)
         })
     },
     downloadImage (item) {

@@ -6,13 +6,12 @@ from datetime import datetime
 
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponseBadRequest
-from django.contrib.auth.models import User
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .models import Gallery
+from .models import Gallery, UserAccount
 from .serializers import GallerySerializer
 
 
@@ -125,11 +124,11 @@ def getImageAndExplanation(url):
 def likeImage(request):
     data = json.loads(request.body)
     date = data['date']
-    username = data['username']
+    email = data['email']
 
     try:
         entry = Gallery.objects.get(date=date)
-        user = User.objects.get(username=username)
+        user = UserAccount.objects.get(email=email)
 
         if user not in entry.liked_by_users.all():
             entry.liked_by_users.add(user)
@@ -145,11 +144,11 @@ def likeImage(request):
 def unlikeImage(request):
     data = json.loads(request.body)
     date = data['date']
-    username = data['username']
+    email = data['email']
 
     try:
         entry = Gallery.objects.get(date=date)
-        user = User.objects.get(username=username)
+        user = UserAccount.objects.get(email=email)
 
         if user in entry.liked_by_users.all():
             entry.liked_by_users.remove(user)
@@ -181,8 +180,8 @@ def getSortedArchive(request):
 
 
 @api_view(['GET'])
-def getFavouritesArchive(request, username):
-    user = User.objects.get(username=username)
+def getFavouritesArchive(request, email):
+    user = UserAccount.objects.get(email=email)
     entries = Gallery.objects.filter(liked_by_users=user)
     
     for entry in entries:
@@ -196,14 +195,14 @@ def getFavouritesArchive(request, username):
 @api_view(['POST'])
 def resetPassword(request):
     data = json.loads(request.body)
-    username = data['username']
+    email = data['email']
     newPassword = data['newPassword']
     
     try:    
-        user = User.objects.get(username=username)
+        user = UserAccount.objects.get(email=email)
         user.set_password(newPassword)
         user.save()
         return JsonResponse({'message': 'Password reset successfully!'}, safe=False)
     
-    except User.DoesNotExist:
+    except UserAccount.DoesNotExist:
         return HttpResponseBadRequest('User not found!')
