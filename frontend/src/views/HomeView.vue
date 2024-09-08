@@ -23,10 +23,8 @@ export default {
   computed: {
     getUpdatedArchive () {
       if (this.isUserLoggedOff) {
-        console.log('User is logged off')
         return this.removeLikes()
       } else {
-        console.log('User is logged in')
         return this.updateArchiveLikes()
       }
     },
@@ -56,7 +54,6 @@ export default {
           this.archive = response.data
         })
         .catch(error => {
-          console.log(error)
         })
     },
     async search (query) {
@@ -67,10 +64,8 @@ export default {
           .get(`/api/v1/search/${query}/`)
           .then(response => {
             this.archive = response.data
-            console.log(response.data)
           })
           .catch(error => {
-            console.log(error)
           })
       }
     },
@@ -81,10 +76,10 @@ export default {
       return this.archive
     },
     updateArchiveLikes () {
-      const username = localStorage.getItem('username')
+      const email = localStorage.getItem('email')
 
       for (let i = 0; i < this.archive.length; i++) {
-        if (this.archive[i].liked_by_users.includes(username)) {
+        if (this.archive[i].liked_by_users.includes(email)) {
           this.archive[i].image_is_liked = true
         } else {
           this.archive[i].image_is_liked = false

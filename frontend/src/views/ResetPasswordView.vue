@@ -112,7 +112,6 @@ export default {
           this.errorOccurred = false;
         })
         .catch((error) => {
-          console.log(error);
           this.errorMessage = error.response.data.detail;
           this.errorOccurred = true;
         });

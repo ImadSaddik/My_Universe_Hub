@@ -20,10 +20,8 @@ export default {
   computed: {
     getArchive () {
       if (this.isUserLoggedOff) {
-        console.log('User is logged off')
         return this.removeLikes()
       } else {
-        console.log('User is logged in')
         return this.updateArchiveLikes()
       }
     },
@@ -49,7 +47,6 @@ export default {
           this.archive = response.data
         })
         .catch(error => {
-          console.log(error)
         })
     },
     removeLikes () {
@@ -59,9 +56,9 @@ export default {
       return this.archive
     },
     updateArchiveLikes () {
-      const username = localStorage.getItem('username')
+      const email = localStorage.getItem('email')
       for (let i = 0; i < this.archive.length; i++) {
-        if (this.archive[i].liked_by_users.includes(username)) {
+        if (this.archive[i].liked_by_users.includes(email)) {
           this.archive[i].image_is_liked = true
         } else {
           this.archive[i].image_is_liked = false

@@ -151,10 +151,8 @@ export default {
           this.errors = [];
           this.showAlertDialog = false;
           this.hideForm = true;
-          console.log("successfully signed up");
         })
         .catch((error) => {
-          console.log(error);
           this.errors.push("Something went wrong. Please try again.");
           this.showAlertDialog = true;
         });
