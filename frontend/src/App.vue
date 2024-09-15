@@ -18,7 +18,7 @@ export default {
 .custom-btn {
   padding: 1rem;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 5px !important;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;

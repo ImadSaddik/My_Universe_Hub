@@ -1,5 +1,5 @@
 <template>
-  <section class="container-fluid m-0 p-3" style="height: calc(100vh - 3.5rem)">
+  <section class="container-fluid p-2" style="height: calc(100vh - 3.5rem)">
     <div class="position-relative h-100 d-flex flex-column">
       <img
         src="../assets/activation_page_bg.jpg"

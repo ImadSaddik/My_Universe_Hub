@@ -1,8 +1,8 @@
 <template>
-  <section class="container-fluid" style="height: calc(100vh - 70px)">
+  <section class="container-fluid p-2" style="height: calc(100vh - 3.5rem)">
     <div class="position-relative h-100 d-flex flex-column">
       <img
-        src="../assets/Sign_up_bg.jpg"
+        src="../assets/reset_pass_bg.jpg"
         class="img-fluid custom-image"
         alt="..."
       />
@@ -112,7 +112,7 @@ export default {
           this.errorOccurred = false;
         })
         .catch((error) => {
-          this.errorMessage = error.response.data.detail;
+          this.errorMessage = error.response.data.email[0];
           this.errorOccurred = true;
         });
     },

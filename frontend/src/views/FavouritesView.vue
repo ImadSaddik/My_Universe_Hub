@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div v-if="isLoggedIn && archive.length !== 0">
+    <div class="background-image"></div>
+
+    <div class="mt-3" v-if="isLoggedIn && archive.length !== 0">
       <GallerySection :archive="archive" @selected-item="(value) => selectedItem = value" />
       <BackToTopVue />
       <ImageDetails :item="selectedItem" @unlike-image="(item) => removeItem(item)" />
@@ -79,3 +81,17 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  scale: 2;
+  background: url('../assets/galaxy_logo.svg') no-repeat center center;
+  opacity: 0.02;
+  z-index: -1;
+}
+</style>

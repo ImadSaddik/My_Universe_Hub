@@ -1,7 +1,9 @@
 <template>
-  <GallerySection :archive="getArchive" @selected-item="(value) => selectedItem = value" />
-  <BackToTopVue />
-  <ImageDetails :item="selectedItem" />
+  <div class="mt-3">
+    <GallerySection :archive="getArchive" @selected-item="(value) => selectedItem = value" />
+    <BackToTopVue />
+    <ImageDetails :item="selectedItem" />
+  </div>
 </template>
 
 <script>

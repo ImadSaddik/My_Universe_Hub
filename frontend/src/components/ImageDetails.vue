@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <img src="../assets/apod_logo.svg" alt="">
+          <img src="../assets/galaxy_logo.svg" alt="" style="width: 3rem;">
           <div class="col d-flex align-items-center justify-content-end">
             {{item.image_likes_count}}
             <div v-if="item.image_is_liked">

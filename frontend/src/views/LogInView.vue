@@ -1,5 +1,5 @@
 <template>
-  <section class="container-fluid" style="height: calc(100vh - 70px)">
+  <section class="container-fluid p-2" style="height: calc(100vh - 3.5rem)">
     <div class="position-relative h-100 d-flex flex-column">
       <img
         src="../assets/Log_in_bg.jpg"
@@ -28,27 +28,31 @@
               ></button>
             </div>
             <form @submit.prevent="submitForm">
-              <label for="exampleInputEmail" class="mb-1">Email</label>
+              <label for="email" class="mb-1">Email</label>
               <div class="input-container">
                 <i class="fas fa-envelope input-icon"></i>
                 <input
                   class="input-field"
                   placeholder="Email"
-                  id="exampleInputEmail"
+                  id="email"
                   v-model="email"
                   type="email"
+                  name="email"
+                  autocomplete="username"
                 />
               </div>
 
-              <label for="exampleInputPassword1" class="mb-1">Password</label>
+              <label for="current-password" class="mb-1">Password</label>
               <div class="input-container">
                 <i class="fas fa-lock input-icon"></i>
                 <input
                   class="input-field"
                   placeholder="Password"
-                  id="exampleInputPassword1"
+                  id="current-password"
                   v-model="password"
                   :type="showHidePassword ? 'password' : 'text'"
+                  name="password"
+                  autocomplete="current-password"
                 />
                 <i
                   class="fas toggle-password-icon"
@@ -57,7 +61,7 @@
                 ></i>
               </div>
 
-              <button type="submit" class="custom-btn custom-btn-white my-3">Submit</button>
+              <button type="submit" class="custom-btn custom-btn-white my-3">Log In</button>
               <p class="text-white text-center m-0 my-2">
                 Forgot password? <router-link to="/reset_password">Click here</router-link>
               </p>
@@ -100,6 +104,9 @@ export default {
     };
   },
   methods: {
+    togglePasswordVisibility() {
+      this.showHidePassword = !this.showHidePassword;
+    },
     async submitForm() {
       if (this.errorExist()) {
         this.showAlertDialog = true;

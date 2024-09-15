@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid mt-3">
+  <div class="container-fluid m-0 p-3">
     <div class="position-relative d-flex flex-column">
       <img src="../assets/search_background.jpg" class="img-fluid custom-image" alt="...">
 
@@ -8,15 +8,16 @@
           <div class="col px-4">
             <h1 class="fs-4 fs-sm-1 fw-bold text-white">APOD</h1>
             <p class="fs-6 fw-light text-white">Discover images by entering keywords separated by commas. Find the image you are looking for.</p>
-            <div class="input-group mb-3">
+            <div class="input-container">
+              <i class="fas fa-search input-icon"></i>
               <input
                 type="text"
-                class="form-control rounded-3 py-1 py-sm-2 px-3 px-sm-4"
+                class="input-field"
                 placeholder="Andromeda galaxy"
                 v-model="searchQuery"
                 @keydown.enter.prevent="$emit('search', searchQuery)"
                 aria-describedby="basic-addon1"
-              >
+              />
             </div>
           </div>
         </div>

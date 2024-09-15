@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-sm-6 col-lg-4 py-sm-3">
+  <div class="col-12 col-sm-6 col-lg-4 py-0">
     <div v-for="(item, index) in archive" :key="index" class="image-container mb-3">
       <img
         :src="item.image_url"
@@ -17,7 +17,7 @@
           <div class="row flex-grow-1"></div>
           <div class="row align-items-center">
             <div class="col">
-              <img src="../assets/apod_logo_white.svg" alt="">
+              <img src="../assets/galaxy_logo_white.svg" alt="" style="width: 3rem;">
             </div>
           </div>
         </div>

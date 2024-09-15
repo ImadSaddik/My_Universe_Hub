@@ -1,5 +1,5 @@
 <template>
-  <section class="container-fluid" style="height: calc(100vh - 70px)">
+  <section class="container-fluid p-2" style="height: calc(100vh - 3.5rem)">
     <div class="position-relative h-100 d-flex flex-column">
       <img
         src="../assets/Sign_up_bg.jpg"
@@ -88,7 +88,7 @@
                 ></i>
               </div>
 
-              <button type="submit" class="custom-btn custom-btn-white my-3">Submit</button>
+              <button type="submit" class="custom-btn custom-btn-white my-3">Sign Up</button>
               <p class="text-white text-center m-0 my-2">
                 Already have an account? <router-link to="/login">Log in</router-link>.
               </p>

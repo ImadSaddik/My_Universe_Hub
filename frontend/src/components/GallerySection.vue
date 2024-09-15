@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid mt-3">
+  <div class="container-fluid m-0 py-0 px-3">
     <div class="row gx-3">
       <GalleryColumn
         v-for="(sublist, index) in sublists"

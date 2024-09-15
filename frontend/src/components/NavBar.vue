@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="height: 3.5rem">
-    <div class="container-fluid px-sm-5">
-      <a class="navbar-brand" href="/" @click="handleNavbarItemClick(HOME_PAGE)">
-        <img src="../assets/apod_logo.svg" alt="">
+  <nav class="navbar navbar-expand-lg bg-white">
+    <div class="container-fluid px-sm-3">
+      <a class="navbar-brand p-0 m-0 me-5" href="/" @click="handleNavbarItemClick(HOME_PAGE)">
+        <img src="../assets/galaxy_logo.svg" alt="" style="width: 2rem;">
       </a>
       <button
         class="navbar-toggler"
@@ -16,11 +16,11 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="row w-100 navbar-nav">
-          <div class="col d-lg-flex align-items-center">
+        <div class="row w-100 m-0 navbar-nav">
+          <div class="col m-0 p-0 d-lg-flex align-items-center">
             <a
               class="nav-link"
-              :class="{ active: getSelectedNavbarItem === HOME_PAGE }"
+              :class="getNavbarItemClass(HOME_PAGE)"
               href="/"
               @click="handleNavbarItemClick(HOME_PAGE)"
             >
@@ -28,7 +28,7 @@
             </a>
             <a
               class="nav-link"
-              :class="{ active: getSelectedNavbarItem === TODAY_PAGE }"
+              :class="getNavbarItemClass(TODAY_PAGE)"
               href="/today"
               @click="handleNavbarItemClick(TODAY_PAGE)"
             >
@@ -36,7 +36,7 @@
             </a>
             <a
               class="nav-link"
-              :class="{ active: getSelectedNavbarItem === TRENDING_PAGE }"
+              :class="getNavbarItemClass(TRENDING_PAGE)"
               href="/trending"
               @click="handleNavbarItemClick(TRENDING_PAGE)"
             >
@@ -44,7 +44,7 @@
             </a>
             <a
               class="nav-link"
-              :class="{ active: getSelectedNavbarItem === FAVOURITES_PAGE }"
+              :class="getNavbarItemClass(FAVOURITES_PAGE)"
               href="/favourites"
               @click="handleNavbarItemClick(FAVOURITES_PAGE)"
             >
@@ -52,7 +52,7 @@
             </a>
             <hr class="d-block d-lg-none">
           </div>
-          <div class="col-auto d-flex align-items-center">
+          <div class="col-auto d-flex p-0 align-items-center">
             <div v-show="isLoggedOff">
               <a
                 href="login"
@@ -110,6 +110,12 @@ export default {
     }
   },
   methods: {
+    getNavbarItemClass(page) {
+      return {
+        active: this.getSelectedNavbarItem === page,
+        'fw-bold': this.getSelectedNavbarItem === page
+      };
+    },
     logOut () {
       this.$emit('logged-out')
       axios.defaults.headers.common.Authorization = ''
@@ -126,3 +132,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.navbar {
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+</style>
