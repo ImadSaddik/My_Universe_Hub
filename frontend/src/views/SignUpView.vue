@@ -10,8 +10,8 @@
       <div
         class="container position-absolute top-50 start-50 translate-middle align-self-center"
       >
-        <div class="row px-2 px-sm-5 pb-5 d-flex justify-content-center">
-          <div class="col col-sm-7 outer-card-container">
+        <div class="row px-4 px-sm-5 pb-5 d-flex justify-content-center">
+          <div class="col col-lg-7 px-3 px-lg-4 outer-card-container">
             <h1 class="display-5 fs-1 fw-bold text-white mb-4">Sign Up</h1>
             <div
               v-if="showAlertDialog"

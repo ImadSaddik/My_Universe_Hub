@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row my-1 my-sm-3">
       <div class="col d-flex justify-content-center">
-        <h1 class="fs-4 card-text">{{ item.title }}</h1>
+        <h1 class="fs-4 fw-bold fs-sm-4 card-text">{{ item.title }}</h1>
       </div>
     </div>
     <div class="row mt-4 mt-sm-4 mt-lg-5">
@@ -12,7 +12,7 @@
     </div>
     <div class="row mt-4 mt-lg-5 mb-3">
       <div class="col px-3">
-        <p class="card-text">{{ item.explanation }}</p>
+        <p class="custom-small-text fs-sm-6 card-text">{{ item.explanation }}</p>
       </div>
     </div>
   </div>
@@ -42,3 +42,15 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.custom-small-text {
+  font-size: 1rem;
+}
+
+@media (max-width: 576px) {
+  .custom-small-text {
+    font-size: 0.75rem;
+  }
+}
+</style>

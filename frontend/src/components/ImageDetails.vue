@@ -3,13 +3,13 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <img src="../assets/galaxy_logo.svg" alt="" style="width: 3rem;">
+          <img class="image-logo" src="../assets/galaxy_logo.svg" alt="">
           <div class="col d-flex align-items-center justify-content-end">
             {{item.image_likes_count}}
             <div v-if="item.image_is_liked">
               <i
                 type="button"
-                class="ms-2 fa-solid fa-heart fa-xl me-3"
+                class="fa-solid fa-heart fa-xl ms-2 me-2 me-sm-3"
                 style="color: #f66151;"
                 @click="unlikeImage(item)"
               >
@@ -20,7 +20,7 @@
               <i
                 v-if="isLoggedOff"
                 :disabled="isLoggedOff"
-                class="ms-2 fa-regular fa-heart fa-xl me-3"
+                class="fa-regular fa-heart fa-xl ms-2 me-2 me-sm-3"
                 style="color: #77767b;"
                 data-bs-toggle="tooltip"
                 data-bs-placement="bottom"
@@ -30,13 +30,13 @@
               <i
                 v-else
                 type="button"
-                class="ms-2 fa-regular fa-heart fa-xl me-3"
+                class="fa-regular fa-heart fa-xl ms-2 me-2 me-sm-3"
                 @click="likeImage(item)"
               >
               </i>
             </div>
 
-            <i type="button" class="fa-solid fa-download fa-xl me-3" @click="downloadImage(item)"></i>
+            <i type="button" class="fa-solid fa-download fa-xl me-2 me-sm-3" @click="downloadImage(item)"></i>
             <i type="button" class="fa-solid fa-xmark fa-2xl" data-bs-dismiss="modal"></i>
           </div>
         </div>
@@ -125,3 +125,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.image-logo {
+  height: 2rem;
+}
+</style>

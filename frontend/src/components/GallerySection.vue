@@ -11,7 +11,7 @@
     <div v-if="showLoadMore" class="row mx-0 mb-3">
       <div
         type="button"
-        class="col border py-4 d-flex align-items-center justify-content-center"
+        class="col custom-btn custom-btn-white py-4 d-flex align-items-center justify-content-center"
         :class="{ 'border-dark': isHovering }"
         @mouseover="isHovering = true"
         @mouseleave="isHovering = false"
@@ -56,7 +56,8 @@ export default {
   data () {
     return {
       selectedItem: null,
-      limit: 100,
+      limit: 10,
+      incrementSize: 10,
       isHovering: false,
       screenWidth: window.innerWidth,
       breakPoints: {
@@ -74,7 +75,7 @@ export default {
   },
   methods: {
     increaseLimit () {
-      this.limit += 100
+      this.limit += this.incrementSize
     },
     handleWindowResize () {
       this.screenWidth = window.innerWidth

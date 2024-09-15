@@ -130,4 +130,13 @@ export default {
   background-color: rgba(255, 255, 255, .1);
   color: white;
 }
+
+@media (max-width: 576px) {
+  .input-field {
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+  }
+  .input-icon {
+    left: 0.5rem;
+  }
+}
 </style>
