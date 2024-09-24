@@ -106,7 +106,7 @@ export default {
 }
 
 .input-field:focus {
-  border-color: #007bff;
+  border-color: black;
   outline: none;
 }
 
@@ -122,21 +122,5 @@ export default {
 .toggle-password-icon:hover {
   color: black;
   cursor: pointer;
-}
-
-.outer-card-container {
-  padding: 2rem;
-  border-radius: 1rem;
-  background-color: rgba(255, 255, 255, .1);
-  color: white;
-}
-
-@media (max-width: 576px) {
-  .input-field {
-    padding: 0.5rem 0.5rem 0.5rem 2rem;
-  }
-  .input-icon {
-    left: 0.5rem;
-  }
 }
 </style>

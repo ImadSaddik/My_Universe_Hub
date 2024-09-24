@@ -1,73 +1,56 @@
 <template>
-  <section class="container-fluid p-2" style="height: calc(100vh - 3.5rem)">
-    <div class="position-relative h-100 d-flex flex-column">
-      <img
-        src="../assets/reset_pass_bg.jpg"
-        class="img-fluid custom-image"
-        alt="..."
-      />
-
-      <div
-        class="container position-absolute top-50 start-50 translate-middle align-self-center"
-      >
+  <section class="container-fluid m-0 p-0">
+    <div class="row w-100 m-0 p-0 d-flex justify-content-center">
+      <div class="col col-md-7 px-3 px-lg-4 outer-card-container">
+        <h1 class="fs-1 fw-bold text-black mb-4">Reset password</h1>
         <div
-          class="row px-4 px-sm-5 pb-5 d-flex justify-content-center align-items-center"
+          v-if="resetLinkSent"
+          class="alert alert-success alert-dismissible fade show"
+          role="alert"
         >
-          <div class="col col-lg-7 px-3 px-lg-4 outer-card-container">
-            <h1 class="display-5 fs-1 fw-bold text-white mb-4">
-              Reset password
-            </h1>
-
-            <div
-              v-if="resetLinkSent"
-              class="alert alert-success alert-dismissible fade show"
-              role="alert"
-            >
-              Check your email for a link to reset your password.
-              <button
-                @click="resetLinkSent = false"
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="alert"
-                aria-label="Close"
-              ></button>
-            </div>
-
-            <div
-              v-if="errorOccurred"
-              class="alert alert-danger alert-dismissible fade show"
-              role="alert"
-            >
-              {{ errorMessage }}
-              <button
-                @click="errorOccurred = false"
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="alert"
-                aria-label="Close"
-              ></button>
-            </div>
-
-            <label for="exampleInputEmail" class="mb-1">Email</label>
-            <div class="input-container">
-              <i class="fas fa-envelope input-icon"></i>
-              <input
-                class="input-field"
-                placeholder="Email"
-                id="exampleInputEmail"
-                v-model="email"
-                type="email"
-              />
-            </div>
-
-            <button @click="resetPassword" class="custom-btn custom-btn-white my-3">
-              Submit
-            </button>
-            <p class="text-white text-center m-0 my-2">
-              Go back to the <router-link to="/login">Log in</router-link> page. 
-            </p>
-          </div>
+          Check your email for a link to reset your password.
+          <button
+            @click="resetLinkSent = false"
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
         </div>
+
+        <div
+          v-if="errorOccurred"
+          class="alert alert-danger alert-dismissible fade show"
+          role="alert"
+        >
+          {{ errorMessage }}
+          <button
+            @click="errorOccurred = false"
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <label for="exampleInputEmail" class="mb-1 text-black">Email</label>
+        <div class="input-container">
+          <i class="fas fa-envelope input-icon"></i>
+          <input
+            class="input-field"
+            placeholder="Email"
+            id="exampleInputEmail"
+            v-model="email"
+            type="email"
+          />
+        </div>
+
+        <button @click="resetPassword" class="custom-btn custom-btn-white my-3">
+          Submit
+        </button>
+        <p class="text-black text-center m-0 my-2">
+          Go back to the <router-link to="/login">Log in</router-link> page. 
+        </p>
       </div>
     </div>
   </section>
@@ -129,9 +112,20 @@ export default {
 </script>
 
 <style scoped>
-.custom-image {
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.4);
+.outer-card-container {
+    padding: 3rem;
+}
+
+.signup-confirmation-container {
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: white;
+  color: black;
+}
+
+@media (max-width: 768px) {
+    .outer-card-container {
+        padding: 2rem;
+    }
 }
 </style>

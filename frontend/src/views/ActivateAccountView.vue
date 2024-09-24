@@ -1,31 +1,17 @@
 <template>
-  <section class="container-fluid p-2" style="height: calc(100vh - 3.5rem)">
-    <div class="position-relative h-100 d-flex flex-column">
-      <img
-        src="../assets/activation_page_bg.jpg"
-        class="img-fluid custom-image"
-        alt="..."
-      />
-
-      <div
-        class="container position-absolute top-50 start-50 translate-middle align-self-center"
-      >
-        <div
-          class="row px-2 px-sm-5 pb-5 d-flex justify-content-center align-items-center"
-        >
-          <div class="p-0 col">
-            <h1 class="display-5 fs-1 fw-bold text-white mb-4">
-              Activation status
-            </h1>
-            <div class="card-container">
-              <p v-if="activationStatus" class="text-black m-0">
-                <i class="fas fa-check-circle me-1"></i> Account activated successfully. You can now <router-link to="/login">log in</router-link>.
-              </p>
-              <p v-else-if="!activationStatus" class="text-black m-0">
-                <i class="fas fa-times-circle me-1"></i> Account activation failed. Please try again.
-              </p>
-            </div>
-          </div>
+  <section class="container-fluid m-0 p-0">
+    <div class="row w-100 m-0 p-0 d-flex justify-content-center">
+      <div class="col col-md-7 px-3 px-lg-4 outer-card-container">
+        <h1 class="display-5 fs-1 fw-bold text-black mb-4">
+          Activation status
+        </h1>
+        <div class="card-container bg-success-subtle">
+          <p v-if="activationStatus" class="text-black m-0">
+            <i class="fas fa-check-circle me-1"></i> Account activated successfully. You can now <router-link to="/login">log in</router-link>.
+          </p>
+          <p v-else-if="!activationStatus" class="text-black m-0">
+            <i class="fas fa-times-circle me-1"></i> Account activation failed. Please try again.
+          </p>
         </div>
       </div>
     </div>
@@ -75,16 +61,26 @@ export default {
 </script>
 
 <style scoped>
-.custom-image {
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.6);
+.outer-card-container {
+    padding: 3rem;
 }
 
 .card-container {
   padding: 2rem;
   border-radius: 1rem;
-  background-color: white;
+  background-color: #ccc;
   color: black;
+}
+
+.signup-confirmation-container {
+  padding: 2rem;
+  border-radius: 1rem;
+  color: black;
+}
+
+@media (max-width: 768px) {
+    .outer-card-container {
+        padding: 2rem;
+    }
 }
 </style>
