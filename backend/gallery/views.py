@@ -1,3 +1,4 @@
+import time
 import json
 from datetime import datetime
 import requests
@@ -16,14 +17,11 @@ from .serializers import GallerySerializer
 
 
 class getArchive(APIView):
-    def get(self, request, format=None):
+    def get(self, request, start_index, end_index, format=None):
         entries = Gallery.objects.all()
         
-        today = datetime.now().today().date()
-        if today != entries[0].date:
-            addNonExistingImages()
-        
-        serializer = GallerySerializer(entries, many=True)
+        sliced_entries = entries[start_index:end_index]
+        serializer = GallerySerializer(sliced_entries, many=True)
         return Response(serializer.data)
     
     
@@ -161,20 +159,22 @@ def unlikeImage(request):
 
 
 @api_view(['GET'])
-def search(request, query):
+def search(request, query, start_index, end_index):
     search_words = query.split(',')
     search_pattern = r'\b(?:' + '|'.join(search_words) + r')\b'
     
     entries = Gallery.objects.filter(Q(explanation__iregex=search_pattern))
-    serializer = GallerySerializer(entries, many=True)
+    sliced_entries = entries[start_index:end_index]
+    serializer = GallerySerializer(sliced_entries, many=True)
     
     return Response(serializer.data)
 
 
 @api_view(['GET'])
-def getSortedArchive(request):
+def getSortedArchive(request, start_index, end_index):
     entries = Gallery.objects.order_by('-image_likes_count')
-    serializer = GallerySerializer(entries, many=True)
+    sliced_entries = entries[start_index:end_index]
+    serializer = GallerySerializer(sliced_entries, many=True)
     
     return Response(serializer.data)
 

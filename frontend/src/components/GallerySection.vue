@@ -8,7 +8,7 @@
         @selected-item="$emit('selected-item', $event)"
       />
     </div>
-    <div v-if="showLoadMore" class="row mx-0 mb-3">
+    <div class="row mx-0 mb-3">
       <div
         type="button"
         class="col custom-btn custom-btn-white py-4 d-flex align-items-center justify-content-center"
@@ -39,25 +39,17 @@ export default {
         sublists.push([])
       }
 
-      for (let i = 0; i < this.limitedArchive.length; i++) {
+      for (let i = 0; i < this.archive.length; i++) {
         const sublistIndex = i % this.numberOfSublists
-        sublists[sublistIndex].push(this.limitedArchive[i])
+        sublists[sublistIndex].push(this.archive[i])
       }
 
       return sublists
     },
-    limitedArchive () {
-      return this.archive.slice(0, this.limit)
-    },
-    showLoadMore () {
-      return this.limit < this.archive.length
-    }
   },
   data () {
     return {
       selectedItem: null,
-      limit: 10,
-      incrementSize: 10,
       isHovering: false,
       screenWidth: window.innerWidth,
       breakPoints: {
@@ -75,7 +67,7 @@ export default {
   },
   methods: {
     increaseLimit () {
-      this.limit += this.incrementSize
+      this.$emit('increaseLimit')
     },
     handleWindowResize () {
       this.screenWidth = window.innerWidth

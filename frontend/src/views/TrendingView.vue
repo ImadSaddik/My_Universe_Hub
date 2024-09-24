@@ -1,73 +1,82 @@
 <template>
   <div class="mt-3">
-    <GallerySection :archive="getArchive" @selected-item="(value) => selectedItem = value" />
+    <GallerySection
+      :archive="getArchive"
+      @selected-item="(value) => (selectedItem = value)"
+      @increase-limit="increaseLimit()"
+    />
     <BackToTopVue />
     <ImageDetails :item="selectedItem" />
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import GallerySection from '@/components/GallerySection.vue'
-import BackToTopVue from '@/components/BackToTop.vue'
-import ImageDetails from '@/components/ImageDetails.vue'
+import axios from "axios";
+import GallerySection from "@/components/GallerySection.vue";
+import BackToTopVue from "@/components/BackToTop.vue";
+import ImageDetails from "@/components/ImageDetails.vue";
 
 export default {
-  name: 'TrendingView',
+  name: "TrendingView",
   components: {
     GallerySection,
     BackToTopVue,
-    ImageDetails
+    ImageDetails,
   },
   computed: {
-    getArchive () {
+    getArchive() {
       if (this.isUserLoggedOff) {
-        return this.removeLikes()
+        return this.removeLikes();
       } else {
-        return this.updateArchiveLikes()
+        return this.updateArchiveLikes();
       }
     },
-    isUserLoggedOff () {
-      return this.$store.state.token === ''
-    }
+    isUserLoggedOff() {
+      return this.$store.state.token === "";
+    },
   },
-  data () {
+  data() {
     return {
       archive: [],
-      selectedItem: ''
-    }
+      selectedItem: "",
+      incrementSize: 10,
+    };
   },
-  mounted () {
-    this.getTrendingArchive()
-    document.title = 'Trending - NASA Images'
+  mounted() {
+    document.title = "Trending - My Universe Hub";
+    this.getTrendingArchive();
   },
   methods: {
-    async getTrendingArchive () {
+    async getTrendingArchive() {
+      const start_index = this.archive.length;
+      const end_index = start_index + this.incrementSize;
       await axios
-        .get('/api/v1/trending/')
-        .then(response => {
-          this.archive = response.data
+        .get(`/api/v1/trending/${start_index}/${end_index}/`)
+        .then((response) => {
+          this.archive.push(...response.data);
         })
-        .catch(error => {
-        })
+        .catch((error) => {});
     },
-    removeLikes () {
+    async increaseLimit() {
+      await this.getTrendingArchive();
+    },
+    removeLikes() {
       for (let i = 0; i < this.archive.length; i++) {
-        this.archive[i].image_is_liked = false
+        this.archive[i].image_is_liked = false;
       }
-      return this.archive
+      return this.archive;
     },
-    updateArchiveLikes () {
-      const email = localStorage.getItem('email')
+    updateArchiveLikes() {
+      const email = localStorage.getItem("email");
       for (let i = 0; i < this.archive.length; i++) {
         if (this.archive[i].liked_by_users.includes(email)) {
-          this.archive[i].image_is_liked = true
+          this.archive[i].image_is_liked = true;
         } else {
-          this.archive[i].image_is_liked = false
+          this.archive[i].image_is_liked = false;
         }
       }
-      return this.archive
-    }
-  }
-}
+      return this.archive;
+    },
+  },
+};
 </script>
