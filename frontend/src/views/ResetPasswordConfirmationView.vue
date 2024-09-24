@@ -118,6 +118,7 @@ export default {
         })
         .then((response) => {
           this.passwordChangedSuccess = true;
+          this.errorOccurred = false;
         })
         .catch((error) => {
           this.errorOccurred = true;

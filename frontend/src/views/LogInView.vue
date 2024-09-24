@@ -5,10 +5,10 @@
         <h1 class="fs-1 fw-bold text-black mb-4">Log In</h1>
         <div
           v-if="showAlertDialog"
-          class="alert alert-warning alert-dismissible fade show rounded-3"
+          class="alert alert-danger alert-dismissible fade show rounded-3"
           role="alert"
         >
-          <strong>Error! </strong> {{ errorMessage }}
+          <i class="fas fa-times-circle me-1"></i> {{ errorMessage }}
           <button
             type="button"
             class="btn-close"

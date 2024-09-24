@@ -5,11 +5,11 @@
         <h1 class="fs-1 fw-bold text-black mb-4">Sign Up</h1>
         <div
           v-if="showAlertDialog"
-          class="alert alert-warning alert-dismissible fade show rounded-3"
+          class="alert alert-danger alert-dismissible fade show rounded-3"
           role="alert"
         >
           <div v-for="error in errors" :key="error">
-            <strong>Error! </strong> {{ error }}
+            <i class="fas fa-times-circle me-1"></i> {{ error }}
           </div>
           <button
             type="button"
@@ -150,7 +150,10 @@ export default {
           this.hideForm = true;
         })
         .catch((error) => {
-          this.errors.push("Something went wrong. Please try again.");
+          const errorData = error.response.data;
+          for (const key in errorData) {
+            this.errors = errorData[key];
+          }
           this.showAlertDialog = true;
         });
     },

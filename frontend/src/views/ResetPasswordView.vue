@@ -8,7 +8,7 @@
           class="alert alert-success alert-dismissible fade show"
           role="alert"
         >
-          Check your email for a link to reset your password.
+          <i class="fas fa-check-circle me-1"></i> Check your email for a link to reset your password.
           <button
             @click="resetLinkSent = false"
             type="button"
@@ -23,7 +23,7 @@
           class="alert alert-danger alert-dismissible fade show"
           role="alert"
         >
-          {{ errorMessage }}
+          <i class="fas fa-times-circle me-1"></i> {{ errorMessage }}
           <button
             @click="errorOccurred = false"
             type="button"
@@ -97,6 +97,7 @@ export default {
         .catch((error) => {
           this.errorMessage = error.response.data.email[0];
           this.errorOccurred = true;
+          this.resetLinkSent = false;
         });
     },
     errorExist() {
