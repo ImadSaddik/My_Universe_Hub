@@ -10,9 +10,14 @@
         <img type="button" :src="item.image_url" class="img-fluid rounded-4" alt="" @click="downloadImage">
       </div>
     </div>
-    <div class="row mt-4 mt-lg-5 mb-3">
+    <div class="row mt-4 mt-sm-4 mt-lg-5">
+      <div class="col d-flex justify-content-center">
+        <p class="custom-small-text fs-sm-6 card-text"><strong>Image credit:</strong> {{ item.authors }}</p>
+      </div>
+    </div>
+    <div class="row mt-3 mt-lg-4 mb-3">
       <div class="col px-3">
-        <p class="custom-small-text fs-sm-6 card-text">{{ item.explanation }}</p>
+        <p class="custom-small-text fs-sm-6 card-text" v-html="formatExplanation(formattedExplanation.prefix, formattedExplanation.content)"></p>
       </div>
     </div>
   </div>
@@ -23,6 +28,17 @@ export default {
   name: 'ModalBody',
   props: ['item'],
   components: {
+  },
+  computed: {
+    formattedExplanation() {
+      const explanation = this.item.explanation;
+      const [prefix, ...contentParts] = explanation.split('Explanation:');
+      const content = contentParts.join('Explanation:').trim();
+      return {
+        prefix: 'Explanation:',
+        content: content
+      };
+    }
   },
   data () {
     return {
@@ -38,6 +54,9 @@ export default {
       document.body.appendChild(anchorTag)
       anchorTag.click()
       document.body.removeChild(anchorTag)
+    },
+    formatExplanation(prefix, content) {
+      return `<strong>${prefix}</strong> ${content}`;
     }
   }
 }
