@@ -1,18 +1,12 @@
 import os
-import sys
-import django
 import requests
+import google.generativeai as genai
+import django_setup
+django_setup.setup_django_environment()
 
 from bs4 import BeautifulSoup
 from datetime import datetime
-
-dir_path = os.path.dirname(os.path.realpath(__file__)) # /backend/gallery
-root_dir = os.path.abspath(os.path.join(dir_path, os.pardir)) # /backend
-sys.path.append(root_dir)
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")
-django.setup()
-
+from dotenv import load_dotenv
 from gallery.models import Gallery
 
 
@@ -37,6 +31,7 @@ def addNonExistingImages():
                 title=item['title'],
                 explanation=item['explanation'],
                 image_url=item['image_url'],
+                authors=item['authors']
             )
             
             entry.save()
@@ -57,12 +52,14 @@ def scrape_a_tag(a_tag):
     title = a_tag.text.strip()
     url = f'https://apod.nasa.gov/apod/{a_tag["href"]}'
     image, explanation = getImageAndExplanation(url)
+    authors = getAuthors(url)
 
     dictionary['date'] = date
     dictionary['title'] = title
     dictionary['url'] = url
     dictionary['image_url'] = image
     dictionary['explanation'] = explanation
+    dictionary['authors'] = authors
 
     return dictionary
 
@@ -83,10 +80,38 @@ def getImageAndExplanation(url):
     return img_url, explanation
 
 
+def getAuthors(url):
+    source = requests.get(url).text
+    soup = BeautifulSoup(source, 'lxml')
+
+    center_tags = soup.find_all('center')
+    credit_center_tag = center_tags[1]
+    authors = extractAuthorsWithGemini(credit_center_tag)
+
+    return authors
+
+
+def extractAuthorsWithGemini(center_tag):
+    query = f"""Given the following HTML code snippet, your role is to extract the credit information from the center tag.
+The extracted credit information should be returned as a string and separated by a comma to denote multiple authors.
+Dont't include prefix text like "Image Credit" or "Illustration Credit".
+
+The HTML code snippet is as follows:
+{center_tag}
+"""
+
+    model = genai.GenerativeModel('models/gemini-1.5-flash-002')
+    response = model.generate_content(query)
+    return response.text
+
+
 def convertDate(date):
     date = date.replace(':', '')
     return datetime.strptime(date, '%Y %B %d').date()
 
 
 if __name__ == "__main__":
+    load_dotenv()
+    genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
+    
     addNonExistingImages()

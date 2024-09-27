@@ -1,4 +1,4 @@
-name: Daily Database Update
+name: Daily APOD scrapper
 
 on:
   schedule:
@@ -23,8 +23,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r backend/requirements.txt
 
-      - name: Run database update script
-        run: python backend/utils/update_database_workflow.py
+      - name: Run APOD scrapper script
+        run: python backend/utils/scrape_apod.py
 
       - name: Commit and push if changes
         run: |

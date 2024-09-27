@@ -24,6 +24,7 @@ class GallerySerializer(serializers.ModelSerializer):
             'image_is_liked',
             'image_likes_count',
             'liked_by_users',
-            'comments'
+            'comments',
+            'authors'
         )
 
