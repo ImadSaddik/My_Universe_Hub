@@ -23,6 +23,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r backend/requirements.txt
 
+      - name: Set environment variables
+        run: |
+          echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> $GITHUB_ENV
+
       - name: Run APOD scrapper script
         run: python backend/utils/scrape_apod.py
 
@@ -32,4 +36,4 @@ jobs:
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add .
           DATE=$(date +'%d-%m-%Y')
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Add entry $DATE to database"  && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Add entry $DATE to JSON"  && git push)
