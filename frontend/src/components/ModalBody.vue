@@ -16,8 +16,8 @@
       </div>
     </div>
     <div class="row mt-3 mt-lg-4 mb-3">
-      <div class="col px-3">
-        <p class="custom-small-text fs-sm-6 card-text" v-html="formatExplanation(formattedExplanation.prefix, formattedExplanation.content)"></p>
+      <div class="col px-sm-3">
+        <p class="custom-small-text fs-sm-6 card-text" v-html="formatExplanation(item.explanation)"></p>
       </div>
     </div>
   </div>
@@ -28,17 +28,6 @@ export default {
   name: 'ModalBody',
   props: ['item'],
   components: {
-  },
-  computed: {
-    formattedExplanation() {
-      const explanation = this.item.explanation;
-      const [prefix, ...contentParts] = explanation.split('Explanation:');
-      const content = contentParts.join('Explanation:').trim();
-      return {
-        prefix: 'Explanation:',
-        content: content
-      };
-    }
   },
   data () {
     return {
@@ -55,7 +44,16 @@ export default {
       anchorTag.click()
       document.body.removeChild(anchorTag)
     },
-    formatExplanation(prefix, content) {
+    formatExplanation(explanation) {
+      if (!explanation) {
+        return '';
+      }
+      explanation = explanation.trim();
+      const [_, ...contentParts] = explanation.split('Explanation:');
+
+      const content = contentParts.join('Explanation:').trim();
+      const prefix = "Explanation:";
+
       return `<strong>${prefix}</strong> ${content}`;
     }
   }
