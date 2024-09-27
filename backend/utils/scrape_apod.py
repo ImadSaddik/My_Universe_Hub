@@ -27,7 +27,6 @@ def scrapeAPODWebsite():
     for tag in tqdm(a_tags, total=len(a_tags)):
         try:
             item = scrape_a_tag(tag)
-            item['date'] = convertDate(item['date'])
             if item['image_url'] is None:
                 # This means that this is a video link, we don't want to include it
                 continue
