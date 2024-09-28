@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row my-1 my-sm-3">
       <div class="col d-flex justify-content-center">
-        <h1 class="fs-4 fw-bold fs-sm-4 card-text">{{ item.title }}</h1>
+        <h1 class="custom-title-text">{{ item.title }}</h1>
       </div>
     </div>
     <div class="row mt-4 mt-sm-4 mt-lg-5">
@@ -12,12 +12,12 @@
     </div>
     <div class="row mt-4 mt-sm-4 mt-lg-5">
       <div class="col d-flex justify-content-center">
-        <p class="custom-small-text fs-sm-6 card-text"><strong>Image credit:</strong> {{ item.authors }}</p>
+        <p class="custom-small-text"><strong>Image credit:</strong> {{ item.authors }}</p>
       </div>
     </div>
     <div class="row mt-3 mt-lg-4 mb-3">
       <div class="col px-sm-3">
-        <p class="custom-small-text fs-sm-6 card-text" v-html="formatExplanation(item.explanation)"></p>
+        <p class="custom-small-text" v-html="formatExplanation(item.explanation)"></p>
       </div>
     </div>
   </div>

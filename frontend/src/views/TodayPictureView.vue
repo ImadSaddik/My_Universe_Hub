@@ -4,7 +4,7 @@
       <div v-if="isTodayEntryAvailable">
         <div class="row my-3 d-flex flex-column">
           <div class="col d-flex justify-content-center">
-            <h1 class="fs-4 card-text">{{ data.title }}</h1>
+            <h1 class="custom-title-text">{{ data.title }}</h1>
           </div>
           <div v-if="Object.keys(data).length" class="mt-2 col d-flex justify-content-center">
             {{ data.image_likes_count }}
@@ -45,12 +45,12 @@
         </div>
         <div class="row mt-4 mt-sm-5">
           <div class="col d-flex justify-content-center">
-            <p class="custom-small-text fs-sm-6 card-text"><strong>Image credit:</strong> {{ data.authors }}</p>
+            <p class="custom-small-text"><strong>Image credit:</strong> {{ data.authors }}</p>
           </div>
         </div>
         <div class="row mt-3 mt-sm-4 mb-3">
           <div class="col px-sm-3">
-            <p class="custom-small-text fs-sm-6 card-text" v-html="formatExplanation(data.explanation)"></p>
+            <p class="custom-small-text" v-html="formatExplanation(data.explanation)"></p>
           </div>
         </div>
       </div>
