@@ -48,7 +48,7 @@ export default {
     };
   },
   async mounted() {
-    document.title = "Trending - My Universe Hub";
+    document.title = "Trending";
     await this.getTrendingArchive();
     await this.getTrendingArchiveSize();
   },

@@ -61,7 +61,7 @@ export default {
     this.$store.commit("setSelectedNavbarItem", "home");
   },
   async mounted() {
-    document.title = "My Universe Hub";
+    document.title = "Home";
     await this.getArchive();
     await this.getArchiveSize();
   },

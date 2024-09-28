@@ -51,8 +51,8 @@ export default {
         });
     },
   },
-  created() {
-    this.activateAccount();
+  async created() {
+    await this.activateAccount();
   },
   mounted() {
     document.title = "Activate account";
