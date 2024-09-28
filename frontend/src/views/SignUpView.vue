@@ -145,9 +145,9 @@ export default {
       await axios
         .post("/api/v1/users/", formData)
         .then((response) => {
-          this.errors = [];
           this.showAlertDialog = false;
           this.hideForm = true;
+          this.errors = [];
         })
         .catch((error) => {
           const errorData = error.response.data;

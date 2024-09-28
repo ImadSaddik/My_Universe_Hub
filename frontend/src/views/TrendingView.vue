@@ -2,6 +2,7 @@
   <div class="mt-3">
     <GallerySection
       :archive="getArchive"
+      :should-show-load-more-button="shouldShowLoadMoreButton"
       @selected-item="(value) => (selectedItem = value)"
       @increase-limit="increaseLimit()"
     />
@@ -34,17 +35,22 @@ export default {
     isUserLoggedOff() {
       return this.$store.state.token === "";
     },
+    shouldShowLoadMoreButton() {
+      return this.archive.length < this.archiveFullSize;
+    },
   },
   data() {
     return {
       archive: [],
+      archiveFullSize: null,
       selectedItem: "",
       incrementSize: 10,
     };
   },
-  mounted() {
+  async mounted() {
     document.title = "Trending - My Universe Hub";
-    this.getTrendingArchive();
+    await this.getTrendingArchive();
+    await this.getTrendingArchiveSize();
   },
   methods: {
     async getTrendingArchive() {
@@ -54,6 +60,14 @@ export default {
         .get(`/api/v1/trending/${start_index}/${end_index}/`)
         .then((response) => {
           this.archive.push(...response.data);
+        })
+        .catch((error) => {});
+    },
+    async getTrendingArchiveSize() {
+      await axios
+        .get('/api/v1/trending/count/')
+        .then((response) => {
+          this.archiveFullSize = response.data.count;
         })
         .catch((error) => {});
     },

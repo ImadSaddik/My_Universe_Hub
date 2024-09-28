@@ -1,60 +1,68 @@
 <template>
   <div class="container pt-2 pt-sm-5">
-    <div v-if="data.image_url == null">
-      <div class="row my-3 d-flex flex-column">
-        <div class="col d-flex justify-content-center">
-          <h1 class="fs-4 card-text">{{ data.title }}</h1>
-        </div>
-        <div v-if="Object.keys(data).length" class="mt-2 col d-flex justify-content-center">
-          {{ data.image_likes_count }}
-          <div v-if="isLoggedIn">
-            <i
-              v-if="data.image_is_liked"
-              type="button"
-              class="ms-2 fa-solid fa-heart fa-xl me-3"
-              style="color: #f66151;"
-              @click="unlikeImage(data)"
-            >
-            </i>
-            <i
-              v-else
-              type="button"
-              class="ms-2 fa-regular fa-heart fa-xl me-3"
-              @click="likeImage(data)"
-            >
-            </i>
+    <div v-if="!error">
+      <div v-if="isTodayEntryAvailable">
+        <div class="row my-3 d-flex flex-column">
+          <div class="col d-flex justify-content-center">
+            <h1 class="fs-4 card-text">{{ data.title }}</h1>
           </div>
-          <div v-else>
-            <i
-              :disabled="!isLoggedIn"
-              class="ms-2 fa-regular fa-heart fa-xl me-3"
-              style="color: #77767b;"
-              data-bs-toggle="tooltip"
-              data-bs-placement="bottom"
-              data-bs-title="Log in first to like this image"
-            >
-            </i>
+          <div v-if="Object.keys(data).length" class="mt-2 col d-flex justify-content-center">
+            {{ data.image_likes_count }}
+            <div v-if="isLoggedIn">
+              <i
+                v-if="data.image_is_liked"
+                type="button"
+                class="ms-2 fa-solid fa-heart fa-xl me-3"
+                style="color: #f66151;"
+                @click="unlikeImage(data)"
+              >
+              </i>
+              <i
+                v-else
+                type="button"
+                class="ms-2 fa-regular fa-heart fa-xl me-3"
+                @click="likeImage(data)"
+              >
+              </i>
+            </div>
+            <div v-else>
+              <i
+                :disabled="!isLoggedIn"
+                class="ms-2 fa-regular fa-heart fa-xl me-3"
+                style="color: #77767b;"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                data-bs-title="Log in first to like this image"
+              >
+              </i>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4 mt-sm-5">
+          <div class="col d-flex justify-content-center">
+            <img type="button" :src="data.image_url" class="img-fluid rounded-4" alt="" @click="downloadImage">
+          </div>
+        </div>
+        <div class="row mt-4 mt-sm-5">
+          <div class="col d-flex justify-content-center">
+            <p class="custom-small-text fs-sm-6 card-text"><strong>Image credit:</strong> {{ data.authors }}</p>
+          </div>
+        </div>
+        <div class="row mt-3 mt-sm-4 mb-3">
+          <div class="col px-sm-3">
+            <p class="fs-sm-6 card-text" v-html="formatExplanation(data.explanation)"></p>
           </div>
         </div>
       </div>
-      <div class="row mt-4 mt-sm-5">
-        <div class="col d-flex justify-content-center">
-          <img type="button" :src="data.image_url" class="img-fluid rounded-4" alt="" @click="downloadImage">
-        </div>
-      </div>
-      <div class="row mt-4 mt-sm-5">
-        <div class="col d-flex justify-content-center">
-          <p class="custom-small-text fs-sm-6 card-text"><strong>Image credit:</strong> {{ data.authors }}</p>
-        </div>
-      </div>
-      <div class="row mt-3 mt-sm-4 mb-3">
-        <div class="col px-sm-3">
-          <p class="fs-sm-6 card-text" v-html="formatExplanation(data.explanation)"></p>
-        </div>
+      <div v-else class="row d-flex align-items-center justify-content-center" style="height: calc(80vh);">
+        <h5 class="nav-link text-center">
+          Trying to fetch data from source, be patient 
+          <i class="ms-2 fa-solid fa-hurricane fa-spin"></i>
+        </h5>
       </div>
     </div>
     <div v-else class="row d-flex align-items-center justify-content-center" style="height: calc(80vh);">
-      <h5 class="nav-link text-center">No image for today 😔, see you tomorrow</h5>
+      <h5 class="nav-link text-center">No image for today 😔, see you tomorrow.</h5>
     </div>
   </div>
 </template>
@@ -73,15 +81,27 @@ export default {
     getEmail() {
       return this.$store.state.email;
     },
+    isTodayEntryAvailable () {
+      if (this.data === null) {
+        return false
+      } else {
+        if (this.data.image_url === null) {
+          return false
+        } else {
+          return true
+        }
+      }
+    }
   },
   data () {
     return {
-      data: {}
+      data: null,
+      error: null
     }
   },
-  mounted () {
-    this.getTodayPicture()
+  async mounted () {
     document.title = 'Today\'s Picture'
+    await this.getTodayPicture()
   },
   methods: {
     async getTodayPicture () {
@@ -96,6 +116,7 @@ export default {
           }
         })
         .catch(error => {
+          this.error = error
         })
     },
     downloadImage () {

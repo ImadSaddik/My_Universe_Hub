@@ -1,15 +1,24 @@
 <template>
   <div>
     <div class="background-image"></div>
-
     <div class="mt-3" v-if="isLoggedIn && archive.length !== 0">
-      <GallerySection :archive="archive" @selected-item="(value) => selectedItem = value" />
+      <GallerySection
+        :archive="archive"
+        @selected-item="(value) => (selectedItem = value)"
+        :should-show-load-more-button="shouldShowLoadMoreButton"
+      />
       <BackToTopVue />
-      <ImageDetails :item="selectedItem" @unlike-image="(item) => removeItem(item)" />
+      <ImageDetails
+        :item="selectedItem"
+        @unlike-image="(item) => removeItem(item)"
+      />
     </div>
-  
+
     <div v-if="!isLoggedIn || archive.length === 0">
-      <div class="container d-flex align-items-center justify-content-center" style="height: calc(100vh - 3.5rem)">
+      <div
+        class="container d-flex align-items-center justify-content-center"
+        style="height: calc(100vh - 3.5rem)"
+      >
         <div class="row">
           <h5 class="nav-link m-0">{{ getMessage() }}</h5>
         </div>
@@ -19,67 +28,87 @@
 </template>
 
 <script>
-import axios from 'axios'
-import GallerySection from '@/components/GallerySection.vue'
-import BackToTopVue from '@/components/BackToTop.vue'
-import ImageDetails from '@/components/ImageDetails.vue'
+import axios from "axios";
+import GallerySection from "@/components/GallerySection.vue";
+import BackToTopVue from "@/components/BackToTop.vue";
+import ImageDetails from "@/components/ImageDetails.vue";
 
 export default {
-  name: 'FavouritesView',
+  name: "FavouritesView",
   components: {
     GallerySection,
     BackToTopVue,
-    ImageDetails
+    ImageDetails,
   },
   computed: {
-    isLoggedIn () {
-      return this.$store.state.token !== ''
+    isLoggedIn() {
+      return this.$store.state.token !== "";
     },
     getEmail() {
       return this.$store.state.email;
     },
+    shouldShowLoadMoreButton() {
+      return this.archive.length < this.archiveFullSize;
+    },
   },
-  mounted () {
-    this.getFavouritesArchive()
-    document.title = 'Favourites'
+  async mounted() {
+    await this.getFavouritesArchive();
+    await this.getFavouritesArchiveSize();
+    document.title = "Favourites";
   },
-  data () {
+  data() {
     return {
       archive: [],
-      selectedItem: ''
-    }
+      archiveFullSize: null,
+      selectedItem: "",
+      incrementSize: 10,
+    };
   },
   methods: {
-    async getFavouritesArchive () {
+    async getFavouritesArchive() {
       if (!this.isLoggedIn) {
-        return
+        return;
       }
 
-      const email = this.getEmail
+      const email = this.getEmail;
+      const start_index = this.archive.length;
+      const end_index = start_index + this.incrementSize;
       await axios
-        .get(`/api/v1/favourites/${email}/`)
-        .then(response => {
-          this.archive = response.data
+        .get(`/api/v1/favourites/${email}/${start_index}/${end_index}/`)
+        .then((response) => {
+          this.archive.push(...response.data);
         })
-        .catch(error => {
-        })
+        .catch((error) => {});
     },
-    removeItem (item) {
-      const index = this.archive.indexOf(item)
+    async getFavouritesArchiveSize() {
+      if (!this.isLoggedIn) {
+        return;
+      }
+
+      const email = this.getEmail;
+      await axios
+        .get(`/api/v1/favourites/${email}/count/`)
+        .then((response) => {
+          this.archiveFullSize = response.data.count;
+        })
+        .catch((error) => {});
+    },
+    removeItem(item) {
+      const index = this.archive.indexOf(item);
       if (index > -1) {
-        this.archive.splice(index, 1)
+        this.archive.splice(index, 1);
       }
     },
     getMessage() {
       if (!this.isLoggedIn) {
-        return 'Log in to see your favourites.';
+        return "Log in to see your favourites.";
       } else if (this.archive.length === 0) {
-        return 'Like some images to add them to your favourites.';
+        return "Like some images to add them to your favourites.";
       }
-      return '';
-    }
-  }
-}
+      return "";
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -90,7 +119,7 @@ export default {
   width: 100%;
   height: 100%;
   scale: 2;
-  background: url('../assets/galaxy_logo.svg') no-repeat center center;
+  background: url("../assets/galaxy_logo.svg") no-repeat center center;
   opacity: 0.02;
   z-index: -1;
 }

@@ -30,6 +30,16 @@ class getArchive(APIView):
         return Response(serializer.data)
     
     
+class getArchiveSize(APIView):
+    def get(self, request, format=None):
+        entries = Gallery.objects.all()
+        response = {
+            'count': len(entries)
+        }
+        
+        return Response(response)
+    
+    
 def addNonExistingImages():
     a_tags = getATags()
     
@@ -71,6 +81,9 @@ def getTodayPicture(request):
 
         addNonExistingImages()
         todayEntry = Gallery.objects.all()[0]
+        
+        if today != todayEntry.date:
+            return HttpResponseBadRequest('Today\'s image is not available!')
         
     serializer = GallerySerializer(todayEntry)
     return Response(serializer.data)
@@ -197,6 +210,19 @@ def search(request, query, start_index, end_index):
 
 
 @api_view(['GET'])
+def searchSize(request, query):
+    search_words = query.split(',')
+    search_pattern = r'\b(?:' + '|'.join(search_words) + r')\b'
+    
+    entries = Gallery.objects.filter(Q(explanation__iregex=search_pattern))
+    response = {
+        'count': len(entries)
+    }
+    
+    return Response(response)
+
+
+@api_view(['GET'])
 def getSortedArchive(request, start_index, end_index):
     entries = Gallery.objects.order_by('-image_likes_count')
     sliced_entries = entries[start_index:end_index]
@@ -206,16 +232,39 @@ def getSortedArchive(request, start_index, end_index):
 
 
 @api_view(['GET'])
-def getFavouritesArchive(request, email):
+def getSortedArchiveSize(request):
+    entries = Gallery.objects.order_by('-image_likes_count')
+    response = {
+        'count': len(entries)
+    }
+    
+    return Response(response)
+
+
+@api_view(['GET'])
+def getFavouritesArchive(request, email, start_index, end_index):
     user = UserAccount.objects.get(email=email)
     entries = Gallery.objects.filter(liked_by_users=user)
     
     for entry in entries:
         entry.image_is_liked = True
     
-    serializer = GallerySerializer(entries, many=True)
+    sliced_entries = entries[start_index:end_index]
+    serializer = GallerySerializer(sliced_entries, many=True)
     
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getFavouritesArchiveSize(request, email):
+    user = UserAccount.objects.get(email=email)
+    entries = Gallery.objects.filter(liked_by_users=user)
+    
+    response = {
+        'count': len(entries)
+    }
+    
+    return Response(response)
 
 
 @api_view(['POST'])

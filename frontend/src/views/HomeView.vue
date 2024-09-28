@@ -2,6 +2,7 @@
   <SearchSection @search="(query) => search(query)" />
   <GallerySection
     :archive="getUpdatedArchive"
+    :should-show-load-more-button="shouldShowLoadMoreButton"
     @selected-item="(value) => (selectedItem = value)"
     @increase-limit="increaseLimit()"
   />
@@ -37,11 +38,20 @@ export default {
     isUserLoggedOff() {
       return this.$store.state.token === "";
     },
+    shouldShowLoadMoreButton() {
+      if (this.query.trim().length === 0) {
+        return this.archive.length < this.archiveFullSize;
+      } else {
+        return this.searchArchive.length < this.searchArchiveFullSize;
+      }
+    },
   },
   data() {
     return {
       archive: [],
+      archiveFullSize: null,
       searchArchive: [],
+      searchArchiveFullSize: null,
       selectedItem: "",
       incrementSize: 10,
       query: "",
@@ -50,9 +60,10 @@ export default {
   created() {
     this.$store.commit("setSelectedNavbarItem", "home");
   },
-  mounted() {
+  async mounted() {
     document.title = "My Universe Hub";
-    this.getArchive();
+    await this.getArchive();
+    await this.getArchiveSize();
   },
   methods: {
     async getArchive() {
@@ -66,9 +77,17 @@ export default {
         })
         .catch((error) => {});
     },
+    async getArchiveSize() {
+      await axios
+        .get(`/api/v1/gallery/count/`)
+        .then((response) => {
+          this.archiveFullSize = response.data.count;
+        })
+        .catch((error) => {});
+    },
     async search(query) {
       this.query = query;
-
+      
       if (query.trim().length === 0) {
         this.archive = [];
         this.searchArchive = [];
@@ -77,6 +96,7 @@ export default {
       } else {
         const start_index = this.searchArchive.length;
         const end_index = start_index + this.incrementSize;
+        await this.getSearchArchiveSize(query);
         await axios
           .get(`/api/v1/search/${query}/${start_index}/${end_index}/`)
           .then((response) => {
@@ -84,6 +104,14 @@ export default {
           })
           .catch((error) => {});
       }
+    },
+    async getSearchArchiveSize(query) {
+      await axios
+        .get(`/api/v1/search/${query}/count/`)
+        .then((response) => {
+          this.searchArchiveFullSize = response.data.count;
+        })
+        .catch((error) => {});
     },
     async increaseLimit() {
       if (this.query.trim().length === 0) {

@@ -10,6 +10,7 @@
     </div>
     <div class="row mx-0 mb-3">
       <div
+        v-if="shouldShowLoadMoreButton"
         type="button"
         class="col custom-btn custom-btn-white py-4 d-flex align-items-center justify-content-center"
         :class="{ 'border-dark': isHovering }"
@@ -28,7 +29,7 @@ import GalleryColumn from './GalleryColumn.vue'
 
 export default {
   name: 'GallerySection',
-  props: ['archive'],
+  props: ['archive', 'shouldShowLoadMoreButton'],
   components: {
     GalleryColumn
   },
