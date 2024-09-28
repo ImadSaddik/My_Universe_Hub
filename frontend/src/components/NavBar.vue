@@ -50,6 +50,14 @@
             >
             Favourites
             </a>
+            <a
+              class="nav-link"
+              :class="getNavbarItemClass(ABOUT_PAGE)"
+              href="/about"
+              @click="handleNavbarItemClick(ABOUT_PAGE)"
+            >
+            About
+            </a>
             <hr class="d-block d-lg-none">
           </div>
           <div class="col-auto d-flex p-0 align-items-center">
@@ -106,6 +114,7 @@ export default {
       TODAY_PAGE: 'today',
       TRENDING_PAGE: 'trending',
       FAVOURITES_PAGE: 'favourites',
+      ABOUT_PAGE: 'about',
       NONE: ''
     }
   },

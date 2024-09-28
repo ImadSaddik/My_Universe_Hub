@@ -59,15 +59,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.custom-small-text {
-  font-size: 1rem;
-}
-
-@media (max-width: 576px) {
-  .custom-small-text {
-    font-size: 0.75rem;
-  }
-}
-</style>

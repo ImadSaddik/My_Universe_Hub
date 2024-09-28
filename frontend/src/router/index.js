@@ -8,6 +8,7 @@ import FavouritesView from '@/views/FavouritesView.vue'
 import ResetPasswordView from '@/views/ResetPasswordView.vue'
 import ResetPasswordConfirmationView from '@/views/ResetPasswordConfirmationView.vue'
 import ActivateAccountView from '@/views/ActivateAccountView.vue'
+import AboutView from '@/views/AboutView.vue'
 
 const routes = [
   {
@@ -55,6 +56,11 @@ const routes = [
     name: 'reset_password_confirm',
     component: ResetPasswordConfirmationView
   },
+  {
+    path: '/about',
+    name: 'about',
+    component: AboutView
+  }
 ]
 
 const router = createRouter({

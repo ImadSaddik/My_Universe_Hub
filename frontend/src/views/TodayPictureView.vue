@@ -50,7 +50,7 @@
         </div>
         <div class="row mt-3 mt-sm-4 mb-3">
           <div class="col px-sm-3">
-            <p class="fs-sm-6 card-text" v-html="formatExplanation(data.explanation)"></p>
+            <p class="custom-small-text fs-sm-6 card-text" v-html="formatExplanation(data.explanation)"></p>
           </div>
         </div>
       </div>

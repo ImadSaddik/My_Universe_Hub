@@ -15,6 +15,23 @@ export default {
 </script>
 
 <style>
+a {
+  color: blue;
+  text-decoration: none;
+}
+
+.custom-small-text {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.custom-title-text {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/*  */
+
 .custom-btn {
   padding: 1rem;
   border: 1px solid #ccc;
@@ -122,5 +139,12 @@ export default {
 .toggle-password-icon:hover {
   color: black;
   cursor: pointer;
+}
+
+@media (max-width: 576px) {
+  .custom-small-text {
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
 }
 </style>
