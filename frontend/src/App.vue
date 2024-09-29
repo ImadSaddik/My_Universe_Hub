@@ -40,7 +40,7 @@ a {
 .custom-btn {
   padding: 1rem;
   border: 1px solid #ccc;
-  border-radius: 5px !important;
+  border-radius: 0.5rem !important;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -56,8 +56,7 @@ a {
 
 .custom-btn-white:hover {
   background-color: #f0f0f0;
-  color: #333;
-  border-color: #333;
+  border-color: #aaa !important;
 }
 
 .custom-btn-black {
@@ -123,7 +122,7 @@ a {
   width: 100%;
   padding: 1rem 1rem 1rem 2.5rem;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   font-size: 1rem;
 }
 

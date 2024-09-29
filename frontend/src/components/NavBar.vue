@@ -1,8 +1,12 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-white">
     <div class="container-fluid px-sm-3">
-      <a class="navbar-brand p-0 m-0 me-5" href="/" @click="handleNavbarItemClick(HOME_PAGE)">
-        <img src="../assets/galaxy_logo.svg" alt="" style="width: 2rem;">
+      <a
+        class="navbar-brand p-0 m-0 me-5"
+        href="/"
+        @click="handleNavbarItemClick(HOME_PAGE)"
+      >
+        <img src="../assets/galaxy_logo.svg" alt="" style="width: 2rem" />
       </a>
       <button
         class="navbar-toggler"
@@ -24,7 +28,7 @@
               href="/"
               @click="handleNavbarItemClick(HOME_PAGE)"
             >
-            Home
+              Home
             </a>
             <a
               class="nav-link"
@@ -32,7 +36,7 @@
               href="/today"
               @click="handleNavbarItemClick(TODAY_PAGE)"
             >
-            Today's picture
+              Today's picture
             </a>
             <a
               class="nav-link"
@@ -40,7 +44,7 @@
               href="/trending"
               @click="handleNavbarItemClick(TRENDING_PAGE)"
             >
-            Trending
+              Trending
             </a>
             <a
               class="nav-link"
@@ -48,7 +52,7 @@
               href="/favourites"
               @click="handleNavbarItemClick(FAVOURITES_PAGE)"
             >
-            Favourites
+              Favourites
             </a>
             <a
               class="nav-link"
@@ -56,7 +60,7 @@
               href="/contribute"
               @click="handleNavbarItemClick(CONTRIBUTE_PAGE)"
             >
-            Contribute
+              Contribute
             </a>
             <a
               class="nav-link"
@@ -64,32 +68,60 @@
               href="/about"
               @click="handleNavbarItemClick(ABOUT_PAGE)"
             >
-            About
+              About
             </a>
-            <hr class="d-block d-lg-none">
+            <hr class="d-block d-lg-none" />
           </div>
           <div class="col-auto d-flex p-0 align-items-center">
-            <div v-show="isLoggedOff">
-              <a
-                href="login"
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                data-bs-title="Log in"
-                @click="handleNavbarItemClick(NONE)"
-              >
-                <i type="button" class="ms-3 fa-solid fa-arrow-right-to-bracket fa-lg" style="color: #000;"></i>
-              </a>
-            </div>
-            <div v-show="!isLoggedOff">
-              {{ getEmail }}
-              <a
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                data-bs-title="Log out"
-              >
-                <i type="button" class="ms-3 fa-solid fa-door-open fa-lg" style="color: #a51d2d;" @click="logOut"></i>
-              </a>
-            </div>
+            <!-- GitHub logo and star count -->
+            <a
+              :href="githubRepoUrl"
+              target="_blank"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              data-bs-title="GitHub repository"
+              class="border-container d-flex align-items-center text-dark me-2"
+            >
+              <div>
+                <i class="fab fa-github fa-lg"></i>
+              </div>
+              <span class="ms-2">{{ starCount }}</span>
+            </a>
+
+            <!-- Log in icon -->
+            <a
+              v-show="isLoggedOff"
+              href="login"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              data-bs-title="Log in"
+              class="border-container"
+              @click="handleNavbarItemClick(NONE)"
+            >
+              Log In
+              <i
+                type="button"
+                class="ms-2 fa-solid fa-arrow-right-to-bracket fa-lg"
+                style="color: #000"
+              ></i>
+            </a>
+
+            <!-- Log out icon -->
+            <a
+              v-show="!isLoggedOff"
+              @click="logOut"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              data-bs-title="Log out"
+              class="border-container"
+            >
+              Log out
+              <i
+                type="button"
+                class="ms-2 fa-solid fa-door-open fa-lg"
+                style="color: #a51d2d"
+              ></i>
+            </a>
           </div>
         </div>
       </div>
@@ -98,61 +130,93 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-  name: 'NavBar',
+  name: "NavBar",
+  data() {
+    return {
+      HOME_PAGE: "home",
+      TODAY_PAGE: "today",
+      TRENDING_PAGE: "trending",
+      FAVOURITES_PAGE: "favourites",
+      ABOUT_PAGE: "about",
+      CONTRIBUTE_PAGE: "contribute",
+      NONE: "",
+      starCount: 0,
+      githubRepoUrl: "https://github.com/ImadSaddik/My_Universe_Hub",
+    };
+  },
   computed: {
-    isLoggedOff () {
-      return this.$store.state.token === ''
+    isLoggedOff() {
+      return this.$store.state.token === "";
     },
     getEmail() {
       return this.$store.state.email;
     },
-    getSelectedNavbarItem () {
-      return this.$store.state.selectedNavbarItem
-    }
+    getSelectedNavbarItem() {
+      return this.$store.state.selectedNavbarItem;
+    },
   },
-  mounted () {
-    this.handleNavbarItemClick(this.HOME_PAGE)
-  },
-  data () {
-    return {
-      HOME_PAGE: 'home',
-      TODAY_PAGE: 'today',
-      TRENDING_PAGE: 'trending',
-      FAVOURITES_PAGE: 'favourites',
-      ABOUT_PAGE: 'about',
-      CONTRIBUTE_PAGE: 'contribute',
-      NONE: ''
-    }
+  async mounted() {
+    this.handleNavbarItemClick(this.HOME_PAGE);
+    await this.fetchGitHubStars();
   },
   methods: {
     getNavbarItemClass(page) {
       return {
         active: this.getSelectedNavbarItem === page,
-        'fw-bold': this.getSelectedNavbarItem === page
+        "fw-bold": this.getSelectedNavbarItem === page,
       };
     },
-    logOut () {
-      this.$emit('logged-out')
-      axios.defaults.headers.common.Authorization = ''
+    logOut() {
+      this.$emit("logged-out");
+      axios.defaults.headers.common.Authorization = "";
 
-      localStorage.removeItem('token')
-      localStorage.removeItem('email')
+      localStorage.removeItem("token");
+      localStorage.removeItem("email");
 
-      this.$store.commit('removeToken')
-      this.$store.commit('removeEmail')
+      this.$store.commit("removeToken");
+      this.$store.commit("removeEmail");
     },
-    handleNavbarItemClick (item) {
-      localStorage.setItem('selectedNavbarItem', item)
-    }
-  }
-}
+    handleNavbarItemClick(item) {
+      localStorage.setItem("selectedNavbarItem", item);
+    },
+    async fetchGitHubStars() {
+      try {
+        await axios
+          .get("https://api.github.com/repos/ImadSaddik/My_Universe_Hub")
+          .then((response) => {
+            this.starCount = response.data.stargazers_count;
+          })
+          .catch((error) => {});
+      } catch (error) {
+        console.error("Error fetching GitHub star count:", error);
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
+a {
+  color: black;
+  text-decoration: none;
+}
+
 .navbar {
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+.border-container {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.border-container:hover {
+  background-color: #f0f0f0;
+  border: 1px solid #aaa;
 }
 </style>
