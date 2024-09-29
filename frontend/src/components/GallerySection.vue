@@ -1,24 +1,33 @@
 <template>
   <div class="container-fluid m-0 py-0 px-3">
-    <div class="row gx-3">
-      <GalleryColumn
-        v-for="(sublist, index) in sublists"
-        :key="index"
-        :archive="sublist"
-        @selected-item="$emit('selected-item', $event)"
-      />
+    <div v-if="searchResultCount == 0">
+      <div class="row d-flex align-items-center justify-content-center" style="height: calc(20vh);">
+        <h5 class="nav-link text-center">
+          No images found for the search query 😔, try another one.
+        </h5>
+      </div>
     </div>
-    <div class="row mx-0 mb-3">
-      <div
-        v-if="shouldShowLoadMoreButton"
-        type="button"
-        class="col custom-btn custom-btn-white py-4 d-flex align-items-center justify-content-center"
-        :class="{ 'border-dark': isHovering }"
-        @mouseover="isHovering = true"
-        @mouseleave="isHovering = false"
-        @click="increaseLimit"
-      >
-        Load more
+    <div v-else>
+      <div class="row gx-3">
+        <GalleryColumn
+          v-for="(sublist, index) in sublists"
+          :key="index"
+          :archive="sublist"
+          @selected-item="$emit('selected-item', $event)"
+        />
+      </div>
+      <div class="row mx-0 mb-3">
+        <div
+          v-if="shouldShowLoadMoreButton"
+          type="button"
+          class="col custom-btn custom-btn-white py-4 d-flex align-items-center justify-content-center"
+          :class="{ 'border-dark': isHovering }"
+          @mouseover="isHovering = true"
+          @mouseleave="isHovering = false"
+          @click="increaseLimit"
+        >
+          Load more
+        </div>
       </div>
     </div>
   </div>
@@ -29,7 +38,7 @@ import GalleryColumn from './GalleryColumn.vue'
 
 export default {
   name: 'GallerySection',
-  props: ['archive', 'shouldShowLoadMoreButton'],
+  props: ['archive', 'shouldShowLoadMoreButton', "searchResultCount"],
   components: {
     GalleryColumn
   },
@@ -47,6 +56,9 @@ export default {
 
       return sublists
     },
+    isArchiveEmpty () {
+      return this.archive.length === 0
+    }
   },
   data () {
     return {

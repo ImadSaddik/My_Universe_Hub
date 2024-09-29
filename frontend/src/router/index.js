@@ -9,6 +9,7 @@ import ResetPasswordView from '@/views/ResetPasswordView.vue'
 import ResetPasswordConfirmationView from '@/views/ResetPasswordConfirmationView.vue'
 import ActivateAccountView from '@/views/ActivateAccountView.vue'
 import AboutView from '@/views/AboutView.vue'
+import ContributeView from '@/views/ContributeView.vue'
 
 const routes = [
   {
@@ -60,6 +61,11 @@ const routes = [
     path: '/about',
     name: 'about',
     component: AboutView
+  },
+  {
+    path: '/contribute',
+    name: 'contribute',
+    component: ContributeView
   }
 ]
 

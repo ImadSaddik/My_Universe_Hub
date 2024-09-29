@@ -30,6 +30,11 @@ a {
   font-weight: bold;
 }
 
+.custom-subtitle-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
 /*  */
 
 .custom-btn {

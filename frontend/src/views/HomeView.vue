@@ -3,6 +3,7 @@
   <GallerySection
     :archive="getUpdatedArchive"
     :should-show-load-more-button="shouldShowLoadMoreButton"
+    :search-result-count="this.searchArchiveSize"
     @selected-item="(value) => (selectedItem = value)"
     @increase-limit="increaseLimit()"
   />
@@ -40,21 +41,22 @@ export default {
     },
     shouldShowLoadMoreButton() {
       if (this.query.trim().length === 0) {
-        return this.archive.length < this.archiveFullSize;
+        return this.archive.length < this.archiveSize;
       } else {
-        return this.searchArchive.length < this.searchArchiveFullSize;
+        return this.searchArchive.length < this.searchArchiveSize;
       }
     },
   },
   data() {
     return {
       archive: [],
-      archiveFullSize: null,
+      archiveSize: null,
       searchArchive: [],
-      searchArchiveFullSize: null,
+      searchArchiveSize: null,
       selectedItem: "",
       incrementSize: 10,
       query: "",
+      isSearchResultEmpty: false,
     };
   },
   created() {
@@ -66,6 +68,26 @@ export default {
     await this.getArchiveSize();
   },
   methods: {
+    async search(query) {
+      this.query = query;
+      this.archive = [];
+      this.searchArchive = [];
+      
+      if (this.query.trim().length === 0) {
+        // This means, I am not searching. Retrieve the full archive.
+        await this.getArchive();
+      } else {
+        // This means, I am searching. Retrieve the search archive.
+        await this.getSearchArchive();
+      }
+    },
+    async increaseLimit() {
+      if (this.query.trim().length === 0) {
+        await this.getArchive();
+      } else {
+        await this.getSearchArchive();
+      }
+    },
     async getArchive() {
       axios.defaults.headers.common.Authorization = "";
       const start_index = this.archive.length;
@@ -81,44 +103,29 @@ export default {
       await axios
         .get(`/api/v1/gallery/count/`)
         .then((response) => {
-          this.archiveFullSize = response.data.count;
+          this.archiveSize = response.data.count;
         })
         .catch((error) => {});
     },
-    async search(query) {
-      this.query = query;
-      
-      if (query.trim().length === 0) {
-        this.archive = [];
-        this.searchArchive = [];
-        
-        await this.getArchive();
-      } else {
-        const start_index = this.searchArchive.length;
-        const end_index = start_index + this.incrementSize;
-        await this.getSearchArchiveSize(query);
-        await axios
-          .get(`/api/v1/search/${query}/${start_index}/${end_index}/`)
-          .then((response) => {
-            this.searchArchive.push(...response.data);
-          })
-          .catch((error) => {});
-      }
-    },
-    async getSearchArchiveSize(query) {
+    async getSearchArchive() {
+      axios.defaults.headers.common.Authorization = "";
+      const start_index = this.searchArchive.length;
+      const end_index = start_index + this.incrementSize;
+      await this.getSearchArchiveSize();
       await axios
-        .get(`/api/v1/search/${query}/count/`)
+        .get(`/api/v1/search/${this.query}/${start_index}/${end_index}/`)
         .then((response) => {
-          this.searchArchiveFullSize = response.data.count;
+          this.searchArchive.push(...response.data);
         })
         .catch((error) => {});
     },
-    async increaseLimit() {
-      if (this.query.trim().length === 0) {
-        await this.getArchive();
-      } else {
-        await this.search(this.query);
-      }
+    async getSearchArchiveSize() {
+      await axios
+        .get(`/api/v1/search/${this.query}/count/`)
+        .then((response) => {
+          this.searchArchiveSize = response.data.count;
+        })
+        .catch((error) => {});
     },
     removeLikes(archive) {
       for (let i = 0; i < archive.length; i++) {

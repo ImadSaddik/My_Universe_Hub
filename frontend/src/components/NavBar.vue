@@ -52,6 +52,14 @@
             </a>
             <a
               class="nav-link"
+              :class="getNavbarItemClass(CONTRIBUTE_PAGE)"
+              href="/contribute"
+              @click="handleNavbarItemClick(CONTRIBUTE_PAGE)"
+            >
+            Contribute
+            </a>
+            <a
+              class="nav-link"
               :class="getNavbarItemClass(ABOUT_PAGE)"
               href="/about"
               @click="handleNavbarItemClick(ABOUT_PAGE)"
@@ -115,6 +123,7 @@ export default {
       TRENDING_PAGE: 'trending',
       FAVOURITES_PAGE: 'favourites',
       ABOUT_PAGE: 'about',
+      CONTRIBUTE_PAGE: 'contribute',
       NONE: ''
     }
   },

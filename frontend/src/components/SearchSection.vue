@@ -13,7 +13,7 @@
               <input
                 type="text"
                 class="input-field"
-                placeholder="Andromeda galaxy"
+                placeholder="Andromeda, Jupiter, Pluto, M31"
                 v-model="searchQuery"
                 @keydown.enter.prevent="$emit('search', searchQuery)"
                 aria-describedby="basic-addon1"
