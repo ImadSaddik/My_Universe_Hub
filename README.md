@@ -1,41 +1,86 @@
-# APOD Redesigned: Astronomy Picture Of the Day
+# My Universe Hub - APOD, Reimagined
 
-Welcome to the **APOD Redesigned** repository! This project aims to improve and enhance the user experience of NASA's Astronomy Picture of the Day (APOD) website by leveraging the power of Django and Vue.js. If you're a space enthusiast who loves visualizing the cosmos through captivating images, this project will provide you with an improved interface and additional features to make your astronomical journey even more exciting.
+![myuniversehub](./frontend/src/assets/logos/my_universe_hub_full_logo.svg)
 
-Watch the full tutorial [here](https://youtu.be/kvoKKJ2zsts?si=GTlOPbKAAtVH6Yyv)
+## The story
 
-## Table of Contents
+Hello astro enthusiasts and welcome to the **My Universe Hub** repository! I'm Imad Saddik, and I'm obsessed with astronomy. I stumbled into this amazing field when I was 19, and honestly, discovering the wonders of the universe has been the best thing that's ever happened to me.
 
-- [APOD Redesigned: Astronomy Picture Of the Day](#apod-redesigned-astronomy-picture-of-the-day)
-  - [Table of Contents](#table-of-contents)
-  - [Project Overview](#project-overview)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Contributing](#contributing)
-  - [Acknowledgements](#acknowledgements)
+### OK, but why?
 
-## Project Overview
+After months of using APOD, I started thinking, "Hey, this site looks a bit outdated." Since I've been learning web development, I had this crazy idea: Why not give APOD a modern look—one that’s easier to navigate, more interactive, and visually engaging? That's how **My Universe Hub** was born!
 
-The original APOD website by NASA delivers awe-inspiring astronomical images and descriptions on a daily basis. However, its interface, though informative, can feel outdated. Navigating through the website often involves clicking on multiple links to access images, which can be time-consuming and less user-friendly. This project aims to bring a fresh look and fell to the website and enhances user interaction. Our goal is to provide a seamless and visually pleasing way for users to explore and enjoy the cosmos effortlessly.
+This little project of mine is my baby. I've invested hundreds of hours and over a year of work into it. I am sharing it with everyone to enjoy it and to contribute to it.
 
-Using the power of `BeautifulSoup`, this project scrapes data from NASA's official APOD website, extracting images, titles, explanations, and other relevant information. The redesigned web application offers various pages and features to enhance user engagement.
+### Hm, Interesting.
 
-## Features
+I absolutely love looking at the stunning images shared by NASA, ESA, CSA, and even amateur or professional astronomers on the internet. One of my favorite places to go is [APOD](https://apod.nasa.gov/apod/archivepix.html) (Astronomy Picture Of the Day). What's cool about APOD is that you never know what you're gonna get each day. It's like a little surprise waiting for you every time you visit.
 
-1. **Home Page - Gallery:** Browse through an extensive gallery of astronomical images.
+### Explore and enjoy
 
-2. **Today's Picture:** Get the astronomy picture that was uploaded today.
+Curious about how I built it? Check out my journey on YouTube [here](https://youtu.be/kvoKKJ2zsts?si=GTlOPbKAAtVH6Yyv)
 
-3. **Trending Page:** Explore the popular images that have captured the imagination of space enthusiasts.
+## Website overview
 
-4. **Favorites Page:** View your favorite images that you liked.
+To access the website, visit this page: [https://myuniversehub.com/](https://myuniversehub.com/)
 
-5. **User Authentication:** Sign up and log in to the website.
+<div style="text-align: center;">
+  <img src="./frontend/src/assets/readme/website_home.png" alt="myuniversehub" width="1000" style="border-radius: 1rem; margin-bottom: 1rem;"/>
+</div>
 
-6. **Image Interaction:**
-   - **Like Images:** Express your appreciation for images by liking them.
-   - **Download Images:** Download high-quality versions of the images for offline enjoyment.
+By default, you will land on the home page. Here, you’ll find a search box where you can search for specific images by typing keywords. Below the search section, ten images are displayed by default. To load more images, simply click the Load More button.
+
+The **Today's Picture** tab shows the image that was uploaded to APOD on that particular day.
+
+The **Trending page** ranks the images by likes, displaying the most popular results.
+
+If you’ve created an account, you can view the images you’ve liked in the **Favourites page**.
+
+The **Contribute page** explains how you can support and contribute to the project.
+
+In the **About page**, we discuss the reasons behind building **My Universe Hub**, thanking NASA, other agencies, and astronomers for their contributions.
+
+On the far right of the page, you'll find the star count and a quick link to the GitHub repository.
+
+Next to that, you’ll see the Login/Logout button.
+
+## Contributing
+
+I adore this image, it is one of my favorites. It is the Antennae galaxies, also known as NGC 4038 and NGC 4039. They are a pair of interacting galaxies and are currently in the process of colliding and merging with each other. I am sending you this image as a token of my appreciation for your support. I hope you like it as much as I do.
+
+<div style="text-align: center;">
+  <img src="./frontend/src/assets/contribute_page/Antennae_Biggs_960.jpg" alt="myuniversehub" width="500" style="border-radius: 1rem; margin-bottom: 1rem;"/>
+</div>
+
+Remember, I ❤️ you all! To contribute, it does not matter if you know how to code or not, there are many ways you can help support My Universe Hub. Here are a few ideas:
+
+### 1. Spread the word
+
+Love what we're doing? Share My Universe Hub with your friends, and fellow space enthusiasts. The more people know about us, the more we can grow and improve! Dont't forget that we do have a [discord](https://discord.com/invite/nADvHzQyvZ) server you can join.
+
+### 2. Code contributions
+
+My Universe Hub is open-source! The code is broken into two repositories, one for development (public, it is this repository) and the other one is for production (private). We are separating the two because, we want to keep the users data safely secured in the private repository. The development repository is where we develop new features, fix bugs, and test new ideas. Once we are confident that the new feature is working as expected, we merge it into the production repository.
+
+- For developers: If you want to help us develop new features, fix bugs, or test new ideas, feel free to fork the development repository, make your changes, and submit a pull request. We will review your changes and merge them into the production repository if they meet our standards.
+
+- For the rest: If you have an idea for a new feature, a bug to report, or a suggestion to make, feel free to open an issue in the development repository. We will review your issue and work on it as soon as possible.
+
+### 3. Help in hosting the website
+
+My Universe Hub is hosted on a machine provisioned from digital ocean. If the website grows and we need to upgrade the machine, we will need more funds to keep the website running. If you want to help us in hosting the website, you have a lot of options to donate.
+
+You can donate via the following platforms:
+
+[Paypal](https://paypal.me/ProGamer20177?country.x=MA&locale.x=en_US)
+<br>
+[Patreon](https://www.patreon.com/3CodeCamp)
+
+### 4. Translation
+
+My Universe Hub is currently available in just one language: English. If you are fluent in another language and want to help us translate the website, feel free to fork the development repository, make the necessary changes, and submit a pull request.
+
+To translate the APOD entries, you can use [LLM](https://en.wikipedia.org/wiki/Large_language_model)s (Large Language Models) if you are familiar with them, they are incredible at translating text. If you are not familiar with them, you can use [Google Translate](https://translate.google.com/?sl=en&tl=ar&op=translate), but be sure to review the translation to make sure it is accurate.
 
 ## Installation
 
@@ -44,13 +89,13 @@ Follow these steps to get the project up and running:
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/ImadSaddik/apod_website_redesign.git
+   git clone https://github.com/ImadSaddik/My_Universe_Hub.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd apod_website_redesign
+   cd My_Universe_Hub
    ```
 
 3. Install backend dependencies (assuming you have Python and pip installed):
@@ -60,43 +105,40 @@ Follow these steps to get the project up and running:
    pip install -r requirements.txt
    ```
 
-4. Start Django:
+4. Create the SQLite database:
 
    ```bash
-   python manage.py runserver
+   python manage.py makemigrations
+   python manage.py migrate
    ```
 
-5. Install frontend dependencies:
+5. Fill database:
+
+   ```bash
+   cd backend/utils/
+   python fill_database.py
+   ```
+
+6. Start Django server:
+
+   ```bash
+   cd backend/
+   python manage.py runserver 0.0.0.0:8000
+   ```
+
+7. Install frontend dependencies:
 
    ```bash
    cd frontend
    npm install --legacy-peer-deps
    ```
 
-6. Start the development server:
+8. Start the development server:
 
    ```bash
    npm run serve
    ```
 
-## Usage
-
-Once the project is set up, you can access the different pages through the navigation bar. Browse through the gallery, view today's picture, explore trending images, and manage your favorite images after logging in.
-
-## Contributing
-
-Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix: `git checkout -b feature-name`.
-3. Make your changes and commit them.
-4. Push your changes to your fork: `git push origin feature-name`.
-5. Open a pull request describing your changes.
-
 ## Acknowledgements
 
-We would like to extend our sincere gratitude to NASA for their remarkable dedication in sharing the marvels of the universe through the original Astronomy Picture of the Day (APOD) website. Their commitment to showcasing awe-inspiring astronomical images has been a constant source of inspiration for this project.
-
----
-
-We hope you enjoy exploring the cosmos through the **APOD Redesigned** website. Feel free to reach out with any feedback or ideas for further improvement. Happy stargazing! 🌌🚀
+Thank you NASA, ESA, CSA and all the other astronomers for sharing those beautiful images on the internet and especially on APOD. This work wouldn't have been possible without your effort. We realy appreciate it.
