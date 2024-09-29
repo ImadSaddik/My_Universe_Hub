@@ -24,9 +24,9 @@ Curious about how I built it? Check out my journey on YouTube [here](https://you
 
 To access the website, visit this page: [https://myuniversehub.com/](https://myuniversehub.com/)
 
-<div style="text-align: center;">
-  <img src="./frontend/src/assets/readme/website_home.png" alt="myuniversehub" width="1000" style="border-radius: 1rem; margin-bottom: 1rem;"/>
-</div>
+<p align="center">
+  <img src="./frontend/src/assets/readme/website_home.png" width="1000" style="margin-bottom: 1rem;">
+</p>
 
 By default, you will land on the home page. Here, you’ll find a search box where you can search for specific images by typing keywords. Below the search section, ten images are displayed by default. To load more images, simply click the Load More button.
 
@@ -48,9 +48,12 @@ Next to that, you’ll see the Login/Logout button.
 
 I adore this image, it is one of my favorites. It is the Antennae galaxies, also known as NGC 4038 and NGC 4039. They are a pair of interacting galaxies and are currently in the process of colliding and merging with each other. I am sending you this image as a token of my appreciation for your support. I hope you like it as much as I do.
 
-<div style="text-align: center;">
-  <img src="./frontend/src/assets/contribute_page/Antennae_Biggs_960.jpg" alt="myuniversehub" width="500" style="border-radius: 1rem; margin-bottom: 1rem;"/>
-</div>
+<p align="center">
+  <img src="./frontend/src/assets/contribute_page/Antennae_Biggs_960.jpg" width="500">
+</p>
+<p align="center" style="margin-bottom: 1rem;">
+  Image credit: Kent E. Biggs
+</p>
 
 Remember, I ❤️ you all! To contribute, it does not matter if you know how to code or not, there are many ways you can help support My Universe Hub. Here are a few ideas:
 
