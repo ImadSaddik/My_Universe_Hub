@@ -41,12 +41,16 @@ export default {
 </script>
 
 <style scoped>
-  .go-up-button {
-    position: fixed;
-    width: 40px;
-    bottom: 1.75em;
-    right: 1.5em;
-    cursor: pointer;
-    z-index: 3;
-  }
+.go-up-button {
+  position: fixed;
+  width: 3rem;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.go-up-button:hover {
+  opacity: 0.8;
+}
 </style>

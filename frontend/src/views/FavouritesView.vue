@@ -119,7 +119,7 @@ export default {
   width: 100%;
   height: 100%;
   scale: 2;
-  background: url("../assets/galaxy_logo.svg") no-repeat center center;
+  background: url("../assets/logos/galaxy_logo.svg") no-repeat center center;
   opacity: 0.02;
   z-index: -1;
 }

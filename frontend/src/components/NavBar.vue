@@ -6,7 +6,7 @@
         href="/"
         @click="handleNavbarItemClick(HOME_PAGE)"
       >
-        <img src="../assets/galaxy_logo.svg" alt="" style="width: 2rem" />
+        <img src="../assets/logos/galaxy_logo.svg" alt="" style="width: 2rem" />
       </a>
       <button
         class="navbar-toggler"

@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid m-0 p-3">
     <div class="position-relative d-flex flex-column">
-      <img src="../assets/search_background.jpg" class="img-fluid custom-image" alt="...">
+      <img src="../assets/home_page/search_background.jpg" class="img-fluid custom-image" alt="...">
 
       <div class="container position-absolute top-50 start-50 translate-middle align-self-center">
         <div class="row px-sm-5 pb-sm-5">

@@ -17,7 +17,7 @@
           <div class="row flex-grow-1"></div>
           <div class="row align-items-center">
             <div class="col">
-              <img src="../assets/galaxy_logo_white.svg" alt="" style="width: 3rem;">
+              <img src="../assets/logos/galaxy_logo_white.svg" alt="" style="width: 3rem;">
             </div>
           </div>
         </div>

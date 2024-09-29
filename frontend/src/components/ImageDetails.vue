@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <img class="image-logo" src="../assets/galaxy_logo.svg" alt="">
+          <img class="image-logo" src="../assets/logos/galaxy_logo.svg" alt="">
           <div class="col d-flex align-items-center justify-content-end">
             {{item.image_likes_count}}
             <div v-if="item.image_is_liked">
