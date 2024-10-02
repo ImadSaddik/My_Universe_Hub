@@ -15,7 +15,7 @@
       </p>
     </div>
     <div class="row mt-4 d-flex justify-content-center">
-      <div class="col-6">
+      <div class="col col-lg-6">
         <img class="img-fluid rounded-4" src="../assets/about_page/StarTrails_20240818055242_720p.jpeg" alt="">
         <p class="text-center m-0 mt-2">Star trails over Oued Amlil, Morocco, August 18, 2024</p>
       </div>
@@ -35,7 +35,7 @@
       </p>
     </div>
     <div class="row mt-4 d-flex justify-content-center">
-      <div class="col-6">
+      <div class="col col-lg-6">
         <img class="img-fluid rounded-4" src="../assets/about_page/Orion_20240129_210527_720p.jpeg" alt="">
         <p class="text-center m-0 mt-2">Orion over Bir Tam Tam, Morocco, January 29, 2024</p>
       </div>
@@ -53,7 +53,7 @@
       </p>
     </div>
     <div class="row mt-4 d-flex justify-content-center">
-      <div class="col-6">
+      <div class="col col-lg-6">
         <img class="img-fluid rounded-4" src="../assets/about_page/LunarEclipse_20240918_134431_1024p.png" alt="">
         <p class="text-center m-0 mt-2">Orion over Bir Tam Tam, Morocco, January 29, 2024</p>
       </div>

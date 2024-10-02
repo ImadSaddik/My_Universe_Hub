@@ -9,7 +9,7 @@
       </p>
     </div>
     <div class="row mt-4 d-flex justify-content-center">
-      <div class="col-6">
+      <div class="col col-lg-6">
         <img class="img-fluid rounded-4" src="../assets/contribute_page/Antennae_Biggs_960.jpg" alt="">
         <p class="text-center m-0 mt-2">The heart shaped antennae galaxies</p>
       </div>

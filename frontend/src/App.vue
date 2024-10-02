@@ -1,15 +1,18 @@
 <template>
   <NavBar/>
+  <AcknowledgementBar/>
   <router-view/>
 </template>
 
 <script>
 import NavBar from './components/NavBar.vue'
+import AcknowledgementBar from './components/AcknowledgementBar.vue';
 
 export default {
   name: 'App',
   components: {
-    NavBar
+    NavBar,
+    AcknowledgementBar
   }
 }
 </script>
