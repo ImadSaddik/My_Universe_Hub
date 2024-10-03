@@ -70,5 +70,8 @@
 <script>
 export default {
   name: "ContributeView",
+  created() {
+    document.title = "Contribute";
+  },
 };
 </script>

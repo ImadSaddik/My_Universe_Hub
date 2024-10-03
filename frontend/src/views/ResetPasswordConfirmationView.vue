@@ -126,7 +126,7 @@ export default {
         });
     },
   },
-  mounted() {
+  created() {
     document.title = "Reset password confirmation";
   },
 };

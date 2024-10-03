@@ -62,7 +62,7 @@ import axios from "axios";
 export default {
   name: "ResetPasswordView",
   components: {},
-  mounted() {
+  created() {
     document.title = "Reset Password";
   },
   data() {

@@ -136,8 +136,10 @@ export default {
       error: null,
     };
   },
-  async mounted() {
+  created() {
     document.title = "Today's Picture";
+  },
+  async mounted() {
     await this.getTodayPicture();
   },
   methods: {

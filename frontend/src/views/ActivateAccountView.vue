@@ -6,10 +6,10 @@
           Activation status
         </h1>
         <div class="card-container bg-success-subtle">
-          <p v-if="activationStatus" class="text-black m-0">
+          <p v-if="activationSuccess" class="text-black m-0">
             <i class="fas fa-check-circle me-1"></i> Account activated successfully. You can now <router-link to="/login">log in</router-link>.
           </p>
-          <p v-else-if="!activationStatus" class="text-black m-0">
+          <p v-if="errorOccurred" class="text-black m-0">
             <i class="fas fa-times-circle me-1"></i> Account activation failed. Please try again.
           </p>
         </div>
@@ -25,7 +25,8 @@ export default {
   name: "ActivateAccountView",
   data() {
     return {
-      activationStatus: null,
+      activationSuccess: false,
+      errorOccurred: false,
     };
   },
   methods: {
@@ -43,19 +44,21 @@ export default {
           },
         })
         .then((response) => {
-          this.activationStatus = true;
+          this.activationSuccess = true;
+          this.errorOccurred = false;
         })
         .catch((error) => {
-          this.activationStatus = false;
+          this.activationSuccess = false;
+          this.errorOccurred = true;
           console.error(error);
         });
     },
   },
-  async created() {
-    await this.activateAccount();
-  },
-  mounted() {
+  created() {
     document.title = "Activate account";
+  },
+  async mounted() {
+    await this.activateAccount();
   },
 };
 </script>

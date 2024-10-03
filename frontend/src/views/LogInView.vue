@@ -79,12 +79,10 @@ export default {
     },
   },
   created() {
+    document.title = "Log In";
     if (!this.isLoggedOff) {
       this.$router.push({ name: "home", replace: true });
     }
-  },
-  mounted() {
-    document.title = "Log In";
   },
   data() {
     return {

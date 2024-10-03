@@ -51,10 +51,12 @@ export default {
       return this.archive.length < this.archiveFullSize;
     },
   },
+  created() {
+    document.title = "Favourites";
+  },
   async mounted() {
     await this.getFavouritesArchive();
     await this.getFavouritesArchiveSize();
-    document.title = "Favourites";
   },
   data() {
     return {

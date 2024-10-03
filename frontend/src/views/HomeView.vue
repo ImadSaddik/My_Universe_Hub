@@ -60,10 +60,10 @@ export default {
     };
   },
   created() {
+    document.title = "Home";
     this.$store.commit("setSelectedNavbarItem", "home");
   },
   async mounted() {
-    document.title = "Home";
     await this.getArchive();
     await this.getArchiveSize();
   },

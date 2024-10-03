@@ -67,9 +67,10 @@
 </template>
 
 <script>
-import { RouterLink } from 'vue-router';
-
 export default {
   name: "AboutView",
+  created() {
+    document.title = "About";
+  },
 };
 </script>

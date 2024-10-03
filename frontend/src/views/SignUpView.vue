@@ -106,12 +106,10 @@ export default {
     },
   },
   created() {
+    document.title = "Sign Up";
     if (!this.isLoggedOff) {
       this.$router.push({ name: "home", replace: true });
     }
-  },
-  mounted() {
-    document.title = "Sign Up";
   },
   data() {
     return {

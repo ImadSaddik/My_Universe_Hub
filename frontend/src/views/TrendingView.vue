@@ -47,8 +47,10 @@ export default {
       incrementSize: 10,
     };
   },
-  async mounted() {
+  created() {
     document.title = "Trending";
+  },
+  async mounted() {
     await this.getTrendingArchive();
     await this.getTrendingArchiveSize();
   },

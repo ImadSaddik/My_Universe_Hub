@@ -88,22 +88,19 @@ a {
 }
 
 @keyframes ripple {
-  0% {
-    transform: scale(0, 0);
+  from {
     opacity: 1;
+    transform: scale(0);
   }
-  20% {
-    transform: scale(150, 150);
-    opacity: 1;
-  }
-  100% {
+
+  to {
     opacity: 0;
-    transform: scale(150, 150);
+    transform: scale(1000);
   }
 }
 
 .custom-btn:focus:not(:active)::after {
-  animation: ripple 1s ease-out;
+  animation: ripple 0.5s ease-out;
 }
 
 /*  */
