@@ -157,14 +157,12 @@ export default {
 
 .like-icon-container {
   padding: 0.5rem 1rem 0.5rem 1rem;
-  /* border: 1px solid #ccc; */
   border-radius: 0.5rem;
   cursor: pointer;
 }
 
 .like-icon-container:hover {
   background-color: #f0f0f0;
-  /* border: 1px solid #aaa; */
 }
 
 .custom-small-text {

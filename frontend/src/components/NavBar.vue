@@ -159,7 +159,6 @@ export default {
     },
   },
   async mounted() {
-    this.handleNavbarItemClick(this.HOME_PAGE);
     await this.fetchGitHubStars();
   },
   methods: {
