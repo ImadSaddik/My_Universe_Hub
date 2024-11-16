@@ -291,3 +291,4 @@ dist
 
 *.sqlite3
 *.egg-info/
+.idea/

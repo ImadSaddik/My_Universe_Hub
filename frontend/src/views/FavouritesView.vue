@@ -6,6 +6,7 @@
         :archive="archive"
         @selected-item="(value) => (selectedItem = value)"
         :should-show-load-more-button="shouldShowLoadMoreButton"
+        @increase-limit="increaseLimit()"
       />
       <BackToTopVue />
       <ImageDetails
@@ -67,6 +68,9 @@ export default {
     };
   },
   methods: {
+    async increaseLimit() {
+      await this.getFavouritesArchive();
+    },
     async getFavouritesArchive() {
       if (!this.isLoggedIn) {
         return;
