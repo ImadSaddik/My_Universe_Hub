@@ -7,6 +7,7 @@
         @selected-item="(value) => (selectedItem = value)"
         :should-show-load-more-button="shouldShowLoadMoreButton"
         @increase-limit="increaseLimit()"
+        @unlike-image="(item) => removeItem(item)"
       />
       <BackToTopVue />
       <ImageDetails
@@ -104,6 +105,7 @@ export default {
       if (index > -1) {
         this.archive.splice(index, 1);
       }
+      this.archiveFullSize -= 1;
     },
     getMessage() {
       if (!this.isLoggedIn) {

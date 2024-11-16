@@ -14,6 +14,7 @@
           :key="index"
           :archive="sublist"
           @selected-item="$emit('selected-item', $event)"
+          @unlike-image="$emit('unlike-image', $event)"
         />
       </div>
       <div class="row mx-0 mb-3">

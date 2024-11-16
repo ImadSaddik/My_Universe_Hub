@@ -119,6 +119,7 @@ export default {
         .catch((error) => {});
     },
     async unlikeImage(item) {
+      this.$emit("unlike-image", item);
       const data = JSON.stringify({
         date: item.date,
         email: this.getEmail,
