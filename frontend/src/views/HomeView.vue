@@ -134,9 +134,17 @@ export default {
       return archive;
     },
     updateArchiveLikes(archive) {
-      const email = localStorage.getItem("email");
+      if (archive.length === 0) {
+        return archive;
+      }
 
-      for (let i = 0; i < archive.length; i++) {
+      const email = localStorage.getItem("email");
+      const start_index = this.archive.length - this.incrementSize;
+      // The backend updates the element associated with the image we like.
+      // However, clicking the 'load more' button does not retrieve the updated element.
+      // Instead, it appends 10 new elements to the existing ones.
+      // As a result, iterating through the entire archive may cause a bug where the image appears unliked.
+      for (let i = start_index; i < archive.length; i++) {
         if (archive[i].liked_by_users.includes(email)) {
           archive[i].image_is_liked = true;
         } else {
