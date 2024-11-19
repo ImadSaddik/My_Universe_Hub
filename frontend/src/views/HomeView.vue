@@ -139,7 +139,7 @@ export default {
       }
 
       const email = localStorage.getItem("email");
-      const start_index = this.archive.length - this.incrementSize;
+      const start_index = archive.length - this.incrementSize;
       // The backend updates the element associated with the image we like.
       // However, clicking the 'load more' button does not retrieve the updated element.
       // Instead, it appends 10 new elements to the existing ones.
