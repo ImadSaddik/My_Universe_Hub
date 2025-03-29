@@ -28,7 +28,8 @@ export default {
   },
   computed: {
     getUpdatedArchive() {
-      const archive = this.query.trim().length === 0 ? this.archive : this.searchArchive;
+      const archive =
+        this.query.trim().length === 0 ? this.archive : this.searchArchive;
 
       if (this.isUserLoggedOff) {
         return this.removeLikes(archive);
@@ -72,7 +73,7 @@ export default {
       this.query = query;
       this.archive = [];
       this.searchArchive = [];
-      
+
       if (this.query.trim().length === 0) {
         // This means, I am not searching. Retrieve the full archive.
         await this.getArchive();
@@ -139,14 +140,26 @@ export default {
       }
 
       const email = localStorage.getItem("email");
-      const start_index = archive.length - this.incrementSize;
+      let start_index = archive.length - this.incrementSize;
+      if (start_index < 0) {
+        start_index = 0;
+      }
+
       // The backend updates the element associated with the image we like.
       // However, clicking the 'load more' button does not retrieve the updated element.
       // Instead, it appends 10 new elements to the existing ones.
       // As a result, iterating through the entire archive may cause a bug where the image appears unliked.
       for (let i = start_index; i < archive.length; i++) {
-        if (archive[i].liked_by_users.includes(email)) {
-          archive[i].image_is_liked = true;
+        if (!archive[i]) {
+          continue;
+        }
+
+        if (archive[i].liked_by_users) {
+          if (archive[i].liked_by_users.includes(email)) {
+            archive[i].image_is_liked = true;
+          } else {
+            archive[i].image_is_liked = false;
+          }
         } else {
           archive[i].image_is_liked = false;
         }
