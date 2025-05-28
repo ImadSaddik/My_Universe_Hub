@@ -8,8 +8,7 @@
     "serve": "vite preview",
     "build": "vite build",
     "format": "prettier .  --write",
-    "lint": "eslint . --ext .js,.vue --fix",
-    "prepare": "husky"
+    "lint": "eslint . --ext .js,.vue --fix"
   },
   "dependencies": {
     "axios": "^1.4.0",
@@ -23,20 +22,9 @@
     "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-vue": "^10.1.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.1.0",
     "prettier": "3.5.3",
     "sass": "^1.32.7",
     "vite": "^6.0.6",
     "vite-plugin-eslint": "^1.8.1"
-  },
-  "lint-staged": {
-    "*.{js,vue}": [
-      "npx eslint --fix --config frontend/eslint.config.js",
-      "npx prettier --write"
-    ],
-    "*.{css,scss,html,json}": [
-      "npx prettier --write"
-    ]
   }
 }
