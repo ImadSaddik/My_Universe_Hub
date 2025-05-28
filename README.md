@@ -101,47 +101,87 @@ Follow these steps to get the project up and running:
    cd My_Universe_Hub
    ```
 
-3. Install backend dependencies (assuming you have Python and pip installed):
+3. Create a virtual environment and activate it
+   - Using `anaconda`:
 
-   ```bash
-   cd backend
-   pip install -r requirements.txt
-   ```
+        ```bash
+        conda create -n myuniversehub python=3.11
+        conda activate myuniversehub
+        ```
 
-4. Create the SQLite database:
+   - Using `venv`:
+
+        ```bash
+        python -m venv .myuniversehub
+        source .myuniversehub/bin/activate
+        ```
+
+4. Install dependencies using `uv`:
+   - Ensure `uv` is installed. See [uv installation guide](https://astral.sh/uv#installation). Then run:
+
+        ```bash
+        uv pip install -r requirements.txt
+        ```
+
+   - Alternatively, if you don't have `uv`, you can use `pip`:
+
+        ```bash
+        pip install -r requirements.txt
+        ```
+
+5. Set up Environment Variables:
+
+    Create a `.env` file in the `backend` directory with your necessary environment variables. Refer to `.env.example` if available.
+
+    To get the `EMAIL_HOST_USER` and `EMAIL_HOST_PASSWORD`, [watch this video](https://www.youtube.com/watch?v=SalrBanIUmc) to learn how to set up a Gmail account for sending emails.
+
+6. Create the SQLite database:
 
    ```bash
    python manage.py makemigrations
    python manage.py migrate
    ```
 
-5. Fill database:
+7. Fill database:
 
    ```bash
    cd backend/utils/
    python fill_database.py
    ```
 
-6. Start Django server:
+8. Start Django server:
 
    ```bash
    cd backend/
    python manage.py runserver 0.0.0.0:8000
    ```
 
-7. Install frontend dependencies:
+9. Install pnpm:
+
+    If you don't have pnpm, install it globally. One common way is using npm:
+
+    ```bash
+    cd frontend/
+    npm install -g pnpm
+    ```
+
+   Or refer to the official [pnpm installation guide](https://pnpm.io/installation) for other methods
+
+10. Install frontend dependencies:
+
+    If you don't have pnpm, install it globally. One common way is using npm:
+
+    ```bash
+    cd frontend/
+    pnpm install
+    ```
+
+11. Start the development server:
 
    ```bash
-   cd frontend
-   npm install --legacy-peer-deps
-   ```
-
-8. Start the development server:
-
-   ```bash
-   npm run serve
+   pnpm run dev
    ```
 
 ## Acknowledgements
 
-Thank you NASA, ESA, CSA and all the other astronomers for sharing those beautiful images on the internet and especially on APOD. This work wouldn't have been possible without your effort. We realy appreciate it.
+Thank you NASA, ESA, CSA and all the other astronomers for sharing those beautiful images on the internet and especially on APOD. This work wouldn't have been possible without your effort. We really appreciate it.
