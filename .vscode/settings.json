@@ -1,0 +1,29 @@
+{
+  "editor.formatOnSave": true,
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8",
+    "editor.tabSize": 4,
+		"editor.formatOnSave": true,
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": false
+  },
+  "[javascript][vue][json][jsonc][html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2,
+		"editor.formatOnSave": true,
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": false
+  },
+  "eslint.validate": [
+    "javascript",
+    "vue"
+  ],
+  "eslint.workingDirectories": [
+    { "directory": "./frontend", "changeProcessCWD": true }
+  ],
+  "prettier.configPath": "frontend/.prettierrc.js"
+}
