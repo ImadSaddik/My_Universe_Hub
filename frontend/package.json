@@ -31,11 +31,11 @@
   },
   "lint-staged": {
     "*.{js,vue}": [
-      "eslint --fix",
-      "prettier --write"
+      "npx eslint --fix",
+      "npx prettier --write"
     ],
     "*.{css,scss,html,json}": [
-      "prettier --write"
+      "npx prettier --write"
     ]
   }
 }
