@@ -24,6 +24,14 @@ export default {
     BackToTopVue,
     ImageDetails,
   },
+  data() {
+    return {
+      archive: [],
+      archiveFullSize: null,
+      selectedItem: "",
+      incrementSize: 10,
+    };
+  },
   computed: {
     getArchive() {
       if (this.isUserLoggedOff) {
@@ -38,14 +46,6 @@ export default {
     shouldShowLoadMoreButton() {
       return this.archive.length < this.archiveFullSize;
     },
-  },
-  data() {
-    return {
-      archive: [],
-      archiveFullSize: null,
-      selectedItem: "",
-      incrementSize: 10,
-    };
   },
   created() {
     document.title = "Trending";
@@ -67,7 +67,7 @@ export default {
     },
     async getTrendingArchiveSize() {
       await axios
-        .get('/api/v1/trending/count/')
+        .get("/api/v1/trending/count/")
         .then((response) => {
           this.archiveFullSize = response.data.count;
         })

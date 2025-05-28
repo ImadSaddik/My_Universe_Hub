@@ -1,10 +1,8 @@
 <template>
   <div class="container-fluid m-0 py-0 px-3">
     <div v-if="searchResultCount == 0">
-      <div class="row d-flex align-items-center justify-content-center" style="height: calc(20vh);">
-        <h5 class="nav-link text-center">
-          No images found for the search query 😔, try another one.
-        </h5>
+      <div class="row d-flex align-items-center justify-content-center" style="height: calc(20vh)">
+        <h5 class="nav-link text-center">No images found for the search query 😔, try another one.</h5>
       </div>
     </div>
     <div v-else>
@@ -35,64 +33,64 @@
 </template>
 
 <script>
-import GalleryColumn from './GalleryColumn.vue'
+import GalleryColumn from "./GalleryColumn.vue";
 
 export default {
-  name: 'GallerySection',
-  props: ['archive', 'shouldShowLoadMoreButton', "searchResultCount"],
+  name: "GallerySection",
   components: {
-    GalleryColumn
+    GalleryColumn,
   },
-  computed: {
-    sublists () {
-      const sublists = []
-      for (let i = 0; i < this.numberOfSublists; i++) {
-        sublists.push([])
-      }
-
-      for (let i = 0; i < this.archive.length; i++) {
-        const sublistIndex = i % this.numberOfSublists
-        sublists[sublistIndex].push(this.archive[i])
-      }
-
-      return sublists
-    },
-    isArchiveEmpty () {
-      return this.archive.length === 0
-    }
-  },
-  data () {
+  props: ["archive", "shouldShowLoadMoreButton", "searchResultCount"],
+  data() {
     return {
       selectedItem: null,
       isHovering: false,
       screenWidth: window.innerWidth,
       breakPoints: {
         lg: 992,
-        sm: 576
+        sm: 576,
       },
-      numberOfSublists: 3
-    }
+      numberOfSublists: 3,
+    };
   },
-  mounted () {
-    window.addEventListener('resize', this.handleWindowResize)
+  computed: {
+    sublists() {
+      const sublists = [];
+      for (let i = 0; i < this.numberOfSublists; i++) {
+        sublists.push([]);
+      }
+
+      for (let i = 0; i < this.archive.length; i++) {
+        const sublistIndex = i % this.numberOfSublists;
+        sublists[sublistIndex].push(this.archive[i]);
+      }
+
+      return sublists;
+    },
+    isArchiveEmpty() {
+      return this.archive.length === 0;
+    },
   },
-  beforeUnmount () {
-    window.removeEventListener('resize', this.handleWindowResize)
+  mounted() {
+    window.addEventListener("resize", this.handleWindowResize);
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.handleWindowResize);
   },
   methods: {
-    increaseLimit () {
-      this.$emit('increaseLimit')
+    increaseLimit() {
+      this.$emit("increaseLimit");
     },
-    handleWindowResize () {
-      this.screenWidth = window.innerWidth
+    handleWindowResize() {
+      this.screenWidth = window.innerWidth;
       if (this.screenWidth >= this.breakPoints.lg) {
-        this.numberOfSublists = 3
+        this.numberOfSublists = 3;
       } else if (this.screenWidth < this.breakPoints.lg && this.screenWidth >= this.breakPoints.sm) {
-        this.numberOfSublists = 2
+        this.numberOfSublists = 2;
       } else {
-        this.numberOfSublists = 1
+        this.numberOfSublists = 1;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

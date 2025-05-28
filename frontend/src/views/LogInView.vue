@@ -3,29 +3,25 @@
     <div class="row w-100 m-0 p-0 d-flex justify-content-center">
       <div class="col col-md-7 px-3 px-lg-4 outer-card-container">
         <h1 class="fs-1 fw-bold text-black mb-4">Log In</h1>
-        <div
-          v-if="showAlertDialog"
-          class="alert alert-danger alert-dismissible fade show rounded-3"
-          role="alert"
-        >
-          <i class="fas fa-times-circle me-1"></i> {{ errorMessage }}
+        <div v-if="showAlertDialog" class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+          <i class="fas fa-times-circle me-1" /> {{ errorMessage }}
           <button
             type="button"
             class="btn-close"
             data-bs-dismiss="alert"
             aria-label="Close"
             @click="showAlertDialog = false"
-          ></button>
+          />
         </div>
         <form @submit.prevent="submitForm">
           <label for="email" class="mb-1 text-black">Email</label>
           <div class="input-container">
-            <i class="fas fa-envelope input-icon"></i>
+            <i class="fas fa-envelope input-icon" />
             <input
-              class="input-field"
-              placeholder="Email"
               id="email"
               v-model="email"
+              class="input-field"
+              placeholder="Email"
               type="email"
               name="email"
               autocomplete="username"
@@ -34,12 +30,12 @@
 
           <label for="current-password" class="mb-1 text-black">Password</label>
           <div class="input-container">
-            <i class="fas fa-lock input-icon"></i>
+            <i class="fas fa-lock input-icon" />
             <input
-              class="input-field"
-              placeholder="Password"
               id="current-password"
               v-model="password"
+              class="input-field"
+              placeholder="Password"
               :type="showHidePassword ? 'password' : 'text'"
               name="password"
               autocomplete="current-password"
@@ -48,19 +44,17 @@
               class="fas toggle-password-icon"
               :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
               @click="togglePasswordVisibility"
-            ></i>
+            />
           </div>
 
-          <button type="submit" class="custom-btn custom-btn-white my-3">
-            Log In
-          </button>
+          <button type="submit" class="custom-btn custom-btn-white my-3">Log In</button>
           <p class="text-black text-center m-0 my-2">
             Forgot password?
-            <router-link to="/reset_password">Click here</router-link>
+            <router-link to="/reset_password"> Click here </router-link>
           </p>
           <p class="text-black text-center m-0">
             Don't have an account?
-            <router-link to="/signup">Sign up</router-link>
+            <router-link to="/signup"> Sign up </router-link>
           </p>
         </form>
       </div>
@@ -73,6 +67,15 @@ import axios from "axios";
 
 export default {
   name: "LogInView",
+  data() {
+    return {
+      email: "",
+      password: "",
+      showHidePassword: true,
+      showAlertDialog: false,
+      errorMessage: "",
+    };
+  },
   computed: {
     isLoggedOff() {
       return this.$store.state.token === "";
@@ -83,15 +86,6 @@ export default {
     if (!this.isLoggedOff) {
       this.$router.push({ name: "home", replace: true });
     }
-  },
-  data() {
-    return {
-      email: "",
-      password: "",
-      showHidePassword: true,
-      showAlertDialog: false,
-      errorMessage: "",
-    };
   },
   methods: {
     togglePasswordVisibility() {
@@ -150,12 +144,12 @@ export default {
 
 <style scoped>
 .outer-card-container {
-    padding: 3rem;
+  padding: 3rem;
 }
 
 @media (max-width: 768px) {
-    .outer-card-container {
-        padding: 2rem;
-    }
+  .outer-card-container {
+    padding: 2rem;
+  }
 }
 </style>

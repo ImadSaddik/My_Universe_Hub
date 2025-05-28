@@ -1,28 +1,24 @@
 <template>
   <div>
-    <div class="background-image"></div>
-    <div class="mt-3" v-if="isLoggedIn && archive.length !== 0">
+    <div class="background-image" />
+    <div v-if="isLoggedIn && archive.length !== 0" class="mt-3">
       <GallerySection
         :archive="archive"
-        @selected-item="(value) => (selectedItem = value)"
         :should-show-load-more-button="shouldShowLoadMoreButton"
+        @selected-item="(value) => (selectedItem = value)"
         @increase-limit="increaseLimit()"
         @unlike-image="(item) => removeItem(item)"
       />
       <BackToTopVue />
-      <ImageDetails
-        :item="selectedItem"
-        @unlike-image="(item) => removeItem(item)"
-      />
+      <ImageDetails :item="selectedItem" @unlike-image="(item) => removeItem(item)" />
     </div>
 
     <div v-if="!isLoggedIn || archive.length === 0">
-      <div
-        class="container d-flex align-items-center justify-content-center"
-        style="height: calc(100vh - 3.5rem)"
-      >
+      <div class="container d-flex align-items-center justify-content-center" style="height: calc(100vh - 3.5rem)">
         <div class="row">
-          <h5 class="nav-link m-0">{{ getMessage() }}</h5>
+          <h5 class="nav-link m-0">
+            {{ getMessage() }}
+          </h5>
         </div>
       </div>
     </div>
@@ -42,6 +38,14 @@ export default {
     BackToTopVue,
     ImageDetails,
   },
+  data() {
+    return {
+      archive: [],
+      archiveFullSize: null,
+      selectedItem: "",
+      incrementSize: 10,
+    };
+  },
   computed: {
     isLoggedIn() {
       return this.$store.state.token !== "";
@@ -59,14 +63,6 @@ export default {
   async mounted() {
     await this.getFavouritesArchive();
     await this.getFavouritesArchiveSize();
-  },
-  data() {
-    return {
-      archive: [],
-      archiveFullSize: null,
-      selectedItem: "",
-      incrementSize: 10,
-    };
   },
   methods: {
     async increaseLimit() {

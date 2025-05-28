@@ -2,15 +2,14 @@
   <section class="container-fluid m-0 p-0">
     <div class="row w-100 m-0 p-0 d-flex justify-content-center">
       <div class="col col-md-7 px-3 px-lg-4 outer-card-container">
-        <h1 class="display-5 fs-1 fw-bold text-black mb-4">
-          Activation status
-        </h1>
+        <h1 class="display-5 fs-1 fw-bold text-black mb-4">Activation status</h1>
         <div class="card-container bg-success-subtle">
           <p v-if="activationSuccess" class="text-black m-0">
-            <i class="fas fa-check-circle me-1"></i> Account activated successfully. You can now <router-link to="/login">log in</router-link>.
+            <i class="fas fa-check-circle me-1" /> Account activated successfully. You can now
+            <router-link to="/login"> log in </router-link>.
           </p>
           <p v-if="errorOccurred" class="text-black m-0">
-            <i class="fas fa-times-circle me-1"></i> Account activation failed. Please try again.
+            <i class="fas fa-times-circle me-1" /> Account activation failed. Please try again.
           </p>
         </div>
       </div>
@@ -28,6 +27,12 @@ export default {
       activationSuccess: false,
       errorOccurred: false,
     };
+  },
+  created() {
+    document.title = "Activate account";
+  },
+  async mounted() {
+    await this.activateAccount();
   },
   methods: {
     async activateAccount() {
@@ -54,18 +59,12 @@ export default {
         });
     },
   },
-  created() {
-    document.title = "Activate account";
-  },
-  async mounted() {
-    await this.activateAccount();
-  },
 };
 </script>
 
 <style scoped>
 .outer-card-container {
-    padding: 3rem;
+  padding: 3rem;
 }
 
 .card-container {
@@ -82,8 +81,8 @@ export default {
 }
 
 @media (max-width: 768px) {
-    .outer-card-container {
-        padding: 2rem;
-    }
+  .outer-card-container {
+    padding: 2rem;
+  }
 }
 </style>

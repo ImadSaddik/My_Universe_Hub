@@ -1,9 +1,11 @@
 <template>
-  <section class="container-fluid" style="height: 3.5rem;">
+  <section class="container-fluid" style="height: 3.5rem">
     <div class="row row-background h-100 d-flex align-items-center">
       <p class="marquee custom-small-text p-0 m-0 text-center">
         <span>
-          This website is a redesign of the Astronomy Picture of the Day (APOD). Images are credited to their respective astrophotographers. For more details, visit <a href="https://apod.nasa.gov/" target="_blank" rel="noopener noreferrer">APOD</a>.
+          This website is a redesign of the Astronomy Picture of the Day (APOD). Images are credited to their respective
+          astrophotographers. For more details, visit
+          <a href="https://apod.nasa.gov/" target="_blank" rel="noopener noreferrer">APOD</a>.
         </span>
       </p>
     </div>
@@ -12,8 +14,8 @@
 
 <script>
 export default {
-  name: 'AcknowledgementBar'
-}
+  name: "AcknowledgementBar",
+};
 </script>
 
 <style scoped>

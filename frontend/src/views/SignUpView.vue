@@ -3,91 +3,79 @@
     <div class="row w-100 m-0 p-0 d-flex justify-content-center">
       <div class="col col-md-7 px-3 px-lg-4 outer-card-container">
         <h1 class="fs-1 fw-bold text-black mb-4">Sign Up</h1>
-        <div
-          v-if="showAlertDialog"
-          class="alert alert-danger alert-dismissible fade show rounded-3"
-          role="alert"
-        >
-          <div v-for="error in errors" :key="error">
-            <i class="fas fa-times-circle me-1"></i> {{ error }}
-          </div>
+        <div v-if="showAlertDialog" class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+          <div v-for="error in errors" :key="error"><i class="fas fa-times-circle me-1" /> {{ error }}</div>
           <button
             type="button"
             class="btn-close"
             data-bs-dismiss="alert"
             aria-label="Close"
             @click="showAlertDialog = false"
-          ></button>
+          />
         </div>
         <form v-if="!hideForm" @submit.prevent="submitForm">
           <label for="exampleInputUsername" class="mb-1 text-black">Username</label>
           <div class="input-container">
-            <i class="fas fa-user input-icon"></i>
+            <i class="fas fa-user input-icon" />
             <input
+              id="exampleInputUsername"
+              v-model="username"
               type="text"
               class="input-field"
               placeholder="Username"
-              id="exampleInputUsername"
-              v-model="username"
             />
           </div>
-          
+
           <label for="exampleInputEmail" class="mb-1 text-black">Email</label>
           <div class="input-container">
-            <i class="fas fa-envelope input-icon"></i>
-            <input
-              class="input-field"
-              placeholder="Email"
-              id="exampleInputEmail"
-              v-model="email"
-              type="email"
-            />
+            <i class="fas fa-envelope input-icon" />
+            <input id="exampleInputEmail" v-model="email" class="input-field" placeholder="Email" type="email" />
           </div>
-          
+
           <label for="exampleInputPassword1" class="mb-1 text-black">Password</label>
           <div class="input-container">
-            <i class="fas fa-lock input-icon"></i>
+            <i class="fas fa-lock input-icon" />
             <input
-              class="input-field"
-              placeholder="Password"
               id="exampleInputPassword1"
               v-model="password"
+              class="input-field"
+              placeholder="Password"
               :type="showHidePassword ? 'password' : 'text'"
             />
             <i
               class="fas toggle-password-icon"
               :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
               @click="togglePasswordVisibility"
-            ></i>
+            />
           </div>
 
           <label for="exampleInputPassword2" class="mb-1 text-black">Repeat password</label>
           <div class="input-container">
-            <i class="fas fa-lock input-icon"></i>
+            <i class="fas fa-lock input-icon" />
             <input
-              class="input-field"
-              placeholder="Repeat password"
               id="exampleInputPassword2"
               v-model="repeatPassword"
+              class="input-field"
+              placeholder="Repeat password"
               :type="showHidePassword ? 'password' : 'text'"
             />
             <i
               class="fas toggle-password-icon"
               :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
               @click="togglePasswordVisibility"
-            ></i>
+            />
           </div>
 
           <button type="submit" class="custom-btn custom-btn-white my-3">Sign Up</button>
           <p class="text-black text-center m-0 my-2">
-            Already have an account? <router-link to="/login">Log in</router-link>.
+            Already have an account? <router-link to="/login"> Log in </router-link>.
           </p>
         </form>
 
         <div v-if="hideForm" class="signup-confirmation-container">
           <p class="m-0 p-0">
-            <i class="fas fa-check-circle me-1"></i> Account created
-            successfully. Please check your email to verify your account.
+            <i class="fas fa-check-circle me-1" /> Account created successfully. Please check your email to verify your
+            account.
           </p>
         </div>
       </div>
@@ -100,17 +88,6 @@ import axios from "axios";
 
 export default {
   name: "SignUpView",
-  computed: {
-    isLoggedOff() {
-      return this.$store.state.token === "";
-    },
-  },
-  created() {
-    document.title = "Sign Up";
-    if (!this.isLoggedOff) {
-      this.$router.push({ name: "home", replace: true });
-    }
-  },
   data() {
     return {
       username: "",
@@ -122,6 +99,17 @@ export default {
       hideForm: false,
       errors: [],
     };
+  },
+  computed: {
+    isLoggedOff() {
+      return this.$store.state.token === "";
+    },
+  },
+  created() {
+    document.title = "Sign Up";
+    if (!this.isLoggedOff) {
+      this.$router.push({ name: "home", replace: true });
+    }
   },
   methods: {
     togglePasswordVisibility() {
@@ -189,7 +177,7 @@ export default {
 
 <style scoped>
 .outer-card-container {
-    padding: 3rem;
+  padding: 3rem;
 }
 
 .signup-confirmation-container {
@@ -200,8 +188,8 @@ export default {
 }
 
 @media (max-width: 768px) {
-    .outer-card-container {
-        padding: 2rem;
-    }
+  .outer-card-container {
+    padding: 2rem;
+  }
 }
 </style>

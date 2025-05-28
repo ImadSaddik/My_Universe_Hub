@@ -1,22 +1,24 @@
 <template>
   <div class="container-fluid m-0 p-3">
     <div class="position-relative d-flex flex-column">
-      <img src="../assets/home_page/search_background.jpg" class="img-fluid custom-image" alt="...">
+      <img src="../assets/home_page/search_background.jpg" class="img-fluid custom-image" alt="..." />
 
       <div class="container position-absolute top-50 start-50 translate-middle align-self-center">
         <div class="row px-sm-5 pb-sm-5">
           <div class="col px-4 px-sm-4">
             <h1 class="title-text text-white">My Universe Hub</h1>
-            <p class="description-text text-white">Discover images by entering keywords separated by commas. Find the image you are looking for.</p>
+            <p class="description-text text-white">
+              Discover images by entering keywords separated by commas. Find the image you are looking for.
+            </p>
             <div class="input-container">
-              <i class="fas fa-search input-icon"></i>
+              <i class="fas fa-search input-icon" />
               <input
+                v-model="searchQuery"
                 type="text"
                 class="input-field"
                 placeholder="Andromeda, Jupiter, Pluto, M31"
-                v-model="searchQuery"
-                @keydown.enter.prevent="$emit('search', searchQuery)"
                 aria-describedby="basic-addon1"
+                @keydown.enter.prevent="$emit('search', searchQuery)"
               />
             </div>
           </div>
@@ -28,17 +30,15 @@
 
 <script>
 export default {
-  name: 'SearchSection',
-  components: {
-  },
-  data () {
+  name: "SearchSection",
+  components: {},
+  data() {
     return {
-      searchQuery: ''
-    }
+      searchQuery: "",
+    };
   },
-  methods: {
-  }
-}
+  methods: {},
+};
 </script>
 
 <style scoped>
@@ -65,7 +65,7 @@ export default {
   .custom-image {
     min-height: 300px;
   }
-  
+
   .description-text {
     font-size: 1rem;
     margin-bottom: 1rem;

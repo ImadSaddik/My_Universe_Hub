@@ -3,81 +3,67 @@
     <div class="row w-100 m-0 p-0 d-flex justify-content-center">
       <div class="col col-md-7 px-3 px-lg-4 outer-card-container">
         <h1 class="fs-1 fw-bold text-black mb-4">Reset password</h1>
-        <div
-            v-if="passwordChangedSuccess"
-            class="alert alert-success alert-dismissible fade show"
-            role="alert"
-        >
-            <i class="fas fa-check-circle me-1"></i> Your password has been reset successfully. You can now
-            <router-link to="/login">log in</router-link> with your new
-            password.
-            <button
-            @click="passwordChangedSuccess = false"
+        <div v-if="passwordChangedSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+          <i class="fas fa-check-circle me-1" /> Your password has been reset successfully. You can now
+          <router-link to="/login"> log in </router-link> with your new password.
+          <button
             type="button"
             class="btn-close"
             data-bs-dismiss="alert"
             aria-label="Close"
-            ></button>
+            @click="passwordChangedSuccess = false"
+          />
         </div>
 
-        <div
-            v-if="errorOccurred"
-            class="alert alert-danger alert-dismissible fade show"
-            role="alert"
-        >
-            <i class="fas fa-times-circle me-1"></i> {{ errorMessage }}
-            <button
-            @click="errorOccurred = false"
+        <div v-if="errorOccurred" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <i class="fas fa-times-circle me-1" /> {{ errorMessage }}
+          <button
             type="button"
             class="btn-close"
             data-bs-dismiss="alert"
             aria-label="Close"
-            ></button>
+            @click="errorOccurred = false"
+          />
         </div>
 
         <div class="row m-0 p-0 input-group input-group-sm">
-            <label for="new_password" class="mb-1 text-black p-0">New password</label>
-            <div class="input-container p-0">
-            <i class="fas fa-lock input-icon"></i>
+          <label for="new_password" class="mb-1 text-black p-0">New password</label>
+          <div class="input-container p-0">
+            <i class="fas fa-lock input-icon" />
             <input
-                class="input-field"
-                placeholder="Your new password"
-                id="new_password"
-                v-model="new_password"
-                :type="showHidePassword ? 'password' : 'text'"
+              id="new_password"
+              v-model="new_password"
+              class="input-field"
+              placeholder="Your new password"
+              :type="showHidePassword ? 'password' : 'text'"
             />
             <i
-                class="fas toggle-password-icon"
-                :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
-                @click="togglePasswordVisibility"
-            ></i>
-            </div>
+              class="fas toggle-password-icon"
+              :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
+              @click="togglePasswordVisibility"
+            />
+          </div>
 
-            <label for="re_new_password" class="mb-1 text-black p-0">Confirm new password</label>
-            <div class="input-container p-0">
-            <i class="fas fa-lock input-icon"></i>
+          <label for="re_new_password" class="mb-1 text-black p-0">Confirm new password</label>
+          <div class="input-container p-0">
+            <i class="fas fa-lock input-icon" />
             <input
-                class="input-field"
-                placeholder="Confirm new password"
-                id="re_new_password"
-                v-model="re_new_password"
-                :type="showHidePassword ? 'password' : 'text'"
+              id="re_new_password"
+              v-model="re_new_password"
+              class="input-field"
+              placeholder="Confirm new password"
+              :type="showHidePassword ? 'password' : 'text'"
             />
             <i
-                class="fas toggle-password-icon"
-                :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
-                @click="togglePasswordVisibility"
-            ></i>
-            </div>
-            
-            <button
-            @click="confirmResetPassword"
-            class="custom-btn custom-btn-white my-3"
-            >
-            Reset password
-            </button>
+              class="fas toggle-password-icon"
+              :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
+              @click="togglePasswordVisibility"
+            />
+          </div>
+
+          <button class="custom-btn custom-btn-white my-3" @click="confirmResetPassword">Reset password</button>
         </div>
-        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -96,6 +82,9 @@ export default {
       errorOccurred: false,
       errorMessage: "",
     };
+  },
+  created() {
+    document.title = "Reset password confirmation";
   },
   methods: {
     togglePasswordVisibility() {
@@ -126,15 +115,12 @@ export default {
         });
     },
   },
-  created() {
-    document.title = "Reset password confirmation";
-  },
 };
 </script>
 
 <style scoped>
 .outer-card-container {
-    padding: 3rem;
+  padding: 3rem;
 }
 
 .signup-confirmation-container {
@@ -145,8 +131,8 @@ export default {
 }
 
 @media (max-width: 768px) {
-    .outer-card-container {
-        padding: 2rem;
-    }
+  .outer-card-container {
+    padding: 2rem;
+  }
 }
 </style>

@@ -3,7 +3,7 @@
   <GallerySection
     :archive="getUpdatedArchive"
     :should-show-load-more-button="shouldShowLoadMoreButton"
-    :search-result-count="this.searchArchiveSize"
+    :search-result-count="searchArchiveSize"
     @selected-item="(value) => (selectedItem = value)"
     @increase-limit="increaseLimit()"
   />
@@ -26,10 +26,21 @@ export default {
     BackToTopVue,
     ImageDetails,
   },
+  data() {
+    return {
+      archive: [],
+      archiveSize: null,
+      searchArchive: [],
+      searchArchiveSize: null,
+      selectedItem: "",
+      incrementSize: 10,
+      query: "",
+      isSearchResultEmpty: false,
+    };
+  },
   computed: {
     getUpdatedArchive() {
-      const archive =
-        this.query.trim().length === 0 ? this.archive : this.searchArchive;
+      const archive = this.query.trim().length === 0 ? this.archive : this.searchArchive;
 
       if (this.isUserLoggedOff) {
         return this.removeLikes(archive);
@@ -47,18 +58,6 @@ export default {
         return this.searchArchive.length < this.searchArchiveSize;
       }
     },
-  },
-  data() {
-    return {
-      archive: [],
-      archiveSize: null,
-      searchArchive: [],
-      searchArchiveSize: null,
-      selectedItem: "",
-      incrementSize: 10,
-      query: "",
-      isSearchResultEmpty: false,
-    };
   },
   created() {
     document.title = "Home";

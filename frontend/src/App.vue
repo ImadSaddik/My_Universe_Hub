@@ -1,20 +1,20 @@
 <template>
-  <NavBar/>
-  <AcknowledgementBar/>
-  <router-view/>
+  <NavBar />
+  <AcknowledgementBar />
+  <router-view />
 </template>
 
 <script>
-import NavBar from './components/NavBar.vue'
-import AcknowledgementBar from './components/AcknowledgementBar.vue';
+import NavBar from "./components/NavBar.vue";
+import AcknowledgementBar from "./components/AcknowledgementBar.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     NavBar,
-    AcknowledgementBar
-  }
-}
+    AcknowledgementBar,
+  },
+};
 </script>
 
 <style>
@@ -34,8 +34,8 @@ a {
 }
 
 .custom-subtitle-text {
-    font-size: 1.5rem;
-    font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 /*  */
@@ -74,7 +74,7 @@ a {
 }
 
 .custom-btn::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;

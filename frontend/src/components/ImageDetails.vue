@@ -1,19 +1,9 @@
 <template>
-  <div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
+  <div id="exampleModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <img
-            class="image-logo"
-            src="../assets/logos/galaxy_logo.svg"
-            alt=""
-          />
+          <img class="image-logo" src="../assets/logos/galaxy_logo.svg" alt="" />
           <div class="col d-flex align-items-center justify-content-end">
             <div v-if="isLoggedIn" class="me-2 me-sm-3">
               <div
@@ -22,44 +12,22 @@
                 @click="unlikeImage(item)"
               >
                 {{ item.image_likes_count }}
-                <i
-                  type="button"
-                  class="ms-2 fa-solid fa-heart fa-xl"
-                  style="color: #f66151"
-                >
-                </i>
+                <i type="button" class="ms-2 fa-solid fa-heart fa-xl" style="color: #f66151" />
               </div>
-              <div
-                v-else
-                class="like-icon-container d-flex align-items-center"
-                @click="likeImage(item)"
-              >
+              <div v-else class="like-icon-container d-flex align-items-center" @click="likeImage(item)">
                 {{ item.image_likes_count }}
-                <i type="button" class="ms-2 fa-regular fa-heart fa-xl"> </i>
+                <i type="button" class="ms-2 fa-regular fa-heart fa-xl" />
               </div>
             </div>
             <div v-else class="me-2 me-sm-3">
               <div class="like-icon-container d-flex align-items-center">
                 {{ item.image_likes_count }}
-                <i
-                  :disabled="!isLoggedIn"
-                  class="ms-2 fa-regular fa-heart fa-xl"
-                  style="color: #77767b"
-                >
-                </i>
+                <i :disabled="!isLoggedIn" class="ms-2 fa-regular fa-heart fa-xl" style="color: #77767b" />
               </div>
             </div>
 
-            <i
-              type="button"
-              class="fa-solid fa-download fa-xl me-2 me-sm-3"
-              @click="downloadImage(item)"
-            ></i>
-            <i
-              type="button"
-              class="fa-solid fa-xmark fa-2xl"
-              data-bs-dismiss="modal"
-            ></i>
+            <i type="button" class="fa-solid fa-download fa-xl me-2 me-sm-3" @click="downloadImage(item)" />
+            <i type="button" class="fa-solid fa-xmark fa-2xl" data-bs-dismiss="modal" />
           </div>
         </div>
         <div class="modal-body">
@@ -76,9 +44,12 @@ import ModalBody from "./ModalBody.vue";
 
 export default {
   name: "ImageDetails",
-  props: ["item"],
   components: {
     ModalBody,
+  },
+  props: ["item"],
+  data() {
+    return {};
   },
   computed: {
     isLoggedIn() {
@@ -87,9 +58,6 @@ export default {
     getEmail() {
       return this.$store.state.email;
     },
-  },
-  data() {
-    return {};
   },
   methods: {
     async likeImage(item) {

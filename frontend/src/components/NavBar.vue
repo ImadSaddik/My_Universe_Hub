@@ -1,11 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-white">
     <div class="container-fluid px-sm-3">
-      <a
-        class="navbar-brand p-0 m-0 me-5"
-        href="/"
-        @click="handleNavbarItemClick(HOME_PAGE)"
-      >
+      <a class="navbar-brand p-0 m-0 me-5" href="/" @click="handleNavbarItemClick(HOME_PAGE)">
         <img src="../assets/logos/galaxy_logo.svg" alt="" style="width: 2rem" />
       </a>
       <button
@@ -17,9 +13,9 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon" />
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div id="navbarNavAltMarkup" class="collapse navbar-collapse">
         <div class="row w-100 m-0 navbar-nav">
           <div class="col m-0 p-0 d-lg-flex align-items-center">
             <a
@@ -83,7 +79,7 @@
               class="border-container d-flex align-items-center text-dark me-2"
             >
               <div>
-                <i class="fab fa-github fa-lg"></i>
+                <i class="fab fa-github fa-lg" />
               </div>
               <span class="ms-2">{{ starCount }}</span>
             </a>
@@ -99,28 +95,20 @@
               @click="handleNavbarItemClick(NONE)"
             >
               Log In
-              <i
-                type="button"
-                class="ms-2 fa-solid fa-arrow-right-to-bracket fa-lg"
-                style="color: #000"
-              ></i>
+              <i type="button" class="ms-2 fa-solid fa-arrow-right-to-bracket fa-lg" style="color: #000" />
             </a>
 
             <!-- Log out icon -->
             <a
               v-show="!isLoggedOff"
-              @click="logOut"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
               data-bs-title="Log out"
               class="border-container"
+              @click="logOut"
             >
               Log out
-              <i
-                type="button"
-                class="ms-2 fa-solid fa-door-open fa-lg"
-                style="color: #a51d2d"
-              ></i>
+              <i type="button" class="ms-2 fa-solid fa-door-open fa-lg" style="color: #a51d2d" />
             </a>
           </div>
         </div>
