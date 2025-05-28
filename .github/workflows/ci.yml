@@ -17,19 +17,25 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.11.0'
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Run ESLint
-        run: npx eslint . --ext .js,.vue
+        run: pnpm run lint
 
       - name: Check Prettier formatting
-        run: npx prettier . --check
+        run: pnpm run format --check
 
   backend-checks:
     name: Backend lint & format (Ruff)
