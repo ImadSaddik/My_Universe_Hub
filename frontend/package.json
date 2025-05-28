@@ -21,6 +21,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.0",
     "eslint": "^9.27.0",
+    "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-vue": "^10.1.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.0",
@@ -31,7 +32,7 @@
   },
   "lint-staged": {
     "*.{js,vue}": [
-      "npx eslint --fix",
+      "npx eslint --fix --config frontend/eslint.config.js",
       "npx prettier --write"
     ],
     "*.{css,scss,html,json}": [
