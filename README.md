@@ -89,98 +89,123 @@ To translate the APOD entries, you can use [LLM](https://en.wikipedia.org/wiki/L
 
 Follow these steps to get the project up and running:
 
-1. Clone this repository:
+1. **Clone this repository:**
 
-   ```bash
-   git clone https://github.com/ImadSaddik/My_Universe_Hub.git
-   ```
+    ```bash
+    git clone https://github.com/ImadSaddik/My_Universe_Hub.git
+    ```
 
-2. Navigate to the project directory:
+2. **Navigate to the project directory:**
 
-   ```bash
-   cd My_Universe_Hub
-   ```
+    ```bash
+    cd My_Universe_Hub
+    ```
 
-3. Create a virtual environment and activate it
-   - Using `anaconda`:
+3. **Create a virtual environment and activate it:**
+    - Using `anaconda`:
 
         ```bash
         conda create -n myuniversehub python=3.11
         conda activate myuniversehub
         ```
 
-   - Using `venv`:
+    - Using `venv`:
 
         ```bash
         python -m venv .myuniversehub
-        source .myuniversehub/bin/activate
+        source .myuniversehub/bin/activate  # On Windows: .myuniversehub\Scripts\activate
         ```
 
-4. Install dependencies using `uv`:
-   - Ensure `uv` is installed. See [uv installation guide](https://astral.sh/uv#installation). Then run:
-
-        ```bash
-        uv pip install -r requirements.txt
-        ```
-
-   - Alternatively, if you don't have `uv`, you can use `pip`:
-
-        ```bash
-        pip install -r requirements.txt
-        ```
-
-5. Set up Environment Variables:
-
-    Create a `.env` file in the `backend` directory with your necessary environment variables. Refer to `.env.example` if available.
-
-    To get the `EMAIL_HOST_USER` and `EMAIL_HOST_PASSWORD`, [watch this video](https://www.youtube.com/watch?v=SalrBanIUmc) to learn how to set up a Gmail account for sending emails.
-
-6. Create the SQLite database:
-
-   ```bash
-   python manage.py makemigrations
-   python manage.py migrate
-   ```
-
-7. Fill database:
-
-   ```bash
-   cd backend/utils/
-   python fill_database.py
-   ```
-
-8. Start Django server:
-
-   ```bash
-   cd backend/
-   python manage.py runserver 0.0.0.0:8000
-   ```
-
-9. Install pnpm:
-
-    If you don't have pnpm, install it globally. One common way is using npm:
+4. **Navigate to the backend directory:**
 
     ```bash
-    cd frontend/
+    cd backend
+    ```
+
+5. **Install backend dependencies using `uv`:**
+
+    Ensure `uv` is installed. See [uv installation guide](https://astral.sh/uv#installation).
+
+    ```bash
+    uv pip install -r requirements.txt
+    ```
+
+    Alternatively, if you don't have `uv`, you can use `pip`:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+6. **Set up Environment Variables:**
+
+    Create a `.env` file in the current directory (`backend/`) with your necessary environment variables. Refer to `.env.example`.
+
+    To set `EMAIL_HOST_USER` and `EMAIL_HOST_PASSWORD`, [watch this video](https://www.youtube.com/watch?v=SalrBanIUmc) to learn how to set up a Gmail account for sending emails.
+
+7. **Create the SQLite database:**
+
+    Ensure you are in the `backend` directory.
+
+    ```bash
+    python manage.py makemigrations
+    python manage.py migrate
+    ```
+
+8. **Fill database:**
+
+    Ensure you are in the `backend` directory.
+
+    ```bash
+    cd utils
+    python fill_database.py
+    cd ..
+    ```
+
+    `cd ..` brings you back to the `backend` directory.
+
+9. **Start Django server:**
+
+    Ensure you are in the `backend` directory.
+
+    ```bash
+    python manage.py runserver 0.0.0.0:8000
+    ```
+
+10. **Ensure pnpm is installed globally:**
+
+    If you don't have pnpm, install it globally. One common way is using npm (this can be run from any directory):
+
+    ```bash
     npm install -g pnpm
     ```
 
-   Or refer to the official [pnpm installation guide](https://pnpm.io/installation) for other methods
+    Or refer to the official [pnpm installation guide](https://pnpm.io/installation) for other methods.
 
-10. Install frontend dependencies:
+11. **Navigate to the frontend directory:**
 
-    If you don't have pnpm, install it globally. One common way is using npm:
+    From the project root `My_Universe_Hub/`
 
     ```bash
-    cd frontend/
+    cd frontend
+    ```
+
+    If you were in the `backend/` directory from the previous steps, you would use `cd ../frontend`
+
+12. **Install frontend dependencies:**
+
+    Ensure you are in the `frontend` directory.
+
+    ```bash
     pnpm install
     ```
 
-11. Start the development server:
+13. **Start the frontend development server:**
 
-   ```bash
-   pnpm run dev
-   ```
+    Ensure you are in the `frontend` directory.
+
+    ```bash
+    pnpm run dev
+    ```
 
 ## Acknowledgements
 
