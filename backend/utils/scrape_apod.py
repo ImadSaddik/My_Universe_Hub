@@ -1,20 +1,20 @@
-import os
 import json
+import os
 import time
-import requests
-import google.generativeai as genai
-
-from tqdm import tqdm
-from bs4 import BeautifulSoup
 from datetime import datetime
+
+import google.generativeai as genai
+import requests
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
+from tqdm import tqdm
 
 load_dotenv()
-genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-dir_path = os.path.dirname(os.path.realpath(__file__)) # /Development/backend/utils
-backend_dir = os.path.abspath(os.path.join(dir_path, os.pardir)) # /Development/backend
-data_path = os.path.join(backend_dir, 'data', 'apod_data.json')
+dir_path = os.path.dirname(os.path.realpath(__file__))  # /Development/backend/utils
+backend_dir = os.path.abspath(os.path.join(dir_path, os.pardir))  # /Development/backend
+data_path = os.path.join(backend_dir, "data", "apod_data.json")
 
 
 def scrapeAPODWebsite():
@@ -27,29 +27,28 @@ def scrapeAPODWebsite():
     for tag in tqdm(a_tags, total=len(a_tags)):
         try:
             item = scrape_a_tag(tag)
-            if item['image_url'] is None:
+            if item["image_url"] is None:
                 # This means that this is a video link, we don't want to include it
                 continue
 
-            with open(data_path, 'r') as file:
+            with open(data_path, "r") as file:
                 data = json.load(file)
 
             if itemExistsInData(data, item):
-                print(
-                    f"Item for date {item['date']} already exists in the data. Stop scraping.")
+                print(f"Item for date {item['date']} already exists in the data. Stop scraping.")
                 break
             else:
                 data.append(item)
 
             # Write the updated data back to the file
-            with open(data_path, 'w') as file:
+            with open(data_path, "w") as file:
                 json.dump(data, file, indent=4)
-                
+
             # to avoid hitting the rate limit of 15 requests per minute
             end_time = time.time()
             if end_time - start_time < 60:
                 rpm_counter += 1
-                if rpm_counter == 10: # 10 requests per minute just to leave a margin
+                if rpm_counter == 10:  # 10 requests per minute just to leave a margin
                     time.sleep(60)
                     rpm_counter = 0
                     start_time = time.time()
@@ -60,16 +59,16 @@ def scrapeAPODWebsite():
 
 def createOutputFileIfNotExists():
     if not os.path.exists(data_path):
-        with open(data_path, 'w') as file:
-            file.write('[]')
+        with open(data_path, "w") as file:
+            file.write("[]")
 
 
 def getATags():
-    source = requests.get('https://apod.nasa.gov/apod/archivepix.html').text
-    soup = BeautifulSoup(source, 'lxml')
+    source = requests.get("https://apod.nasa.gov/apod/archivepix.html").text
+    soup = BeautifulSoup(source, "lxml")
 
-    b_tag = soup.find_all('b')[1]
-    return b_tag.find_all('a')
+    b_tag = soup.find_all("b")[1]
+    return b_tag.find_all("a")
 
 
 def scrape_a_tag(a_tag):
@@ -77,31 +76,31 @@ def scrape_a_tag(a_tag):
 
     date = a_tag.find_previous(string=True).strip()
     title = a_tag.text.strip()
-    url = f'https://apod.nasa.gov/apod/{a_tag["href"]}'
+    url = f"https://apod.nasa.gov/apod/{a_tag['href']}"
     image, explanation = getImageAndExplanation(url)
     authors = getAuthors(url)
 
-    dictionary['date'] = date
-    dictionary['title'] = title
-    dictionary['url'] = url
-    dictionary['image_url'] = image
-    dictionary['explanation'] = explanation
-    dictionary['authors'] = authors
+    dictionary["date"] = date
+    dictionary["title"] = title
+    dictionary["url"] = url
+    dictionary["image_url"] = image
+    dictionary["explanation"] = explanation
+    dictionary["authors"] = authors
 
     return dictionary
 
 
 def getImageAndExplanation(url):
     source = requests.get(url).text
-    soup = BeautifulSoup(source, 'lxml')
+    soup = BeautifulSoup(source, "lxml")
 
-    p_tags = soup.find_all('p')
-    img_tag = soup.find('img')
+    p_tags = soup.find_all("p")
+    img_tag = soup.find("img")
     explanation = p_tags[2].get_text()
 
     try:
-        img_url = f'https://apod.nasa.gov/apod/{img_tag["src"]}'
-    except:
+        img_url = f"https://apod.nasa.gov/apod/{img_tag['src']}"
+    except Exception:
         img_url = None
 
     return img_url, explanation
@@ -109,9 +108,9 @@ def getImageAndExplanation(url):
 
 def getAuthors(url):
     source = requests.get(url).text
-    soup = BeautifulSoup(source, 'lxml')
+    soup = BeautifulSoup(source, "lxml")
 
-    center_tags = soup.find_all('center')
+    center_tags = soup.find_all("center")
     credit_center_tag = center_tags[1]
     authors = extractAuthorsWithGemini(credit_center_tag)
 
@@ -127,19 +126,19 @@ The HTML code snippet is as follows:
 {center_tag}
 """
 
-    model = genai.GenerativeModel('models/gemini-1.5-flash-002')
+    model = genai.GenerativeModel("models/gemini-1.5-flash-002")
     response = model.generate_content(query)
     return response.text
 
 
 def convertDate(date):
-    date = date.replace(':', '')
-    return datetime.strptime(date, '%Y %B %d').date()
+    date = date.replace(":", "")
+    return datetime.strptime(date, "%Y %B %d").date()
 
 
 def itemExistsInData(data, item):
     for entry in data:
-        if entry['date'] == item['date']:
+        if entry["date"] == item["date"]:
             return True
     return False
 

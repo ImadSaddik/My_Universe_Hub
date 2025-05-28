@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -29,9 +28,7 @@ class Migration(migrations.Migration):
                 ("password", models.CharField(max_length=128, verbose_name="password")),
                 (
                     "last_login",
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name="last login"
-                    ),
+                    models.DateTimeField(blank=True, null=True, verbose_name="last login"),
                 ),
                 (
                     "is_superuser",
@@ -133,9 +130,7 @@ class Migration(migrations.Migration):
                 ("keywords", models.ManyToManyField(to="gallery.keyword")),
                 (
                     "liked_by_users",
-                    models.ManyToManyField(
-                        related_name="liked_images", to=settings.AUTH_USER_MODEL
-                    ),
+                    models.ManyToManyField(related_name="liked_images", to=settings.AUTH_USER_MODEL),
                 ),
             ],
             options={
@@ -145,15 +140,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="comment",
             name="gallery",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE, to="gallery.gallery"
-            ),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="gallery.gallery"),
         ),
         migrations.AddField(
             model_name="comment",
             name="user",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
-            ),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
         ),
     ]
