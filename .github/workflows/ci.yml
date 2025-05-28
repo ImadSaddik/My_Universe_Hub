@@ -58,7 +58,10 @@ jobs:
           curl -LsSf https://astral.sh/uv/install.sh | sh
 
       - name: Install dependencies with uv
-        run: uv pip install -r requirements.txt
+        run: |
+          uv venv .venv
+          source .venv/bin/activate
+          uv pip install -r requirements.txt
 
       - name: Run Ruff formatter check
         run: ruff format . --check
