@@ -26,7 +26,7 @@ jobs:
         run: npm install
 
       - name: Run ESLint
-        run: npx eslint src --ext .js,.vue
+        run: npx eslint . --ext .js,.vue
 
       - name: Check Prettier formatting
-        run: npx prettier src --check
+        run: npx prettier . --check
