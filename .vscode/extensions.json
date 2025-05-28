@@ -19,6 +19,8 @@
 		"ms-python.vscode-pylance",
 
 		"yzhang.markdown-all-in-one",
-		"vscode-icons-team.vscode-icons"
+		"vscode-icons-team.vscode-icons",
+
+		"charliermarsh.ruff",
   ]
 }
