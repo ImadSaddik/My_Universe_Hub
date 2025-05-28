@@ -4,13 +4,14 @@
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
 
-  "[python]": {
-    "editor.defaultFormatter": "ms-python.autopep8",
-    "editor.tabSize": 4,
+	"[python]": {
+		"editor.defaultFormatter": "charliermarsh.ruff",
 		"editor.formatOnSave": true,
-		"editor.insertSpaces": false,
-		"editor.detectIndentation": false
-  },
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": "explicit",
+			"source.fixAll": "explicit"
+		}
+	},
   "[javascript][vue][json][jsonc][html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
