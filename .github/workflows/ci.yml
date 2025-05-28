@@ -56,13 +56,9 @@ jobs:
       - name: Install uv
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
-          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
       - name: Install dependencies with uv
-        run: |
-          uv venv .venv
-          source .venv/bin/activate
-          uv pip install -r requirements.txt
+        run: uv pip install -r requirements.txt --system
 
       - name: Run Ruff formatter check
         run: ruff format . --check
