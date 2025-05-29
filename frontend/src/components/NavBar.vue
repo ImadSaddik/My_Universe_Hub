@@ -168,6 +168,7 @@ export default {
     },
     handleNavbarItemClick(item) {
       localStorage.setItem("selectedNavbarItem", item);
+      this.$store.commit("setSelectedNavbarItem", item);
     },
     async fetchGitHubStars() {
       try {
