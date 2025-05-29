@@ -1,8 +1,13 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-white">
     <div class="container-fluid px-sm-3">
-      <RouterLink class="navbar-brand p-0 m-0 me-5" to="/" @click="handleNavbarItemClick(HOME_PAGE)">
-        <img src="../assets/logos/galaxy_logo.svg" alt="" style="width: 2rem" />
+      <RouterLink
+        class="navbar-brand p-0 m-0 me-5"
+        data-test="nav-link-app-logo"
+        to="/"
+        @click="handleNavbarItemClick(HOME_PAGE)"
+      >
+        <img data-test="app-logo" src="../assets/logos/galaxy_logo.svg" alt="" style="width: 2rem" />
       </RouterLink>
       <button
         class="navbar-toggler"
@@ -20,6 +25,7 @@
           <div class="col m-0 p-0 d-lg-flex align-items-center">
             <RouterLink
               class="nav-link"
+              data-test="nav-link-home"
               :class="getNavbarItemClass(HOME_PAGE)"
               to="/"
               @click="handleNavbarItemClick(HOME_PAGE)"
@@ -28,6 +34,7 @@
             </RouterLink>
             <RouterLink
               class="nav-link"
+              data-test="nav-link-today"
               :class="getNavbarItemClass(TODAY_PAGE)"
               to="/today"
               @click="handleNavbarItemClick(TODAY_PAGE)"
@@ -36,6 +43,7 @@
             </RouterLink>
             <RouterLink
               class="nav-link"
+              data-test="nav-link-trending"
               :class="getNavbarItemClass(TRENDING_PAGE)"
               to="/trending"
               @click="handleNavbarItemClick(TRENDING_PAGE)"
@@ -44,6 +52,7 @@
             </RouterLink>
             <RouterLink
               class="nav-link"
+              data-test="nav-link-favourites"
               :class="getNavbarItemClass(FAVOURITES_PAGE)"
               to="/favourites"
               @click="handleNavbarItemClick(FAVOURITES_PAGE)"
@@ -52,6 +61,7 @@
             </RouterLink>
             <RouterLink
               class="nav-link"
+              data-test="nav-link-contribute"
               :class="getNavbarItemClass(CONTRIBUTE_PAGE)"
               to="/contribute"
               @click="handleNavbarItemClick(CONTRIBUTE_PAGE)"
@@ -60,6 +70,7 @@
             </RouterLink>
             <RouterLink
               class="nav-link"
+              data-test="nav-link-about"
               :class="getNavbarItemClass(ABOUT_PAGE)"
               to="/about"
               @click="handleNavbarItemClick(ABOUT_PAGE)"
@@ -81,13 +92,14 @@
               <div>
                 <i class="fab fa-github fa-lg" />
               </div>
-              <span class="ms-2">{{ starCount }}</span>
+              <span class="ms-2" data-test="github-star-count">{{ starCount }}</span>
             </a>
 
             <!-- Log in icon -->
             <a
               v-show="isLoggedOff"
               href="login"
+              data-test="nav-link-login"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
               data-bs-title="Log in"
@@ -101,6 +113,7 @@
             <!-- Log out icon -->
             <a
               v-show="!isLoggedOff"
+              data-test="nav-link-logout"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
               data-bs-title="Log out"
