@@ -120,7 +120,7 @@
               class="border-container"
               @click="logOut"
             >
-              Log out
+              Log Out
               <i type="button" class="ms-2 fa-solid fa-door-open fa-lg" style="color: #a51d2d" />
             </a>
           </div>
