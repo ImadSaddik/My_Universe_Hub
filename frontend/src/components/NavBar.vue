@@ -122,6 +122,7 @@ import axios from "axios";
 
 export default {
   name: "NavBar",
+  emits: ["logged-out"],
   data() {
     return {
       HOME_PAGE: "home",
