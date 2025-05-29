@@ -1,6 +1,7 @@
 {
   "recommendations": [
 		"vue.volar",
+		"shenjiaolong.vue-helper",
 		"vitest.explorer",
     "dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
