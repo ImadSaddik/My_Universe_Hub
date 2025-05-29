@@ -111,7 +111,7 @@
             </a>
 
             <!-- Log out icon -->
-            <a
+            <div
               v-show="!isLoggedOff"
               data-test="nav-link-logout"
               data-bs-toggle="tooltip"
@@ -122,7 +122,7 @@
             >
               Log Out
               <i type="button" class="ms-2 fa-solid fa-door-open fa-lg" style="color: #a51d2d" />
-            </a>
+            </div>
           </div>
         </div>
       </div>
