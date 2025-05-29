@@ -33,5 +33,5 @@
   "eslint.workingDirectories": [
     { "directory": "./frontend", "changeProcessCWD": true }
   ],
-  "prettier.configPath": "frontend/.prettierrc.js"
+  "prettier.configPath": "frontend/.prettierrc.cjs"
 }
