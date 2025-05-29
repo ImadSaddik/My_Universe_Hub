@@ -201,11 +201,6 @@ export default {
 </script>
 
 <style scoped>
-a {
-  color: black;
-  text-decoration: none;
-}
-
 .navbar {
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
 }
