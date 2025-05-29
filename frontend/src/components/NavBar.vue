@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-white">
     <div class="container-fluid px-sm-3">
-      <a class="navbar-brand p-0 m-0 me-5" href="/" @click="handleNavbarItemClick(HOME_PAGE)">
+      <RouterLink class="navbar-brand p-0 m-0 me-5" to="/" @click="handleNavbarItemClick(HOME_PAGE)">
         <img src="../assets/logos/galaxy_logo.svg" alt="" style="width: 2rem" />
-      </a>
+      </RouterLink>
       <button
         class="navbar-toggler"
         type="button"
@@ -18,54 +18,54 @@
       <div id="navbarNavAltMarkup" class="collapse navbar-collapse">
         <div class="row w-100 m-0 navbar-nav">
           <div class="col m-0 p-0 d-lg-flex align-items-center">
-            <a
+            <RouterLink
               class="nav-link"
               :class="getNavbarItemClass(HOME_PAGE)"
-              href="/"
+              to="/"
               @click="handleNavbarItemClick(HOME_PAGE)"
             >
               Home
-            </a>
-            <a
+            </RouterLink>
+            <RouterLink
               class="nav-link"
               :class="getNavbarItemClass(TODAY_PAGE)"
-              href="/today"
+              to="/today"
               @click="handleNavbarItemClick(TODAY_PAGE)"
             >
               Today's picture
-            </a>
-            <a
+            </RouterLink>
+            <RouterLink
               class="nav-link"
               :class="getNavbarItemClass(TRENDING_PAGE)"
-              href="/trending"
+              to="/trending"
               @click="handleNavbarItemClick(TRENDING_PAGE)"
             >
               Trending
-            </a>
-            <a
+            </RouterLink>
+            <RouterLink
               class="nav-link"
               :class="getNavbarItemClass(FAVOURITES_PAGE)"
-              href="/favourites"
+              to="/favourites"
               @click="handleNavbarItemClick(FAVOURITES_PAGE)"
             >
               Favourites
-            </a>
-            <a
+            </RouterLink>
+            <RouterLink
               class="nav-link"
               :class="getNavbarItemClass(CONTRIBUTE_PAGE)"
-              href="/contribute"
+              to="/contribute"
               @click="handleNavbarItemClick(CONTRIBUTE_PAGE)"
             >
               Contribute
-            </a>
-            <a
+            </RouterLink>
+            <RouterLink
               class="nav-link"
               :class="getNavbarItemClass(ABOUT_PAGE)"
-              href="/about"
+              to="/about"
               @click="handleNavbarItemClick(ABOUT_PAGE)"
             >
               About
-            </a>
+            </RouterLink>
             <hr class="d-block d-lg-none" />
           </div>
           <div class="col-auto d-flex p-0 align-items-center">
