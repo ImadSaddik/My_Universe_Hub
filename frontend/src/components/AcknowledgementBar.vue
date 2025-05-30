@@ -5,7 +5,7 @@
         <span>
           This website is a redesign of the Astronomy Picture of the Day (APOD). Images are credited to their respective
           astrophotographers. For more details, visit
-          <a href="https://apod.nasa.gov/" target="_blank" rel="noopener noreferrer">APOD</a>.
+          <a data-test="apod-link" href="https://apod.nasa.gov/" target="_blank" rel="noopener noreferrer">APOD</a>.
         </span>
       </p>
     </div>
