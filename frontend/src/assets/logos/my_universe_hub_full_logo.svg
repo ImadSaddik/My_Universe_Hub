@@ -2,12 +2,12 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="1280"
-   height="402.34821"
-   viewBox="0 0 338.66666 106.45463"
+   width="1008.7775"
+   height="494.28806"
+   viewBox="0 0 266.90568 130.78038"
    version="1.1"
    id="svg1"
-   inkscape:version="1.3.2 (1:1.3.2+202404261509+091e20ef0f)"
+   inkscape:version="1.4.2 (1:1.4.2+202505120737+ebf0e940d0)"
    sodipodi:docname="my_universe_hub_full_logo.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -23,11 +23,11 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
-     inkscape:zoom="0.61527778"
-     inkscape:cx="659.05192"
-     inkscape:cy="221.03837"
-     inkscape:window-width="1920"
-     inkscape:window-height="1131"
+     inkscape:zoom="0.87013418"
+     inkscape:cx="503.37064"
+     inkscape:cy="272.94641"
+     inkscape:window-width="2560"
+     inkscape:window-height="1371"
      inkscape:window-x="0"
      inkscape:window-y="32"
      inkscape:window-maximized="1"
@@ -49,7 +49,7 @@
        miter_limit="4"
        not_jump="false"
        sort_points="true"
-       message="&lt;b&gt;Ctrl + click&lt;/b&gt; on existing node and move it" />
+       message="" />
     <inkscape:path-effect
        effect="fillet_chamfer"
        id="path-effect251"
@@ -82,7 +82,7 @@
        miter_limit="4"
        not_jump="false"
        sort_points="true"
-       message="&lt;b&gt;Ctrl + click&lt;/b&gt; on existing node and move it" />
+       message="" />
     <inkscape:path-effect
        effect="fillet_chamfer"
        id="path-effect247"
@@ -105,20 +105,20 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-42.022686)">
+     transform="translate(-35.880482,-29.859812)">
     <rect
-       style="fill:#ffffff;stroke:none;stroke-width:1.97787;stroke-linecap:round"
+       style="fill:#ffffff;stroke:none;stroke-width:1.94616;stroke-linecap:round"
        id="rect1"
-       width="338.66666"
-       height="106.45463"
-       x="0"
-       y="42.022686" />
+       width="266.9057"
+       height="130.78038"
+       x="35.880482"
+       y="29.859812" />
     <g
        id="g2"
-       transform="translate(4.0216418,1.8658518e-5)">
+       transform="translate(-1.5730038e-6,-16.214229)">
       <g
          id="g1"
-         transform="matrix(0.36941795,0,0,0.36941795,31.591493,20.392669)">
+         transform="matrix(0.36941795,0,0,0.36941795,132.10662,19.813471)">
         <ellipse
            style="fill:#000000;stroke:none;stroke-width:74.0601;stroke-dasharray:none"
            id="ellipse235"
@@ -189,14 +189,14 @@
       <text
          xml:space="preserve"
          style="font-weight:bold;font-size:23.878px;font-family:Roboto;-inkscape-font-specification:'Roboto Bold';fill:#000000;stroke:none;stroke-width:6.39586;stroke-linecap:round"
-         x="104.00078"
-         y="101.6567"
+         x="79.277832"
+         y="143.38225"
          id="text1"><tspan
            sodipodi:role="line"
            id="tspan1"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;fill:#000000;stroke:none;stroke-width:6.39586"
-           x="104.00078"
-           y="101.6567">My Universe Hub</tspan></text>
+           x="79.277832"
+           y="143.38225">My Universe Hub</tspan></text>
     </g>
   </g>
 </svg>
