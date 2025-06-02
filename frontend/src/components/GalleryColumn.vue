@@ -1,9 +1,10 @@
 <template>
   <div class="col-12 col-sm-6 col-lg-4 py-0">
-    <div v-for="(item, index) in archive" :key="index" class="mb-3">
+    <div v-for="(item, index) in archive" :key="index" data-cy="gallery-item" class="mb-3">
       <div>
         <img
           v-lazy="item.image_url"
+          data-cy="gallery-item-image"
           :src="item.image_url"
           class="img-fluid image-container"
           alt=""
@@ -13,28 +14,34 @@
         />
         <div class="row m-0">
           <div class="col py-1 d-flex align-items-center marquee-container">
-            <img src="../assets/logos/galaxy_logo.svg" alt="" style="width: 2rem" />
-            <p class="custom-small-text m-0 ms-3 fw-bold">
+            <img data-cy="gallery-item-app-logo" src="../assets/logos/galaxy_logo.svg" alt="" style="width: 2rem" />
+            <p data-cy="gallery-item-title" class="custom-small-text m-0 ms-3 fw-bold">
               {{ item.title }}
             </p>
           </div>
-          <div class="col-auto p-0 py-1">
+          <div data-cy="gallery-item-action" class="col-auto p-0 py-1">
             <div v-if="isLoggedIn">
               <div
                 v-if="item.image_is_liked"
+                data-cy="gallery-item-unlike-or-like"
                 class="like-icon-container d-flex align-items-center"
                 @click="unlikeImage(item)"
               >
                 {{ item.image_likes_count }}
                 <i type="button" class="ms-2 fa-solid fa-heart fa-xl" style="color: #f66151" />
               </div>
-              <div v-else class="like-icon-container d-flex align-items-center" @click="likeImage(item)">
+              <div
+                v-else
+                data-cy="gallery-item-unlike-or-like"
+                class="like-icon-container d-flex align-items-center"
+                @click="likeImage(item)"
+              >
                 {{ item.image_likes_count }}
                 <i type="button" class="ms-2 fa-regular fa-heart fa-xl" />
               </div>
             </div>
             <div v-else>
-              <div class="like-icon-container d-flex align-items-center">
+              <div data-cy="gallery-item-unlike-or-like" class="like-icon-container d-flex align-items-center">
                 {{ item.image_likes_count }}
                 <i :disabled="!isLoggedIn" class="ms-2 fa-regular fa-heart fa-xl" style="color: #77767b" />
               </div>
@@ -42,10 +49,12 @@
           </div>
         </div>
         <div>
-          <p class="custom-small-text"><b>Image credit:</b> {{ item.authors }}</p>
+          <p data-cy="gallery-item-image-credit" class="custom-small-text"><b>Image credit:</b> {{ item.authors }}</p>
           <p class="custom-small-text">
-            <b>Posted:</b> {{ item.date }} on
-            <a href="https://apod.nasa.gov/" target="_blank" rel="noopener noreferrer">APOD</a>
+            <b data-cy="gallery-item-date">Posted:</b> {{ item.date }} on
+            <a data-cy="gallery-item-apod-link" href="https://apod.nasa.gov/" target="_blank" rel="noopener noreferrer"
+              >APOD</a
+            >
           </p>
         </div>
       </div>
@@ -59,7 +68,13 @@ import axios from "axios";
 export default {
   name: "GalleryColumn",
   components: {},
-  props: ["archive"],
+  props: {
+    archive: {
+      type: Array,
+      required: true,
+    },
+  },
+  emits: ["unlike-image", "selectedItem"],
   data() {
     return {
       selectedItem: null,

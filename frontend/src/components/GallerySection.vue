@@ -2,7 +2,9 @@
   <div class="container-fluid m-0 py-0 px-3">
     <div v-if="searchResultCount == 0">
       <div class="row d-flex align-items-center justify-content-center" style="height: calc(20vh)">
-        <h5 class="nav-link text-center">No images found for the search query 😔, try another one.</h5>
+        <h5 data-cy="no-results-message" class="nav-link text-center">
+          No images found for the search query 😔, try another one.
+        </h5>
       </div>
     </div>
     <div v-else>
@@ -17,8 +19,9 @@
       </div>
       <div class="row mx-0 mb-3">
         <div
-          v-if="shouldShowLoadMoreButton"
+          v-show="shouldShowLoadMoreButton"
           type="button"
+          data-cy="load-more-button"
           class="col custom-btn custom-btn-white py-4 d-flex align-items-center justify-content-center"
           :class="{ 'border-dark': isHovering }"
           @mouseover="isHovering = true"
@@ -40,7 +43,21 @@ export default {
   components: {
     GalleryColumn,
   },
-  props: ["archive", "shouldShowLoadMoreButton", "searchResultCount"],
+  props: {
+    archive: {
+      type: Array,
+      required: true,
+    },
+    shouldShowLoadMoreButton: {
+      type: Boolean,
+      required: true,
+    },
+    searchResultCount: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ["selected-item", "unlike-image", "increaseLimit"],
   data() {
     return {
       selectedItem: null,
