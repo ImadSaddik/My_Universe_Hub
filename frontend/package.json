@@ -11,7 +11,8 @@
     "lint": "eslint . --ext .js,.vue --fix",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "axios": "^1.4.0",
@@ -26,6 +27,7 @@
     "@vitest/coverage-v8": "3.1.4",
     "@vitest/ui": "3.1.4",
     "@vue/test-utils": "^2.4.6",
+    "cypress": "^14.4.0",
     "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-vue": "^10.1.0",
