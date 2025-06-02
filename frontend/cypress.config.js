@@ -9,8 +9,8 @@ export default defineConfig({
     viewportWidth: 1280,
     viewportHeight: 1280,
     setupNodeEvents(on, config) {
-      config.env.TEST_LOGIN_EMAIL = process.env.TEST_LOGIN_EMAIL;
-      config.env.TEST_LOGIN_PASSWORD = process.env.TEST_LOGIN_PASSWORD;
+      config.env.TEST_USER_EMAIL = process.env.TEST_USER_EMAIL;
+      config.env.TEST_USER_PASSWORD = process.env.TEST_USER_PASSWORD;
       return config;
     },
   },

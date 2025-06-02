@@ -9,8 +9,8 @@ describe("Login Feature", () => {
     cy.title().should("eq", "Log In");
 
     // 3. Fill in credentials from environment variables and submit
-    cy.get('[data-cy="login-email"]').type(Cypress.env("TEST_LOGIN_EMAIL"));
-    cy.get('[data-cy="login-password"]').type(Cypress.env("TEST_LOGIN_PASSWORD"));
+    cy.get('[data-cy="login-email"]').type(Cypress.env("TEST_USER_EMAIL"));
+    cy.get('[data-cy="login-password"]').type(Cypress.env("TEST_USER_PASSWORD"));
     cy.get('[data-cy="login-submit"]').click();
 
     // 4. Should be redirected to home

@@ -153,8 +153,8 @@ jobs:
           python utils/create_test_user.py
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
-          TEST_LOGIN_EMAIL: ${{ secrets.TEST_LOGIN_EMAIL }}
-          TEST_LOGIN_PASSWORD: ${{ secrets.TEST_LOGIN_PASSWORD }}
+          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
 
       - name: Fill database with gallery data
         run: |
