@@ -149,8 +149,7 @@ jobs:
 
       - name: Create test user
         run: |
-          cd backend
-          python utils/create_test_user.py
+          python backend/utils/create_test_user.py
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
           TEST_LOGIN_EMAIL: ${{ secrets.TEST_LOGIN_EMAIL }}
@@ -158,8 +157,7 @@ jobs:
 
       - name: Fill database with gallery data
         run: |
-          cd backend
-          python utils/fill_database.py
+          python backend/utils/fill_database.py
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
 
