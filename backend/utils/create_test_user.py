@@ -3,13 +3,13 @@ import os
 import django_setup
 from dotenv import load_dotenv
 
-from gallery.models import UserAccount
-
 load_dotenv()
 django_setup.setup_django_environment()
 
 
 def create_test_user():
+    from gallery.models import UserAccount
+
     email = os.getenv("TEST_USER_EMAIL")
     password = os.getenv("TEST_USER_PASSWORD")
     name = "Test User"
