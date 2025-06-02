@@ -99,95 +99,95 @@ jobs:
 
   # Stage 3: E2E tests
   e2e-tests:
-  name: E2E tests
-  runs-on: ubuntu-latest
-  needs: [frontend-unit-tests]
-  steps:
-    - name: Check out repository
-      uses: actions/checkout@v4
+    name: E2E tests
+    runs-on: ubuntu-latest
+    needs: [frontend-unit-tests]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-    # Set up backend
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.11"
+      # Set up backend
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-    - name: Install uv
-      run: |
-        curl -LsSf https://astral.sh/uv/install.sh | sh
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
 
-    - name: Install backend dependencies
-      run: |
-        cd backend
-        uv pip install -r requirements.txt --system
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          uv pip install -r requirements.txt --system
 
-    # Set up frontend
-    - name: Set up pnpm
-      uses: pnpm/action-setup@v4
-      with:
-        version: "10.11.0"
+      # Set up frontend
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: "10.11.0"
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: "22"
-        cache: "pnpm"
-        cache-dependency-path: frontend/pnpm-lock.yaml
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+          cache-dependency-path: frontend/pnpm-lock.yaml
 
-    - name: Install frontend dependencies
-      run: |
-        cd frontend
-        pnpm install
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          pnpm install
 
-    # Setup database and test data
-    - name: Setup Django database
-      run: |
-        cd backend
-        python manage.py migrate
-      env:
-        DJANGO_SETTINGS_MODULE: backend.settings
+      # Setup database and test data
+      - name: Setup Django database
+        run: |
+          cd backend
+          python manage.py migrate
+        env:
+          DJANGO_SETTINGS_MODULE: backend.settings
 
-    - name: Create test user
-      run: |
-        cd backend
-        python utils/create_test_user.py
-      env:
-        DJANGO_SETTINGS_MODULE: backend.settings
-        TEST_LOGIN_EMAIL: ${{ secrets.TEST_LOGIN_EMAIL }}
-        TEST_LOGIN_PASSWORD: ${{ secrets.TEST_LOGIN_PASSWORD }}
+      - name: Create test user
+        run: |
+          cd backend
+          python utils/create_test_user.py
+        env:
+          DJANGO_SETTINGS_MODULE: backend.settings
+          TEST_LOGIN_EMAIL: ${{ secrets.TEST_LOGIN_EMAIL }}
+          TEST_LOGIN_PASSWORD: ${{ secrets.TEST_LOGIN_PASSWORD }}
 
-    - name: Fill database with gallery data
-      run: |
-        cd backend
-        python utils/fill_database.py
-      env:
-        DJANGO_SETTINGS_MODULE: backend.settings
+      - name: Fill database with gallery data
+        run: |
+          cd backend
+          python utils/fill_database.py
+        env:
+          DJANGO_SETTINGS_MODULE: backend.settings
 
-    # Start backend server
-    - name: Start Django backend
-      run: |
-        cd backend
-        python manage.py runserver &
-        sleep 10
-      env:
-        DJANGO_SETTINGS_MODULE: backend.settings
+      # Start backend server
+      - name: Start Django backend
+        run: |
+          cd backend
+          python manage.py runserver &
+          sleep 10
+        env:
+          DJANGO_SETTINGS_MODULE: backend.settings
 
-    # Build and start frontend
-    - name: Build and start frontend
-      run: |
-        cd frontend
-        pnpm run build
-        pnpm run serve &
-        sleep 10
+      # Build and start frontend
+      - name: Build and start frontend
+        run: |
+          cd frontend
+          pnpm run build
+          pnpm run serve &
+          sleep 10
 
-    # Run Cypress E2E tests
-    - name: Run Cypress E2E tests
-      run: |
-        cd frontend
-        pnpm run cypress:run
-      env:
-        TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
-        TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      # Run Cypress E2E tests
+      - name: Run Cypress E2E tests
+        run: |
+          cd frontend
+          pnpm run cypress:run
+        env:
+          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
 
   # Stage 4: Build
   build:
