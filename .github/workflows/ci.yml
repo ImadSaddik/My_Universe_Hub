@@ -71,7 +71,7 @@ jobs:
   frontend-unit-tests:
     name: Frontend unit tests
     runs-on: ubuntu-latest
-    needs: [frontend-lint-format]
+    needs: [frontend-lint-format, backend-lint-format]
     defaults:
       run:
         working-directory: ./frontend
