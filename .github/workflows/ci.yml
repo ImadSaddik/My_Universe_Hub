@@ -139,6 +139,11 @@ jobs:
           cd frontend
           pnpm install
 
+      - name: Install Cypress binary
+        run: |
+          cd frontend
+          pnpm exec cypress install
+
       # Setup database and test data
       - name: Setup Django database
         run: |
@@ -167,8 +172,8 @@ jobs:
       - name: Start Django backend
         run: |
           cd backend
-          python manage.py runserver &
-          sleep 10
+          python manage.py runserver 0.0.0.0:8000 &
+          sleep 5
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
 
@@ -176,9 +181,8 @@ jobs:
       - name: Build and start frontend
         run: |
           cd frontend
-          pnpm run build
-          pnpm run serve &
-          sleep 10
+          pnpm run dev &
+          sleep 5
 
       # Run Cypress E2E tests
       - name: Run Cypress E2E tests
