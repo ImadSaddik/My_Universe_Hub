@@ -23,3 +23,10 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("mockGitHubAPI", () => {
+  cy.intercept("GET", "https://api.github.com/repos/ImadSaddik/My_Universe_Hub", {
+    statusCode: 200,
+    body: { stargazers_count: 3647 },
+  }).as("githubStars");
+});
