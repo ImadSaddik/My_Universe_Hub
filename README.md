@@ -12,13 +12,13 @@ After months of using APOD, I started thinking, "Hey, this site looks a bit outd
 
 This little project of mine is my baby. I've invested hundreds of hours and over a year of work into it. I am sharing it with everyone to enjoy it and to contribute to it.
 
-### Hm, Interesting.
+### Hm, Interesting
 
 I absolutely love looking at the stunning images shared by NASA, ESA, CSA, and even amateur or professional astronomers on the internet. One of my favorite places to go is [APOD](https://apod.nasa.gov/apod/archivepix.html) (Astronomy Picture Of the Day). What's cool about APOD is that you never know what you're gonna get each day. It's like a little surprise waiting for you every time you visit.
 
 ### Explore and enjoy
 
-Curious about how I built it? Check out my journey on YouTube [here](https://youtu.be/kvoKKJ2zsts?si=GTlOPbKAAtVH6Yyv)
+Curious about how I built it? [Check out my journey on YouTube](https://youtu.be/kvoKKJ2zsts?si=GTlOPbKAAtVH6Yyv)
 
 ## Website overview
 
@@ -75,8 +75,7 @@ My Universe Hub is hosted on a machine provisioned from digital ocean. If the we
 
 You can donate via the following platforms:
 
-[Paypal](https://paypal.me/ProGamer20177?country.x=MA&locale.x=en_US)
-<br>
+[Paypal](https://paypal.me/ProGamer20177?country.x=MA&locale.x=en_US) </br>
 [Patreon](https://www.patreon.com/3CodeCamp)
 
 ### 4. Translation
@@ -91,85 +90,86 @@ Follow these steps to get the project up and running:
 
 1. **Clone this repository:**
 
-    ```bash
-    git clone https://github.com/ImadSaddik/My_Universe_Hub.git
-    ```
+   ```bash
+   git clone https://github.com/ImadSaddik/My_Universe_Hub.git
+   ```
 
 2. **Navigate to the project directory:**
 
-    ```bash
-    cd My_Universe_Hub
-    ```
+   ```bash
+   cd My_Universe_Hub
+   ```
 
 3. **Create a virtual environment and activate it:**
-    - Using `anaconda`:
 
-        ```bash
-        conda create -n myuniversehub python=3.11
-        conda activate myuniversehub
-        ```
+   - Using `anaconda`:
 
-    - Using `venv`:
+     ```bash
+     conda create -n myuniversehub python=3.11
+     conda activate myuniversehub
+     ```
 
-        ```bash
-        python -m venv .myuniversehub
-        source .myuniversehub/bin/activate  # On Windows: .myuniversehub\Scripts\activate
-        ```
+   - Using `venv`:
+
+     ```bash
+     python -m venv .myuniversehub
+     source .myuniversehub/bin/activate  # On Windows: .myuniversehub\Scripts\activate
+     ```
 
 4. **Navigate to the backend directory:**
 
-    ```bash
-    cd backend
-    ```
+   ```bash
+   cd backend
+   ```
 
 5. **Install backend dependencies using `uv`:**
 
-    Ensure `uv` is installed. See [uv installation guide](https://astral.sh/uv#installation).
+   Ensure `uv` is installed. See [uv installation guide](https://astral.sh/uv#installation).
 
-    ```bash
-    uv pip install -r requirements.txt
-    ```
+   ```bash
+   uv pip install -r requirements.txt
+   ```
 
-    Alternatively, if you don't have `uv`, you can use `pip`:
+   Alternatively, if you don't have `uv`, you can use `pip`:
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 6. **Set up Environment Variables:**
 
-    Create a `.env` file in the current directory (`backend/`) with your necessary environment variables. Refer to `.env.example`.
+   Create a `.env` file in the current directory (`backend/`) with your necessary environment variables. Refer to `.env.example`.
 
-    To set `EMAIL_HOST_USER` and `EMAIL_HOST_PASSWORD`, [watch this video](https://www.youtube.com/watch?v=SalrBanIUmc) to learn how to set up a Gmail account for sending emails.
+   To set `EMAIL_HOST_USER` and `EMAIL_HOST_PASSWORD`, [watch this video](https://www.youtube.com/watch?v=SalrBanIUmc) to learn how to set up a Gmail account for sending emails.
 
 7. **Create the SQLite database:**
 
-    Ensure you are in the `backend` directory.
+   Ensure you are in the `backend` directory.
 
-    ```bash
-    python manage.py makemigrations
-    python manage.py migrate
-    ```
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
 
 8. **Fill database:**
 
-    Ensure you are in the `backend` directory.
+   Ensure you are in the `backend` directory.
 
-    ```bash
-    cd utils
-    python fill_database.py
-    cd ..
-    ```
+   ```bash
+   cd utils
+   python fill_database.py
+   cd ..
+   ```
 
-    `cd ..` brings you back to the `backend` directory.
+   `cd ..` brings you back to the `backend` directory.
 
 9. **Start Django server:**
 
-    Ensure you are in the `backend` directory.
+   Ensure you are in the `backend` directory.
 
-    ```bash
-    python manage.py runserver 0.0.0.0:8000
-    ```
+   ```bash
+   python manage.py runserver 0.0.0.0:8000
+   ```
 
 10. **Ensure pnpm is installed globally:**
 
