@@ -83,6 +83,7 @@
             <!-- GitHub logo and star count -->
             <a
               :href="githubRepoUrl"
+              data-cy="github-link"
               target="_blank"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
@@ -98,11 +99,11 @@
             <!-- Log in icon -->
             <a
               v-show="isLoggedOff"
-              href="login"
+              href="/login"
               data-test="nav-link-login"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
-              data-bs-title="Log in"
+              data-bs-title="Log In"
               class="border-container"
               @click="handleNavbarItemClick(NONE)"
             >
@@ -201,6 +202,11 @@ export default {
 </script>
 
 <style scoped>
+a {
+  color: black;
+  text-decoration: none;
+}
+
 .navbar {
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
 }
