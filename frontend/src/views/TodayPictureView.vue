@@ -47,7 +47,10 @@
         </div>
         <div class="row m-0 mt-3 mt-sm-4 mb-3">
           <div class="col px-sm-3">
-            <p class="custom-small-text" v-html="formatExplanation(data.explanation)" />
+            <p v-if="data.explanation" class="custom-small-text">
+              <strong>Explanation:</strong>
+              {{ data.explanation.substring(data.explanation.indexOf(":") + 1).trim() }}
+            </p>
           </div>
         </div>
       </div>
@@ -164,18 +167,6 @@ export default {
           item.image_likes_count -= 1;
         })
         .catch((error) => {});
-    },
-    formatExplanation(explanation) {
-      if (!explanation) {
-        return "";
-      }
-      explanation = explanation.trim();
-      const [_, ...contentParts] = explanation.split("Explanation:");
-
-      const content = contentParts.join("Explanation:").trim();
-      const prefix = "Explanation:";
-
-      return `<strong>${prefix}</strong> ${content}`;
     },
   },
 };
