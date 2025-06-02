@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Keyword, Gallery
 
-# Register your models here.
-admin.register(Keyword)
-admin.register(Gallery)
+from .models import Gallery, Keyword, UserAccount
+
+admin.site.register(Keyword)
+admin.site.register(Gallery)
+admin.site.register(UserAccount)
