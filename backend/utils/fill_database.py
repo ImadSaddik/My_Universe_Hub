@@ -5,12 +5,12 @@ from datetime import datetime
 import django_setup
 from tqdm import tqdm
 
-from gallery.models import Gallery
-
 django_setup.setup_django_environment()
 
 
 def fillDatabase(data):
+    from gallery.models import Gallery
+
     for item in tqdm(data, total=len(data)):
         if item["image_url"] is None:
             continue

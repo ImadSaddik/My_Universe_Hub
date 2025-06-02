@@ -7,12 +7,12 @@ import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
-from gallery.models import Gallery
-
 django_setup.setup_django_environment()
 
 
 def addNonExistingImages():
+    from gallery.models import Gallery
+
     print("Adding non-existing entries to the database.")
     a_tags = getATags()
 
