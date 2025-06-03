@@ -144,6 +144,9 @@ jobs:
           cd frontend
           pnpm exec cypress install
 
+      - name: Install wait-on globally
+        run: npm install -g wait-on
+
       # Setup database and test data
       - name: Setup Django database
         run: |
@@ -173,10 +176,11 @@ jobs:
         run: |
           cd backend
           python manage.py runserver 0.0.0.0:8000 &
-          sleep 10
-          timeout 30 bash -c 'until curl -f http://localhost:8000/api/v1/gallery/0/10/ 2>/dev/null; do echo "Waiting for backend..."; sleep 2; done'
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
+
+      - name: Wait for backend to be ready
+        run: wait-on http://localhost:8000/api/v1/gallery/0/10/ --timeout 60000
 
       # Start frontend server
       - name: Start frontend
@@ -189,13 +193,13 @@ jobs:
           EOF
 
           pnpm run dev &
-          sleep 10
-          timeout 30 bash -c 'until curl -f http://localhost:8080 2>/dev/null; do echo "Waiting for frontend..."; sleep 2; done'
+
+      - name: Wait for frontend to be ready
+        run: wait-on http://localhost:8080 --timeout 60000
 
       # Run Cypress E2E tests
       - name: Run Cypress E2E tests
         run: |
-          curl -f http://localhost:8000/api/v1/gallery/0/1/
           cd frontend
           pnpm run cypress:run
         env:
