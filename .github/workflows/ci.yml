@@ -195,6 +195,7 @@ jobs:
       # Run Cypress E2E tests
       - name: Run Cypress E2E tests
         run: |
+          curl -f http://localhost:8000/api/v1/gallery/0/1/
           cd frontend
           pnpm run cypress:run
         env:
