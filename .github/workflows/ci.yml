@@ -122,7 +122,6 @@ jobs:
 
       - name: Run backend unit tests
         run: |
-          cd backend
           pytest
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
