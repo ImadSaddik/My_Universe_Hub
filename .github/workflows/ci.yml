@@ -183,7 +183,7 @@ jobs:
         run: wait-on http://localhost:8000/api/v1/gallery/0/10/ --timeout 60000
 
       # Start frontend server
-      - name: Start frontend
+      - name: Create environment file for frontend
         run: |
           cd frontend
           cat > .env << EOF
@@ -191,11 +191,29 @@ jobs:
           TEST_USER_EMAIL=${{ secrets.TEST_USER_EMAIL }}
           TEST_USER_PASSWORD=${{ secrets.TEST_USER_PASSWORD }}
           EOF
+          echo "Created .env file with contents:"
 
+      - name: Start frontend
+        run: |
+          cd frontend
           pnpm run dev &
+        env:
+          VITE_API_BASE_URL: http://localhost:8000
 
       - name: Wait for frontend to be ready
         run: wait-on http://localhost:8080 --timeout 60000
+
+      # Debug: Test API endpoints before running Cypress
+      - name: Test API connectivity
+        run: |
+          echo "Testing backend API..."
+          curl -f http://localhost:8000/api/v1/gallery/0/10/ || exit 1
+          echo "API response contains gallery data:"
+          curl -s http://localhost:8000/api/v1/gallery/0/10/ | head -c 200
+          echo ""
+          echo "Testing frontend..."
+          curl -f http://localhost:8080 || exit 1
+          echo "Frontend is serving correctly"
 
       # Run Cypress E2E tests
       - name: Run Cypress E2E tests
