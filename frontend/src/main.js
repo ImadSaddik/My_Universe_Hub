@@ -7,7 +7,6 @@ import VueLazyload from "vue3-lazyload";
 import loadingGif from "@/assets/loading.gif";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
-console.log("API Base URL:", axios.defaults.baseURL);
 
 const app = createApp(App);
 

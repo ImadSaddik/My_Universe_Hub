@@ -1,5 +1,4 @@
 import { defineConfig } from "cypress";
-import installLogsPrinter from "cypress-terminal-report/src/installLogsPrinter.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -12,7 +11,6 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       config.env.TEST_USER_EMAIL = process.env.TEST_USER_EMAIL;
       config.env.TEST_USER_PASSWORD = process.env.TEST_USER_PASSWORD;
-      installLogsPrinter(on);
       return config;
     },
   },

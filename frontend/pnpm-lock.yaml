@@ -42,9 +42,6 @@ importers:
       cypress:
         specifier: ^14.4.0
         version: 14.4.0
-      cypress-terminal-report:
-        specifier: ^7.2.0
-        version: 7.2.0(cypress@14.4.0)
       dotenv:
         specifier: ^16.5.0
         version: 16.5.0
@@ -837,9 +834,6 @@ packages:
     resolution: {integrity: sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==}
     engines: {node: '>=4.0.0'}
 
-  compare-versions@6.1.1:
-    resolution: {integrity: sha512-4hm4VPpIecmlg59CHXnRDnqGplJFrbLG4aFEl5vl6cK1u76ws3LLvX7ikFnTDl5vo39sjWD6AaDPYodJp/NNHg==}
-
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
@@ -864,12 +858,6 @@ packages:
 
   csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
-
-  cypress-terminal-report@7.2.0:
-    resolution: {integrity: sha512-5LeRy3kEY9S/qPpQRVvbaPELdjx4DVk1WCo7rKK0+O+cNZNzbNyWYlaNVHhTiHDGH1lEQFra/1L49ngtM/6whg==}
-    engines: {node: '>= 12'}
-    peerDependencies:
-      cypress: '>=10.0.0'
 
   cypress@14.4.0:
     resolution: {integrity: sha512-/I59Fqxo7fqdiDi3IM2QKA65gZ7+PVejXg404/I8ZSq+NOnrmw+2pnMUJzpoNyg7KABcEBmgpkfAqhV98p7wJA==}
@@ -1774,9 +1762,6 @@ packages:
   strip-json-comments@3.1.1:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
-
-  superstruct@0.14.2:
-    resolution: {integrity: sha512-nPewA6m9mR3d6k7WkZ8N8zpTWfenFH3q9pA2PkuiZxINr9DKB2+40wEQf0ixn8VaGuJ78AB6iWOtStI+/4FKZQ==}
 
   supports-color@7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
@@ -2775,8 +2760,6 @@ snapshots:
 
   common-tags@1.8.2: {}
 
-  compare-versions@6.1.1: {}
-
   concat-map@0.0.1: {}
 
   config-chain@1.1.13:
@@ -2800,13 +2783,6 @@ snapshots:
       rrweb-cssom: 0.8.0
 
   csstype@3.1.2: {}
-
-  cypress-terminal-report@7.2.0(cypress@14.4.0):
-    dependencies:
-      chalk: 4.1.2
-      compare-versions: 6.1.1
-      cypress: 14.4.0
-      superstruct: 0.14.2
 
   cypress@14.4.0:
     dependencies:
@@ -3789,8 +3765,6 @@ snapshots:
   strip-final-newline@2.0.0: {}
 
   strip-json-comments@3.1.1: {}
-
-  superstruct@0.14.2: {}
 
   supports-color@7.2.0:
     dependencies:
