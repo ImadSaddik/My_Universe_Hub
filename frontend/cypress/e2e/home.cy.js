@@ -42,11 +42,15 @@ describe("Home Page", () => {
     });
 
     it("should be visible when scrolled down", () => {
+      cy.get('[data-cy="load-more-button"]').click();
+      cy.wait(1000);
       cy.scrollTo(0, scrollDownAmount);
       cy.get('[data-cy="scroll-to-top-button"]').should("be.visible");
     });
 
     it("should scroll to top when clicked", () => {
+      cy.get('[data-cy="load-more-button"]').click();
+      cy.wait(1000);
       cy.scrollTo(0, scrollDownAmount);
       cy.get('[data-cy="scroll-to-top-button"]').click();
       cy.window().its("scrollY").should("equal", 0);
@@ -165,6 +169,7 @@ describe("Home Page", () => {
 
             // 7. Explanation
             cy.get('[data-cy="modal-explanation"]')
+              .scrollIntoView()
               .should("be.visible")
               .and("contain.text", "Explanation:")
               .invoke("text")
@@ -174,6 +179,7 @@ describe("Home Page", () => {
 
             // 8. Image credit
             cy.get('[data-cy="modal-image-credit"]')
+              .scrollIntoView()
               .should("be.visible")
               .and("contain.text", "Image credit:")
               .invoke("text")
@@ -184,6 +190,7 @@ describe("Home Page", () => {
 
             // 9. Posted date
             cy.get('[data-cy="modal-posted-date"]')
+              .scrollIntoView()
               .should("be.visible")
               .parent()
               .should("contain.text", "Posted:")
@@ -191,6 +198,7 @@ describe("Home Page", () => {
 
             // 10. APOD link
             cy.get('[data-cy="modal-apod-link"]')
+              .scrollIntoView()
               .should("be.visible")
               .and("have.text", "APOD")
               .and("have.attr", "href", "https://apod.nasa.gov/");
