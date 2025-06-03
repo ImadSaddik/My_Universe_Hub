@@ -10,18 +10,18 @@ from dotenv import load_dotenv
 django_setup.setup_django_environment()
 
 
-def addNonExistingImages():
+def add_non_existing_images():
     from gallery.models import Gallery
 
     print("Adding non-existing entries to the database.")
-    a_tags = getATags()
+    a_tags = get_a_tags()
 
     for tag in a_tags:
         item = scrape_a_tag(tag)
         if item["image_url"] is None:
             continue
 
-        item["date"] = convertDate(item["date"])
+        item["date"] = convert_date(item["date"])
         try:
             Gallery.objects.get(date=item["date"])
             print(f"{item['date']} is already in the database.")
@@ -39,7 +39,7 @@ def addNonExistingImages():
             entry.save()
 
 
-def getATags():
+def get_a_tags():
     source = requests.get("https://apod.nasa.gov/apod/archivepix.html").text
     soup = BeautifulSoup(source, "lxml")
 
@@ -53,8 +53,8 @@ def scrape_a_tag(a_tag):
     date = a_tag.find_previous(string=True).strip()
     title = a_tag.text.strip()
     url = f"https://apod.nasa.gov/apod/{a_tag['href']}"
-    image, explanation = getImageAndExplanation(url)
-    authors = getAuthors(url)
+    image, explanation = get_image_and_explanation(url)
+    authors = get_authors(url)
 
     dictionary["date"] = date
     dictionary["title"] = title
@@ -66,7 +66,7 @@ def scrape_a_tag(a_tag):
     return dictionary
 
 
-def getImageAndExplanation(url):
+def get_image_and_explanation(url):
     source = requests.get(url).text
     soup = BeautifulSoup(source, "lxml")
 
@@ -82,18 +82,18 @@ def getImageAndExplanation(url):
     return img_url, explanation
 
 
-def getAuthors(url):
+def get_authors(url):
     source = requests.get(url).text
     soup = BeautifulSoup(source, "lxml")
 
     center_tags = soup.find_all("center")
     credit_center_tag = center_tags[1]
-    authors = extractAuthorsWithGemini(credit_center_tag)
+    authors = extract_authors_with_gemini(credit_center_tag)
 
     return authors
 
 
-def extractAuthorsWithGemini(center_tag):
+def extract_authors_with_gemini(center_tag):
     query = f"""Given the following HTML code snippet, your role is to extract the credit information from the center tag.
 The extracted credit information should be returned as a string and separated by a comma to denote multiple authors.
 Dont't include prefix text like "Image Credit" or "Illustration Credit".
@@ -102,12 +102,12 @@ The HTML code snippet is as follows:
 {center_tag}
 """
 
-    model = genai.GenerativeModel("models/gemini-1.5-flash-002")
+    model = genai.GenerativeModel("models/gemini-2.0-flash")
     response = model.generate_content(query)
     return response.text
 
 
-def convertDate(date):
+def convert_date(date):
     date = date.replace(":", "")
     return datetime.strptime(date, "%Y %B %d").date()
 
@@ -116,4 +116,4 @@ if __name__ == "__main__":
     load_dotenv()
     genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-    addNonExistingImages()
+    add_non_existing_images()

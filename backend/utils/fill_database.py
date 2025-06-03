@@ -15,7 +15,7 @@ def fillDatabase(data):
         if item["image_url"] is None:
             continue
 
-        item["date"] = convertDate(item["date"])
+        item["date"] = convert_date(item["date"])
 
         entry = Gallery.objects.create(
             date=item["date"],
@@ -28,7 +28,7 @@ def fillDatabase(data):
         entry.save()
 
 
-def convertDate(date):
+def convert_date(date):
     date = date.replace(":", "")
     return datetime.strptime(date, "%Y %B %d").date()
 
