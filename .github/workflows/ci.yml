@@ -125,6 +125,7 @@ jobs:
           pytest
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
+          "GOOGLE_API_KEY": ${{ secrets.GOOGLE_API_KEY }}
 
   # Stage 3: E2E tests
   e2e-tests:
