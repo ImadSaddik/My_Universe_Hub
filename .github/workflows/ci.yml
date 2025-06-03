@@ -177,8 +177,8 @@ jobs:
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
 
-      # Build and start frontend
-      - name: Build and start frontend
+      # Start frontend server
+      - name: Start frontend
         run: |
           cd frontend
           pnpm run dev &
