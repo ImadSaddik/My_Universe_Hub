@@ -124,6 +124,8 @@ jobs:
         run: |
           cd backend
           pytest
+        env:
+          DJANGO_SETTINGS_MODULE: backend.settings
 
   # Stage 3: E2E tests
   e2e-tests:
