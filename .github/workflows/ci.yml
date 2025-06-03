@@ -97,11 +97,39 @@ jobs:
       - name: Run unit tests
         run: pnpm run test
 
+  backend-unit-tests:
+    name: Backend unit tests
+    runs-on: ubuntu-latest
+    needs: [frontend-lint-format, backend-lint-format]
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Install dependencies with uv
+        run: uv pip install -r requirements.txt --system
+
+      - name: Run backend unit tests
+        run: |
+          cd backend
+          pytest
+
   # Stage 3: E2E tests
   e2e-tests:
     name: E2E tests
     runs-on: ubuntu-latest
-    needs: [frontend-unit-tests]
+    needs: [frontend-unit-tests, backend-unit-tests]
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
