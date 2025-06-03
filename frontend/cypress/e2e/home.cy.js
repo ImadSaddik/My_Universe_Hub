@@ -1,6 +1,8 @@
 describe("Home Page", () => {
   beforeEach(() => {
+    cy.intercept("GET", "/api/v1/gallery/0/10/").as("initialGalleryLoad");
     cy.visit("/");
+    cy.wait("@initialGalleryLoad");
   });
 
   it("should display the correct title", () => {
@@ -42,15 +44,25 @@ describe("Home Page", () => {
     });
 
     it("should be visible when scrolled down", () => {
+      cy.get('[data-cy="gallery-item"]', { timeout: 10000 }).should("have.length", 10);
+
+      cy.intercept("GET", "/api/v1/gallery/10/20/").as("loadMoreGallery");
       cy.get('[data-cy="load-more-button"]').click();
-      cy.wait(1000);
+      cy.wait("@loadMoreGallery");
+      cy.get('[data-cy="gallery-item"]').should("have.length", 20);
+
       cy.scrollTo(0, scrollDownAmount);
       cy.get('[data-cy="scroll-to-top-button"]').should("be.visible");
     });
 
     it("should scroll to top when clicked", () => {
+      cy.get('[data-cy="gallery-item"]', { timeout: 10000 }).should("have.length", 10);
+
+      cy.intercept("GET", "/api/v1/gallery/10/20/").as("loadMoreGallery");
       cy.get('[data-cy="load-more-button"]').click();
-      cy.wait(1000);
+      cy.wait("@loadMoreGallery");
+      cy.get('[data-cy="gallery-item"]').should("have.length", 20);
+
       cy.scrollTo(0, scrollDownAmount);
       cy.get('[data-cy="scroll-to-top-button"]').click();
       cy.window().its("scrollY").should("equal", 0);
@@ -69,15 +81,19 @@ describe("Home Page", () => {
     });
 
     it("should load more items when clicked", () => {
-      cy.get('[data-cy="gallery-item"]').should("have.length", 10);
+      cy.get('[data-cy="gallery-item"]', { timeout: 10000 }).should("have.length", 10);
+
+      cy.intercept("GET", "/api/v1/gallery/10/20/").as("loadMoreGallery");
       cy.get('[data-cy="load-more-button"]').click();
+      cy.wait("@loadMoreGallery");
+
       cy.get('[data-cy="gallery-item"]').should("have.length", 20);
     });
   });
 
   describe("Gallery items", () => {
     it("should display gallery items", () => {
-      cy.get('[data-cy="gallery-item"]').should("have.length", 10);
+      cy.get('[data-cy="gallery-item"]', { timeout: 15000 }).should("have.length", 10);
       cy.get('[data-cy="gallery-item"]').first().should("be.visible");
     });
 
