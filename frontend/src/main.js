@@ -6,8 +6,7 @@ import axios from "axios";
 import VueLazyload from "vue3-lazyload";
 import loadingGif from "@/assets/loading.gif";
 
-axios.defaults.baseURL = "http://localhost:8000";
-// axios.defaults.baseURL = 'http://192.168.1.10:8000'
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const app = createApp(App);
 
