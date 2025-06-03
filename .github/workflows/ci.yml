@@ -185,6 +185,7 @@ jobs:
           cat > .env << EOF
           TEST_USER_EMAIL=${{ secrets.TEST_USER_EMAIL }}
           TEST_USER_PASSWORD=${{ secrets.TEST_USER_PASSWORD }}
+          EOF
 
           pnpm run dev &
           sleep 10
