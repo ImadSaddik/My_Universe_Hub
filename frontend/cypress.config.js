@@ -11,7 +11,6 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       config.env.TEST_USER_EMAIL = process.env.TEST_USER_EMAIL;
       config.env.TEST_USER_PASSWORD = process.env.TEST_USER_PASSWORD;
-      config.env.VITE_BASE_URL = process.env.VITE_BASE_URL;
       return config;
     },
   },
