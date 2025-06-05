@@ -21,7 +21,7 @@
         <form v-if="!hideForm" @submit.prevent="submitForm">
           <label for="exampleInputUsername" class="mb-1 text-black">Username</label>
           <div class="input-container">
-            <i class="fas fa-user input-icon" />
+            <i class="fas fa-user input-icon" aria-hidden="true" />
             <input
               id="exampleInputUsername"
               v-model="username"
@@ -34,7 +34,7 @@
 
           <label for="exampleInputEmail" class="mb-1 text-black">Email</label>
           <div class="input-container">
-            <i class="fas fa-envelope input-icon" />
+            <i class="fas fa-envelope input-icon" aria-hidden="true" />
             <input
               id="exampleInputEmail"
               v-model="email"
@@ -47,7 +47,7 @@
 
           <label for="exampleInputPassword1" class="mb-1 text-black">Password</label>
           <div class="input-container">
-            <i class="fas fa-lock input-icon" />
+            <i class="fas fa-lock input-icon" aria-hidden="true" />
             <input
               id="exampleInputPassword1"
               v-model="password"
@@ -59,13 +59,17 @@
             <i
               class="fas toggle-password-icon"
               :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
+              :aria-label="showHidePassword ? 'Show password' : 'Hide password'"
+              :aria-expanded="!showHidePassword"
+              role="button"
+              tabindex="0"
               @click="togglePasswordVisibility"
             />
           </div>
 
           <label for="exampleInputPassword2" class="mb-1 text-black">Repeat password</label>
           <div class="input-container">
-            <i class="fas fa-lock input-icon" />
+            <i class="fas fa-lock input-icon" aria-hidden="true" />
             <input
               id="exampleInputPassword2"
               v-model="repeatPassword"
@@ -77,6 +81,10 @@
             <i
               class="fas toggle-password-icon"
               :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
+              :aria-label="showHidePassword ? 'Show password' : 'Hide password'"
+              :aria-expanded="!showHidePassword"
+              role="button"
+              tabindex="0"
               @click="togglePasswordVisibility"
             />
           </div>
