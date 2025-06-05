@@ -6,7 +6,10 @@
         data-test="nav-link-app-logo"
         to="/"
         aria-label="Go to home page"
+        role="button"
+        tabindex="0"
         @click="handleNavbarItemClick(HOME_PAGE)"
+        @keydown.enter="handleNavbarItemClick(HOME_PAGE)"
       >
         <img
           data-test="app-logo"
