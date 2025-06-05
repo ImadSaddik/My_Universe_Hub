@@ -20,7 +20,7 @@
           class="alert alert-danger alert-dismissible fade show"
           role="alert"
         >
-          <i class="fas fa-times-circle me-1" /> {{ errorMessage }}
+          <i class="fas fa-times-circle me-1" aria-hidden="true" /> {{ errorMessage }}
           <button
             type="button"
             class="btn-close"
