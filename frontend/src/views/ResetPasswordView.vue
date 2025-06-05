@@ -39,7 +39,7 @@
 
         <button class="custom-btn custom-btn-white my-3" @click="resetPassword">Submit</button>
         <p class="text-black text-center m-0 my-2">
-          Go back to the <router-link to="/login"> Log in </router-link> page.
+          Go back to the <router-link to="/login"> Log In</router-link> page.
         </p>
       </div>
     </div>
