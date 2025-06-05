@@ -15,7 +15,12 @@
           />
         </div>
 
-        <div v-if="errorOccurred" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div
+          v-if="errorOccurred"
+          id="reset-password-confirmation-error"
+          class="alert alert-danger alert-dismissible fade show"
+          role="alert"
+        >
           <i class="fas fa-times-circle me-1" /> {{ errorMessage }}
           <button
             type="button"
@@ -29,34 +34,44 @@
         <div class="row m-0 p-0 input-group input-group-sm">
           <label for="new_password" class="mb-1 text-black p-0">New password</label>
           <div class="input-container p-0">
-            <i class="fas fa-lock input-icon" />
+            <i class="fas fa-lock input-icon" aria-hidden="true" />
             <input
               id="new_password"
               v-model="new_password"
               class="input-field"
               placeholder="Your new password"
               :type="showHidePassword ? 'password' : 'text'"
+              :aria-describedby="errorOccurred ? 'reset-password-confirmation-error' : null"
             />
             <i
               class="fas toggle-password-icon"
               :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
+              :aria-label="showHidePassword ? 'Show password' : 'Hide password'"
+              :aria-expanded="!showHidePassword"
+              role="button"
+              tabindex="0"
               @click="togglePasswordVisibility"
             />
           </div>
 
           <label for="re_new_password" class="mb-1 text-black p-0">Confirm new password</label>
           <div class="input-container p-0">
-            <i class="fas fa-lock input-icon" />
+            <i class="fas fa-lock input-icon" aria-hidden="true" />
             <input
               id="re_new_password"
               v-model="re_new_password"
               class="input-field"
               placeholder="Confirm new password"
               :type="showHidePassword ? 'password' : 'text'"
+              :aria-describedby="errorOccurred ? 'reset-password-confirmation-error' : null"
             />
             <i
               class="fas toggle-password-icon"
               :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
+              :aria-label="showHidePassword ? 'Show password' : 'Hide password'"
+              :aria-expanded="!showHidePassword"
+              role="button"
+              tabindex="0"
               @click="togglePasswordVisibility"
             />
           </div>

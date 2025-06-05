@@ -20,7 +20,7 @@ export default {
 <style>
 a {
   color: blue;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .custom-small-text {
@@ -127,8 +127,7 @@ a {
 }
 
 .input-field:focus {
-  border-color: black;
-  outline: none;
+  outline: 2px solid blue;
 }
 
 .toggle-password-icon {
@@ -138,6 +137,8 @@ a {
   transform: translateY(-50%);
   cursor: pointer;
   color: #aaa;
+  font-size: 1.25rem;
+  padding: 0.5rem;
 }
 
 .toggle-password-icon:hover {

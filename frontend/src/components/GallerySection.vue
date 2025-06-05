@@ -24,9 +24,12 @@
           data-cy="load-more-button"
           class="col custom-btn custom-btn-white py-4 d-flex align-items-center justify-content-center"
           :class="{ 'border-dark': isHovering }"
+          role="button"
+          tabindex="0"
           @mouseover="isHovering = true"
           @mouseleave="isHovering = false"
           @click="increaseLimit"
+          @keydown.enter="increaseLimit"
         >
           Load more
         </div>

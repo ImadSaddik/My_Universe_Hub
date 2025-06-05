@@ -13,12 +13,22 @@
               <div
                 v-if="data.image_is_liked"
                 class="like-icon-container d-flex align-items-center"
+                role="button"
+                tabindex="0"
                 @click="unlikeImage(data)"
+                @keydown.enter="unlikeImage(data)"
               >
                 {{ data.image_likes_count }}
                 <i type="button" class="ms-2 fa-solid fa-heart fa-xl" style="color: #f66151" />
               </div>
-              <div v-else class="like-icon-container d-flex align-items-center" @click="likeImage(data)">
+              <div
+                v-else
+                class="like-icon-container d-flex align-items-center"
+                role="button"
+                tabindex="0"
+                @click="likeImage(data)"
+                @keydown.enter="likeImage(data)"
+              >
                 {{ data.image_likes_count }}
                 <i type="button" class="ms-2 fa-regular fa-heart fa-xl" />
               </div>
@@ -38,7 +48,10 @@
               :src="data.image_url"
               class="img-fluid rounded-4"
               :alt="`APOD image: ${data.title} by ${data.authors}`"
+              role="button"
+              tabindex="0"
               @click="downloadImage"
+              @keydown.enter="downloadImage"
             />
           </div>
         </div>
@@ -61,14 +74,14 @@
         </div>
       </div>
       <div v-else class="row d-flex align-items-center justify-content-center" style="height: calc(80vh)">
-        <h5 class="nav-link text-center">
+        <p class="nav-link text-center">
           Trying to fetch data from source, be patient
           <i class="ms-2 fa-solid fa-hurricane fa-spin" />
-        </h5>
+        </p>
       </div>
     </div>
     <div v-else class="row d-flex align-items-center justify-content-center" style="height: calc(80vh)">
-      <h5 class="nav-link text-center">No image for today 😔, see you tomorrow.</h5>
+      <p class="nav-link text-center">No image for today 😔, see you tomorrow.</p>
     </div>
   </div>
 </template>

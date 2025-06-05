@@ -3,7 +3,12 @@
     <div class="row w-100 m-0 p-0 d-flex justify-content-center">
       <div class="col col-md-7 px-3 px-lg-4 outer-card-container">
         <h1 class="fs-1 fw-bold text-black mb-4">Log In</h1>
-        <div v-if="showAlertDialog" class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+        <div
+          v-if="showAlertDialog"
+          id="login-error"
+          class="alert alert-danger alert-dismissible fade show rounded-3"
+          role="alert"
+        >
           <i class="fas fa-times-circle me-1" /> {{ errorMessage }}
           <button
             type="button"
@@ -16,22 +21,23 @@
         <form @submit.prevent="submitForm">
           <label for="email" class="mb-1 text-black">Email</label>
           <div class="input-container">
-            <i class="fas fa-envelope input-icon" />
+            <i class="fas fa-envelope input-icon" aria-hidden="true" />
             <input
               id="email"
               v-model="email"
               class="input-field"
-              placeholder="Email"
+              placeholder="your.email@example.com"
               type="email"
               name="email"
               autocomplete="username"
               data-cy="login-email"
+              :aria-describedby="showAlertDialog ? 'login-error' : null"
             />
           </div>
 
           <label for="current-password" class="mb-1 text-black">Password</label>
           <div class="input-container">
-            <i class="fas fa-lock input-icon" />
+            <i class="fas fa-lock input-icon" aria-hidden="true" />
             <input
               id="current-password"
               v-model="password"
@@ -41,10 +47,15 @@
               name="password"
               autocomplete="current-password"
               data-cy="login-password"
+              :aria-describedby="showAlertDialog ? 'login-error' : null"
             />
             <i
               class="fas toggle-password-icon"
               :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
+              :aria-label="showHidePassword ? 'Show password' : 'Hide password'"
+              :aria-expanded="!showHidePassword"
+              role="button"
+              tabindex="0"
               @click="togglePasswordVisibility"
             />
           </div>
@@ -52,7 +63,7 @@
           <button data-cy="login-submit" type="submit" class="custom-btn custom-btn-white my-3">Log In</button>
           <p class="text-black text-center m-0 my-2">
             Forgot password?
-            <router-link to="/reset_password"> Click here </router-link>
+            <router-link to="/reset_password"> Click here to reset it </router-link>
           </p>
           <p class="text-black text-center m-0">
             Don't have an account?
