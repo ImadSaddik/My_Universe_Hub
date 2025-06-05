@@ -6,6 +6,7 @@
       src="../assets/circle-arrow-up-solid.svg"
       type="button"
       class="img go-up-button"
+      alt="Scroll to top button"
       @click="scrollToTop"
     />
   </div>

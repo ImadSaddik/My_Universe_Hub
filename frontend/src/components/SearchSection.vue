@@ -5,7 +5,7 @@
         data-cy="background-image"
         src="../assets/home_page/search_background.jpg"
         class="img-fluid custom-image"
-        alt="..."
+        alt="Panoramic view of Monument Valley desert landscape under a starry night sky with the Milky Way galaxy visible above the iconic red rock formations"
       />
 
       <div class="container position-absolute top-50 start-50 translate-middle align-self-center">

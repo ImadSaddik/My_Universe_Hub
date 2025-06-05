@@ -7,7 +7,12 @@
         to="/"
         @click="handleNavbarItemClick(HOME_PAGE)"
       >
-        <img data-test="app-logo" src="../assets/logos/galaxy_logo.svg" alt="" style="width: 2rem" />
+        <img
+          data-test="app-logo"
+          src="../assets/logos/galaxy_logo.svg"
+          alt="MyUniverseHub galaxy logo"
+          style="width: 2rem"
+        />
       </RouterLink>
       <button
         class="navbar-toggler"

@@ -26,7 +26,11 @@
     </div>
     <div class="row mt-4 d-flex justify-content-center">
       <div class="col col-lg-6">
-        <img class="img-fluid rounded-4" src="../assets/about_page/StarTrails_20240818055242_720p.jpeg" alt="" />
+        <img
+          class="img-fluid rounded-4"
+          src="../assets/about_page/StarTrails_20240818055242_720p.jpeg"
+          alt="Circular star trails in the night sky showing the Earth's rotation, with concentric arcs of light centered around the North Star."
+        />
         <p class="text-center m-0 mt-2">Star trails over Oued Amlil, Morocco, August 18, 2024</p>
       </div>
     </div>
@@ -55,7 +59,11 @@
     </div>
     <div class="row mt-4 d-flex justify-content-center">
       <div class="col col-lg-6">
-        <img class="img-fluid rounded-4" src="../assets/about_page/Orion_20240129_210527_720p.jpeg" alt="" />
+        <img
+          class="img-fluid rounded-4"
+          src="../assets/about_page/Orion_20240129_210527_720p.jpeg"
+          alt="The Orion constellation visible through wispy clouds in the night sky, showing the distinctive belt stars and surrounding nebulae with reddish-brown cloud formations partially obscuring the starfield"
+        />
         <p class="text-center m-0 mt-2">Orion over Bir Tam Tam, Morocco, January 29, 2024</p>
       </div>
     </div>
@@ -81,7 +89,11 @@
     </div>
     <div class="row mt-4 d-flex justify-content-center">
       <div class="col col-lg-6">
-        <img class="img-fluid rounded-4" src="../assets/about_page/LunarEclipse_20240918_134431_1024p.png" alt="" />
+        <img
+          class="img-fluid rounded-4"
+          src="../assets/about_page/LunarEclipse_20240918_134431_1024p.png"
+          alt="Two phases of a lunar eclipse showing the Moon's surface detail, with one image displaying the full Moon and another showing the Moon partially shadowed during the eclipse event"
+        />
         <p class="text-center m-0 mt-2">Lunar eclipse over Meknes, Morocco, September 18, 2024</p>
       </div>
     </div>
