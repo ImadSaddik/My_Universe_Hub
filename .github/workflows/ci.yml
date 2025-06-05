@@ -151,7 +151,7 @@ jobs:
           cd backend
           uv pip install -r requirements.txt --system
 
-      # Set up frontend
+      # Set up frontend (for Cypress action)
       - name: Set up pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -164,15 +164,14 @@ jobs:
           cache: "pnpm"
           cache-dependency-path: frontend/pnpm-lock.yaml
 
-      - name: Install frontend dependencies
+      - name: Create environment file for frontend
         run: |
           cd frontend
-          pnpm install
-
-      - name: Install Cypress binary
-        run: |
-          cd frontend
-          pnpm exec cypress install
+          cat > .env << EOF
+          VITE_API_BASE_URL=http://localhost:8000
+          TEST_USER_EMAIL=${{ secrets.TEST_USER_EMAIL }}
+          TEST_USER_PASSWORD=${{ secrets.TEST_USER_PASSWORD }}
+          EOF
 
       - name: Install wait-on globally
         run: npm install -g wait-on
@@ -212,44 +211,17 @@ jobs:
       - name: Wait for backend to be ready
         run: wait-on http://localhost:8000/api/v1/gallery/0/10/ --timeout 60000
 
-      # Start frontend server
-      - name: Create environment file for frontend
-        run: |
-          cd frontend
-          cat > .env << EOF
-          VITE_API_BASE_URL=http://localhost:8000
-          TEST_USER_EMAIL=${{ secrets.TEST_USER_EMAIL }}
-          TEST_USER_PASSWORD=${{ secrets.TEST_USER_PASSWORD }}
-          EOF
-          echo "Created .env file with contents:"
-
-      - name: Start frontend
-        run: |
-          cd frontend
-          pnpm run dev &
-        env:
-          VITE_API_BASE_URL: http://localhost:8000
-
-      - name: Wait for frontend to be ready
-        run: wait-on http://localhost:8080 --timeout 60000
-
-      # Debug: Test API endpoints before running Cypress
-      - name: Test API connectivity
-        run: |
-          echo "Testing backend API..."
-          curl -f http://localhost:8000/api/v1/gallery/0/10/ || exit 1
-          echo "API response contains gallery data:"
-          curl -s http://localhost:8000/api/v1/gallery/0/10/ | head -c 200
-          echo ""
-          echo "Testing frontend..."
-          curl -f http://localhost:8080 || exit 1
-          echo "Frontend is serving correctly"
-
-      # Run Cypress E2E tests
-      - name: Run Cypress E2E tests
-        run: |
-          cd frontend
-          pnpm run cypress:run
+      # Run Cypress E2E tests using official action
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: frontend
+          start: pnpm run dev
+          wait-on: "http://localhost:8080"
+          wait-on-timeout: 60
+          browser: chrome
+          config-file: cypress.config.js
+          install-command: pnpm install
         env:
           TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
