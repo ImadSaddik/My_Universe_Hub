@@ -127,8 +127,7 @@ a {
 }
 
 .input-field:focus {
-  border-color: black;
-  outline: none;
+  outline: 2px solid blue;
 }
 
 .toggle-password-icon {
