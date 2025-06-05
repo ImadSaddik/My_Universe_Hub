@@ -3,7 +3,12 @@
     <div class="row w-100 m-0 p-0 d-flex justify-content-center">
       <div class="col col-md-7 px-3 px-lg-4 outer-card-container">
         <h1 class="fs-1 fw-bold text-black mb-4">Sign Up</h1>
-        <div v-if="showAlertDialog" class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+        <div
+          v-if="showAlertDialog"
+          id="signup-error"
+          class="alert alert-danger alert-dismissible fade show rounded-3"
+          role="alert"
+        >
           <div v-for="error in errors" :key="error"><i class="fas fa-times-circle me-1" /> {{ error }}</div>
           <button
             type="button"
@@ -23,6 +28,7 @@
               type="text"
               class="input-field"
               placeholder="John Doe"
+              :aria-describedby="showAlertDialog ? 'signup-error' : null"
             />
           </div>
 
@@ -35,6 +41,7 @@
               class="input-field"
               placeholder="your.email@example.com"
               type="email"
+              :aria-describedby="showAlertDialog ? 'signup-error' : null"
             />
           </div>
 
@@ -47,6 +54,7 @@
               class="input-field"
               placeholder="Password"
               :type="showHidePassword ? 'password' : 'text'"
+              :aria-describedby="showAlertDialog ? 'signup-error' : null"
             />
             <i
               class="fas toggle-password-icon"
@@ -64,6 +72,7 @@
               class="input-field"
               placeholder="Repeat password"
               :type="showHidePassword ? 'password' : 'text'"
+              :aria-describedby="showAlertDialog ? 'signup-error' : null"
             />
             <i
               class="fas toggle-password-icon"
