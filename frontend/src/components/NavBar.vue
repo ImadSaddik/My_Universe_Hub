@@ -114,7 +114,10 @@
               data-bs-placement="bottom"
               data-bs-title="Log In"
               class="border-container"
+              role="button"
+              tabindex="0"
               @click="handleNavbarItemClick(NONE)"
+              @keydown.enter="handleNavbarItemClick(NONE)"
             >
               Log In
               <i type="button" class="ms-2 fa-solid fa-arrow-right-to-bracket fa-lg" style="color: #000" />
@@ -128,7 +131,10 @@
               data-bs-placement="bottom"
               data-bs-title="Log out"
               class="border-container"
+              role="button"
+              tabindex="0"
               @click="logOut"
+              @keydown.enter="logOut"
             >
               Log Out
               <i type="button" class="ms-2 fa-solid fa-door-open fa-lg" style="color: #a51d2d" />
