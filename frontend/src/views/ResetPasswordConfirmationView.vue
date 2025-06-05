@@ -29,7 +29,7 @@
         <div class="row m-0 p-0 input-group input-group-sm">
           <label for="new_password" class="mb-1 text-black p-0">New password</label>
           <div class="input-container p-0">
-            <i class="fas fa-lock input-icon" />
+            <i class="fas fa-lock input-icon" aria-hidden="true" />
             <input
               id="new_password"
               v-model="new_password"
@@ -46,7 +46,7 @@
 
           <label for="re_new_password" class="mb-1 text-black p-0">Confirm new password</label>
           <div class="input-container p-0">
-            <i class="fas fa-lock input-icon" />
+            <i class="fas fa-lock input-icon" aria-hidden="true" />
             <input
               id="re_new_password"
               v-model="re_new_password"
