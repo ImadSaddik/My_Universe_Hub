@@ -164,6 +164,15 @@ jobs:
           cache: "pnpm"
           cache-dependency-path: frontend/pnpm-lock.yaml
 
+      # Cache Cypress binary
+      - name: Cache Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('frontend/pnpm-lock.yaml') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-
+
       - name: Create environment file for frontend
         run: |
           cd frontend
@@ -175,6 +184,17 @@ jobs:
 
       - name: Install wait-on globally
         run: npm install -g wait-on
+
+      # Install dependencies and Cypress binary
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          pnpm install
+
+      - name: Install Cypress binary
+        run: |
+          cd frontend
+          pnpm exec cypress install
 
       # Setup database and test data
       - name: Setup Django database
@@ -221,7 +241,7 @@ jobs:
           wait-on-timeout: 60
           browser: chrome
           config-file: cypress.config.js
-          install-command: pnpm install
+          install: false
         env:
           TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
