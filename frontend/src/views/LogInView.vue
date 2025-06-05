@@ -16,12 +16,12 @@
         <form @submit.prevent="submitForm">
           <label for="email" class="mb-1 text-black">Email</label>
           <div class="input-container">
-            <i class="fas fa-envelope input-icon" />
+            <i class="fas fa-envelope input-icon" aria-hidden="true" />
             <input
               id="email"
               v-model="email"
               class="input-field"
-              placeholder="Email"
+              placeholder="your.email@example.com"
               type="email"
               name="email"
               autocomplete="username"
@@ -31,7 +31,7 @@
 
           <label for="current-password" class="mb-1 text-black">Password</label>
           <div class="input-container">
-            <i class="fas fa-lock input-icon" />
+            <i class="fas fa-lock input-icon" aria-hidden="true" />
             <input
               id="current-password"
               v-model="password"
