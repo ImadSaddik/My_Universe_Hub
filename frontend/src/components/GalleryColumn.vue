@@ -10,7 +10,9 @@
           :alt="`APOD image: ${item.title} by ${item.authors}`"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
+          tabindex="0"
           @click="$emit('selectedItem', item)"
+          @keyup.enter="$emit('selectedItem', item)"
         />
         <div class="row m-0">
           <div class="col py-1 d-flex align-items-center marquee-container">
@@ -30,7 +32,10 @@
                 v-if="item.image_is_liked"
                 data-cy="gallery-item-unlike-or-like"
                 class="like-icon-container d-flex align-items-center"
+                role="button"
+                tabindex="0"
                 @click="unlikeImage(item)"
+                @keydown.enter="unlikeImage(item)"
               >
                 {{ item.image_likes_count }}
                 <i type="button" class="ms-2 fa-solid fa-heart fa-xl" style="color: #f66151" />
@@ -39,7 +44,10 @@
                 v-else
                 data-cy="gallery-item-unlike-or-like"
                 class="like-icon-container d-flex align-items-center"
+                role="button"
+                tabindex="0"
                 @click="likeImage(item)"
+                @keydown.enter="likeImage(item)"
               >
                 {{ item.image_likes_count }}
                 <i type="button" class="ms-2 fa-regular fa-heart fa-xl" />
@@ -149,6 +157,10 @@ export default {
 
 .image-container:hover {
   display: block;
+}
+
+.image-container:focus {
+  outline: 2px solid blue;
 }
 
 .like-icon-container {
