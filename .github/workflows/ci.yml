@@ -201,37 +201,18 @@ jobs:
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
 
-      # Start backend server
-      - name: Start Django backend
+      # Start backend and frontend together in one step to ensure both stay alive
+      - name: Start backend and frontend
         run: |
-          cd backend
-          python manage.py runserver 0.0.0.0:8000 &
+          cd backend && python manage.py runserver 0.0.0.0:8000 &
+          cd ../frontend && pnpm run dev -- --host 0.0.0.0 &
+          sleep 10
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
-
-      - name: Wait for backend to be ready
-        run: wait-on http://localhost:8000/api/v1/gallery/0/10/ --timeout 60000
-
-      # Start frontend server
-      - name: Create environment file for frontend
-        run: |
-          cd frontend
-          cat > .env << EOF
-          VITE_API_BASE_URL=http://localhost:8000
-          TEST_USER_EMAIL=${{ secrets.TEST_USER_EMAIL }}
-          TEST_USER_PASSWORD=${{ secrets.TEST_USER_PASSWORD }}
-          EOF
-          echo "Created .env file with contents:"
-
-      - name: Start frontend
-        run: |
-          cd frontend
-          pnpm run dev &
-        env:
           VITE_API_BASE_URL: http://localhost:8000
 
-      - name: Wait for frontend to be ready
-        run: wait-on http://localhost:8080 --timeout 60000
+      - name: Wait for servers to be ready
+        run: npx wait-on http://localhost:8000/api/v1/gallery/0/10/ http://localhost:8080 --timeout 60000
 
       # Debug: Test API endpoints before running Cypress
       - name: Test API connectivity
