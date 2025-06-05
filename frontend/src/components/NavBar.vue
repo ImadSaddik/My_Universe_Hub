@@ -5,6 +5,7 @@
         class="navbar-brand p-0 m-0 me-5"
         data-test="nav-link-app-logo"
         to="/"
+        aria-label="Go to home page"
         @click="handleNavbarItemClick(HOME_PAGE)"
       >
         <img data-test="app-logo" src="../assets/logos/galaxy_logo.svg" alt="" style="width: 2rem" />
