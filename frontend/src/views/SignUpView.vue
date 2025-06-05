@@ -22,14 +22,20 @@
               v-model="username"
               type="text"
               class="input-field"
-              placeholder="Username"
+              placeholder="John Doe"
             />
           </div>
 
           <label for="exampleInputEmail" class="mb-1 text-black">Email</label>
           <div class="input-container">
             <i class="fas fa-envelope input-icon" />
-            <input id="exampleInputEmail" v-model="email" class="input-field" placeholder="Email" type="email" />
+            <input
+              id="exampleInputEmail"
+              v-model="email"
+              class="input-field"
+              placeholder="your.email@example.com"
+              type="email"
+            />
           </div>
 
           <label for="exampleInputPassword1" class="mb-1 text-black">Password</label>
