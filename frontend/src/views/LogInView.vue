@@ -52,7 +52,7 @@
           <button data-cy="login-submit" type="submit" class="custom-btn custom-btn-white my-3">Log In</button>
           <p class="text-black text-center m-0 my-2">
             Forgot password?
-            <router-link to="/reset_password"> Click here </router-link>
+            <router-link to="/reset_password"> Click here to reset it </router-link>
           </p>
           <p class="text-black text-center m-0">
             Don't have an account?
