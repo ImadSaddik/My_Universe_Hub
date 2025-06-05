@@ -3,7 +3,12 @@
     <div class="row w-100 m-0 p-0 d-flex justify-content-center">
       <div class="col col-md-7 px-3 px-lg-4 outer-card-container">
         <h1 class="fs-1 fw-bold text-black mb-4">Log In</h1>
-        <div v-if="showAlertDialog" class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+        <div
+          v-if="showAlertDialog"
+          id="login-error"
+          class="alert alert-danger alert-dismissible fade show rounded-3"
+          role="alert"
+        >
           <i class="fas fa-times-circle me-1" /> {{ errorMessage }}
           <button
             type="button"
@@ -26,6 +31,7 @@
               name="email"
               autocomplete="username"
               data-cy="login-email"
+              :aria-describedby="showAlertDialog ? 'login-error' : null"
             />
           </div>
 
@@ -41,6 +47,7 @@
               name="password"
               autocomplete="current-password"
               data-cy="login-password"
+              :aria-describedby="showAlertDialog ? 'login-error' : null"
             />
             <i
               class="fas toggle-password-icon"
