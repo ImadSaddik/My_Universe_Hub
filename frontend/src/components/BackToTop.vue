@@ -7,7 +7,10 @@
       type="button"
       class="img go-up-button"
       alt="Scroll to top button"
+      role="button"
+      tabindex="0"
       @click="scrollToTop"
+      @keydown.enter="scrollToTop"
     />
   </div>
 </template>
