@@ -15,7 +15,12 @@
           />
         </div>
 
-        <div v-if="errorOccurred" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div
+          v-if="errorOccurred"
+          id="reset-password-confirmation-error"
+          class="alert alert-danger alert-dismissible fade show"
+          role="alert"
+        >
           <i class="fas fa-times-circle me-1" /> {{ errorMessage }}
           <button
             type="button"
@@ -36,6 +41,7 @@
               class="input-field"
               placeholder="Your new password"
               :type="showHidePassword ? 'password' : 'text'"
+              :aria-describedby="errorOccurred ? 'reset-password-confirmation-error' : null"
             />
             <i
               class="fas toggle-password-icon"
@@ -57,6 +63,7 @@
               class="input-field"
               placeholder="Confirm new password"
               :type="showHidePassword ? 'password' : 'text'"
+              :aria-describedby="errorOccurred ? 'reset-password-confirmation-error' : null"
             />
             <i
               class="fas toggle-password-icon"
