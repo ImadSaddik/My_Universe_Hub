@@ -1,4 +1,4 @@
-name: CI checks
+name: Frontend and Backend CI pipeline
 
 on:
   push:
