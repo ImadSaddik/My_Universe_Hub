@@ -10,7 +10,12 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <img data-cy="modal-app-logo" class="image-logo" src="../assets/logos/galaxy_logo.svg" alt="App Logo" />
+          <img
+            data-cy="modal-app-logo"
+            class="image-logo"
+            src="../assets/logos/galaxy_logo.svg"
+            alt="MyUniverseHub galaxy logo"
+          />
           <div class="col d-flex align-items-center justify-content-end">
             <div v-if="isLoggedIn" data-cy="modal-heart-and-count-container" class="me-2 me-sm-3">
               <div
