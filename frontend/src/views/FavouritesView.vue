@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="background-image" />
+    <div class="background-image" aria-hidden="true" />
     <div v-if="isLoggedIn && archive.length !== 0" class="mt-3">
       <GallerySection
         :archive="archive"
