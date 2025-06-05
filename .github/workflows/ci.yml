@@ -201,18 +201,22 @@ jobs:
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
 
-      # Start backend and frontend together in one step to ensure both stay alive and capture logs
-      - name: Start backend and frontend (with logs)
+      # Start backend and frontend together in one step to ensure both stay alive and capture logs (absolute paths)
+      - name: Start backend and frontend (with logs, absolute paths)
         run: |
-          cd backend && python manage.py runserver 0.0.0.0:8000 > ../backend.log 2>&1 &
-          cd ../frontend && pnpm run dev -- --host 0.0.0.0 > ../frontend.log 2>&1 &
+          BACKEND_LOG="$GITHUB_WORKSPACE/backend.log"
+          FRONTEND_LOG="$GITHUB_WORKSPACE/frontend.log"
+          cd backend && python manage.py runserver 0.0.0.0:8000 > "$BACKEND_LOG" 2>&1 &
+          cd ../frontend && pnpm run dev -- --host 0.0.0.0 > "$FRONTEND_LOG" 2>&1 &
           sleep 20
+          echo "--- Directory listing after startup ---"
+          ls -l "$GITHUB_WORKSPACE"
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
           VITE_API_BASE_URL: http://localhost:8000
 
       - name: Wait for servers to be ready
-        run: npx wait-on http://localhost:8000/api/v1/gallery/0/10/ http://localhost:8080 --timeout 60000 || (echo '--- BACKEND LOG ---' && cat backend.log && echo '--- FRONTEND LOG ---' && cat frontend.log && exit 1)
+        run: npx wait-on http://localhost:8000/api/v1/gallery/0/10/ http://localhost:8080 --timeout 60000 || (echo '--- BACKEND LOG ---' && cat "$GITHUB_WORKSPACE/backend.log" && echo '--- FRONTEND LOG ---' && cat "$GITHUB_WORKSPACE/frontend.log" && exit 1)
 
       # Debug: Test API endpoints before running Cypress
       - name: Test API connectivity
