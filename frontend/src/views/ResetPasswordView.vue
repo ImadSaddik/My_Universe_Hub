@@ -14,7 +14,12 @@
           />
         </div>
 
-        <div v-if="errorOccurred" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div
+          v-if="errorOccurred"
+          id="reset-password-error"
+          class="alert alert-danger alert-dismissible fade show"
+          role="alert"
+        >
           <i class="fas fa-times-circle me-1" /> {{ errorMessage }}
           <button
             type="button"
@@ -34,6 +39,7 @@
             class="input-field"
             placeholder="your.email@example.com"
             type="email"
+            :aria-describedby="errorOccurred ? 'reset-password-error' : null"
           />
         </div>
 
