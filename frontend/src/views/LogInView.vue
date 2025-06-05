@@ -52,6 +52,8 @@
             <i
               class="fas toggle-password-icon"
               :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
+              :aria-label="showHidePassword ? 'Show password' : 'Hide password'"
+              :aria-expanded="!showHidePassword"
               @click="togglePasswordVisibility"
             />
           </div>
