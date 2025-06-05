@@ -10,6 +10,7 @@
           :alt="`APOD image: ${item.title} by ${item.authors}`"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
+          role="button"
           tabindex="0"
           @click="$emit('selectedItem', item)"
           @keyup.enter="$emit('selectedItem', item)"
