@@ -26,6 +26,13 @@
     "editor.insertSpaces": true,
     "editor.detectIndentation": false
   },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false
+  },
   "eslint.validate": ["javascript", "vue"],
   "eslint.workingDirectories": [{ "directory": "./frontend", "changeProcessCWD": true }],
   "prettier.configPath": "frontend/.prettierrc.cjs"
