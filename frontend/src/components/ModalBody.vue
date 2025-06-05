@@ -14,7 +14,7 @@
           type="button"
           :src="item.image_url"
           class="img-fluid rounded-4"
-          :alt="item.title"
+          :alt="`APOD image: ${item.title} by ${item.authors}`"
           @click="downloadImage"
         />
       </div>

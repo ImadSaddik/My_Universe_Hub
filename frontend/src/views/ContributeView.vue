@@ -11,7 +11,11 @@
     </div>
     <div class="row mt-4 d-flex justify-content-center">
       <div class="col col-lg-6">
-        <img class="img-fluid rounded-4" src="../assets/contribute_page/Antennae_Biggs_960.jpg" alt="" />
+        <img
+          class="img-fluid rounded-4"
+          src="../assets/contribute_page/Antennae_Biggs_960.jpg"
+          alt="The Antennae galaxies NGC 4038 and NGC 4039 colliding and merging, showing dramatic tidal tails of stars and gas extending from the interacting galactic cores with bright star-forming regions"
+        />
         <p class="text-center m-0 mt-2">The heart shaped antennae galaxies</p>
       </div>
     </div>

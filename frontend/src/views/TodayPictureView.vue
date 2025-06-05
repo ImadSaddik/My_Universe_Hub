@@ -33,7 +33,13 @@
         </div>
         <div class="row m-0 mt-4 mt-sm-5">
           <div class="col d-flex justify-content-center">
-            <img type="button" :src="data.image_url" class="img-fluid rounded-4" alt="" @click="downloadImage" />
+            <img
+              type="button"
+              :src="data.image_url"
+              class="img-fluid rounded-4"
+              :alt="`APOD image: ${data.title} by ${data.authors}`"
+              @click="downloadImage"
+            />
           </div>
         </div>
         <div class="row m-0 mt-4 mt-sm-5">
