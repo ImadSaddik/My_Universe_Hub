@@ -54,6 +54,8 @@
               :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
               :aria-label="showHidePassword ? 'Show password' : 'Hide password'"
               :aria-expanded="!showHidePassword"
+              role="button"
+              tabindex="0"
               @click="togglePasswordVisibility"
             />
           </div>
