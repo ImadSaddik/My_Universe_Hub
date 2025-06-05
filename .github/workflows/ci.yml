@@ -253,6 +253,7 @@ jobs:
         env:
           TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+          VITE_API_BASE_URL: http://localhost:8000
 
       - name: Upload Cypress screenshots (if any)
         if: always()
