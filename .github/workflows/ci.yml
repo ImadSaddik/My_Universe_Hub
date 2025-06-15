@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   # Stage 1: Lint and format check
@@ -329,3 +330,61 @@ jobs:
         with:
           name: backend-staticfiles
           path: backend/staticfiles/
+
+  # Stage 5: Deploy to production
+  deploy:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: production
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download frontend build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
+
+      - name: Download backend staticfiles artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-staticfiles
+          path: backend/staticfiles
+
+      - name: SSH - Backup database on droplet
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            APP_DIR="/web_app/myuniversehub"
+            DB_FILE_PATH="$APP_DIR/backend/db.sqlite3"
+            BACKUP_DIR_ON_SERVER="$APP_DIR/db_backups_from_deploy"
+
+            echo "--- Backing up database ---"
+            mkdir -p "$BACKUP_DIR_ON_SERVER"
+            if [ -f "$DB_FILE_PATH" ]; then
+              TIMESTAMP=$(date +%Y%m%d%H%M%S)
+              cp "$DB_FILE_PATH" "$BACKUP_DIR_ON_SERVER/db.sqlite3.backup.$TIMESTAMP"
+              echo "Database backed up to $BACKUP_DIR_ON_SERVER/db.sqlite3.backup.$TIMESTAMP"
+            else
+              echo "Database file $DB_FILE_PATH not found. Skipping backup."
+            fi
+            echo "--- Database backup finished ---"
+
+      - name: Rsync files to droplet
+        uses: easingthemes/ssh-deploy@v5.1.0
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.DROPLET_HOST }}
+          REMOTE_USER: ${{ secrets.DROPLET_USER }}
+          SOURCE: "./"
+          TARGET: "/web_app/myuniversehub_test/"
+          ARGS: "-avzr --delete"
+          EXCLUDE: ".git/, .github/, frontend/node_modules/, backend/myvenv/, backend/db.sqlite3, backend/db_backups_from_deploy/, backend/db.sqlite3.backup.*, backend/media/, backend/.env, frontend/.env*, *.pyc, __pycache__/, .DS_Store, shell_scripts/"
