@@ -336,7 +336,8 @@ jobs:
     name: Deploy to production
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'workflow_dispatch'
+    environment:
+      name: production
 
     steps:
       - name: Check out repository
