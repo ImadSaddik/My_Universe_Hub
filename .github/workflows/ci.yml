@@ -379,26 +379,12 @@ jobs:
             echo "--- Database backup finished ---"
 
       - name: Rsync files to droplet
-        uses: easingthemes/rsync-deploy@v1.0.6
+        uses: easingthemes/ssh-deploy@v5.1.0
         with:
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          ssh_host: ${{ secrets.DROPLET_HOST }}
-          ssh_user: ${{ secrets.DROPLET_USER }}
-          source_dir: "./"
-          target_dir: "/web_app/myuniversehub_test/"
-          rsync_options: >-
-            -avzr --delete
-            --exclude='.git/'
-            --exclude='.github/'
-            --exclude='frontend/node_modules/'
-            --exclude='backend/myvenv/'
-            --exclude='backend/db.sqlite3'
-            --exclude='backend/db_backups_from_deploy/'
-            --exclude='backend/db.sqlite3.backup.*'
-            --exclude='backend/media/'
-            --exclude='backend/.env'
-            --exclude='frontend/.env*'
-            --exclude='*.pyc'
-            --exclude='__pycache__/'
-            --exclude='.DS_Store'
-            --exclude='shell_scripts/'
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.DROPLET_HOST }}
+          REMOTE_USER: ${{ secrets.DROPLET_USER }}
+          SOURCE: "./"
+          TARGET: "/web_app/myuniversehub_test/"
+          ARGS: "-avzr --delete"
+          EXCLUDE: ".git/, .github/, frontend/node_modules/, backend/myvenv/, backend/db.sqlite3, backend/db_backups_from_deploy/, backend/db.sqlite3.backup.*, backend/media/, backend/.env, frontend/.env*, *.pyc, __pycache__/, .DS_Store, shell_scripts/"
