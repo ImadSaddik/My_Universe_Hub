@@ -377,3 +377,28 @@ jobs:
               echo "Database file $DB_FILE_PATH not found. Skipping backup."
             fi
             echo "--- Database backup finished ---"
+
+      - name: Rsync files to droplet
+        uses: easingthemes/rsync-deploy@v1.0.6
+        with:
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh_host: ${{ secrets.DROPLET_HOST }}
+          ssh_user: ${{ secrets.DROPLET_USER }}
+          source_dir: "./"
+          target_dir: "/web_app/myuniversehub_test/"
+          rsync_options: >-
+            -avzr --delete
+            --exclude='.git/'
+            --exclude='.github/'
+            --exclude='frontend/node_modules/'
+            --exclude='backend/myvenv/'
+            --exclude='backend/db.sqlite3'
+            --exclude='backend/db_backups_from_deploy/'
+            --exclude='backend/db.sqlite3.backup.*'
+            --exclude='backend/media/'
+            --exclude='backend/.env'
+            --exclude='frontend/.env*'
+            --exclude='*.pyc'
+            --exclude='__pycache__/'
+            --exclude='.DS_Store'
+            --exclude='shell_scripts/'
