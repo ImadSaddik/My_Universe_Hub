@@ -293,6 +293,8 @@ jobs:
         run: |
           cd frontend
           pnpm run build
+        env:
+          NODE_ENV: production
 
       # Build backend (collect static files)
       - name: Set up Python
@@ -315,3 +317,15 @@ jobs:
           python manage.py collectstatic --noinput
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
+
+      - name: Archive frontend build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist/
+
+      - name: Archive backend staticfiles artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-staticfiles
+          path: backend/staticfiles/
