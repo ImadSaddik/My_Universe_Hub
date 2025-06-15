@@ -354,3 +354,26 @@ jobs:
         with:
           name: backend-staticfiles
           path: backend/staticfiles
+
+      - name: SSH - Backup database on droplet
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          password: ${{ secrets.DROPLET_PASSWORD }}
+          script: |
+            set -e
+            APP_DIR="/web_app/myuniversehub"
+            DB_FILE_PATH="$APP_DIR/backend/db.sqlite3"
+            BACKUP_DIR_ON_SERVER="$APP_DIR/db_backups_from_deploy"
+
+            echo "--- Backing up database ---"
+            mkdir -p "$BACKUP_DIR_ON_SERVER"
+            if [ -f "$DB_FILE_PATH" ]; then
+              TIMESTAMP=$(date +%Y%m%d%H%M%S)
+              cp "$DB_FILE_PATH" "$BACKUP_DIR_ON_SERVER/db.sqlite3.backup.$TIMESTAMP"
+              echo "Database backed up to $BACKUP_DIR_ON_SERVER/db.sqlite3.backup.$TIMESTAMP"
+            else
+              echo "Database file $DB_FILE_PATH not found. Skipping backup."
+            fi
+            echo "--- Database backup finished ---"
