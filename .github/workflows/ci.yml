@@ -388,3 +388,39 @@ jobs:
           TARGET: "/web_app/myuniversehub/"
           ARGS: "-avzr --delete"
           EXCLUDE: ".git/, .github/, frontend/node_modules/, backend/myvenv/, backend/db.sqlite3, backend/db_backups_from_deploy/, backend/db.sqlite3.backup.*, backend/media/, backend/.env, frontend/.env*, *.pyc, __pycache__/, .DS_Store, shell_scripts/"
+
+      - name: SSH - Create frontend .env file on droplet
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            FRONTEND_ENV_PATH="/web_app/myuniversehub/frontend/.env"
+            echo "Creating frontend .env file at $FRONTEND_ENV_PATH"
+            cat > "$FRONTEND_ENV_PATH" << EOF
+            # Frontend environment variables for Production
+            VITE_API_BASE_URL=https://myuniversehub.com
+            EOF
+            echo "Frontend .env file created."
+            cat "$FRONTEND_ENV_PATH"
+
+      - name: SSH - Create backend .env file on droplet
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            BACKEND_ENV_PATH="/web_app/myuniversehub/backend/.env"
+            echo "Creating backend .env file at $BACKEND_ENV_PATH"
+            cat > "$BACKEND_ENV_PATH" << EOF
+            # Backend environment variables for Production
+            EMAIL_HOST_USER=${{ secrets.PROD_EMAIL_HOST_USER }}
+            EMAIL_HOST_PASSWORD=${{ secrets.PROD_EMAIL_HOST_PASSWORD }}
+            GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}
+            EOF
+            echo "Backend .env file created."
+            cat "$BACKEND_ENV_PATH"
