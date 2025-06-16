@@ -426,3 +426,68 @@ jobs:
             EOF
             echo "Backend .env file created."
             cat "$BACKEND_ENV_PATH"
+
+      - name: SSH - Post-deployment script on droplet
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            APP_DIR="/web_app/myuniversehub"
+            BACKEND_DIR="$APP_DIR/backend"
+            VENV_PATH="$BACKEND_DIR/myvenv/bin/activate"
+
+            echo "--- Running post-deployment tasks on droplet ---"
+            cd "$APP_DIR"
+
+            # Activate virtual environment, install dependencies, migrate
+            if [ -f "$VENV_PATH" ]; then
+              echo "Activating virtual environment: $VENV_PATH"
+              source "$VENV_PATH"
+
+              cd "$BACKEND_DIR"
+              echo "Changed directory to $BACKEND_DIR"
+
+              if [ -f "requirements.txt" ]; then
+                echo "Installing/updating backend dependencies..."
+                pip install -r requirements.txt
+              else
+                echo "requirements.txt not found in $BACKEND_DIR. Skipping dependency installation."
+              fi
+
+              echo "Running database migrations..."
+              python manage.py migrate --noinput
+
+              echo "Collecting static files (Django)..."
+              python manage.py collectstatic --noinput
+
+              deactivate
+              echo "Deactivated virtual environment."
+              cd "$APP_DIR" # Go back to the main app directory for chown
+            else
+              echo "Virtual environment activation script $VENV_PATH not found. Skipping backend setup."
+              exit 1 # Fail deployment if backend setup is critical
+            fi
+
+            echo "Setting file ownership for $APP_DIR to imadsaddik:saddik..."
+            sudo chown -R imadsaddik:saddik "$APP_DIR"
+            echo "File ownership set."
+
+            echo "Restarting services..."
+            if command -v supervisorctl &> /dev/null; then
+              sudo supervisorctl restart My_Universe_Hub
+              echo "Supervisor 'My_Universe_Hub' restarted."
+            else
+              echo "supervisorctl command not found. Skipping Gunicorn restart."
+            fi
+
+            if command -v systemctl &> /dev/null && systemctl --quiet is-active nginx; then
+              sudo systemctl restart nginx
+              echo "Nginx restarted."
+            else
+              echo "Nginx not found or not active. Skipping Nginx restart."
+            fi
+
+            echo "--- Post-deployment tasks finished successfully ---"
