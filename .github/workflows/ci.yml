@@ -325,11 +325,11 @@ jobs:
           name: frontend-dist
           path: frontend/dist/
 
-      - name: Archive backend staticfiles artifact
+      - name: Archive backend static files artifact
         uses: actions/upload-artifact@v4
         with:
-          name: backend-staticfiles
-          path: backend/staticfiles/
+          name: backend-static
+          path: backend/static/
 
   # Stage 5: Deploy to production
   deploy:
@@ -349,11 +349,11 @@ jobs:
           name: frontend-dist
           path: frontend/dist
 
-      - name: Download backend staticfiles artifact
+      - name: Download backend static files artifact
         uses: actions/download-artifact@v4
         with:
-          name: backend-staticfiles
-          path: backend/staticfiles
+          name: backend-static
+          path: backend/static
 
       - name: SSH - Backup database on droplet
         uses: appleboy/ssh-action@v1.2.2
