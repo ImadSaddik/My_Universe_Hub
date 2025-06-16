@@ -25,13 +25,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-k3uk3qkkem3!50t4b*+c)2_^y9l^rpz8&2#v8ynv@f7hlj01_w"
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG_STR = os.getenv("DJANGO_DEBUG", "True")
+DEBUG = DEBUG_STR.lower() == "true"
 
-ALLOWED_HOSTS = ["*"]
+if DEBUG:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = ["myuniversehub.com", "www.myuniversehub.com", "104.248.40.52"]
 
+
+if not DEBUG:
+    CSRF_TRUSTED_ORIGINS = ["https://myuniversehub.com", "https://www.myuniversehub.com", "https://104.248.40.52"]
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
 
 # Application definition
 
@@ -43,7 +52,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    # My apps
     "gallery",
+    # Third-party apps
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
@@ -90,12 +101,15 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "http://localhost:3000",
-    "http://127.0.0.1:8080",
-    "http://127.0.0.1:3000",
-]
+if DEBUG:
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:8080",
+        "http://localhost:3000",
+        "http://127.0.0.1:8080",
+        "http://127.0.0.1:3000",
+    ]
+else:
+    CORS_ALLOWED_ORIGINS = ["https://myuniversehub.com", "https://www.myuniversehub.com", "https://104.248.40.52"]
 
 ROOT_URLCONF = "backend.urls"
 
