@@ -365,7 +365,7 @@ jobs:
             set -e
             APP_DIR="/web_app/myuniversehub"
             DB_FILE_PATH="$APP_DIR/backend/db.sqlite3"
-            BACKUP_DIR_ON_SERVER="$APP_DIR/db_backups_from_deploy"
+            BACKUP_DIR_ON_SERVER="$APP_DIR/backend/db_backups_from_deploy"
 
             echo "--- Backing up database ---"
             mkdir -p "$BACKUP_DIR_ON_SERVER"
