@@ -421,6 +421,8 @@ jobs:
             EMAIL_HOST_USER=${{ secrets.PROD_EMAIL_HOST_USER }}
             EMAIL_HOST_PASSWORD=${{ secrets.PROD_EMAIL_HOST_PASSWORD }}
             GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}
+            DJANGO_DEBUG=False
+            DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}
             EOF
             echo "Backend .env file created."
             cat "$BACKEND_ENV_PATH"
