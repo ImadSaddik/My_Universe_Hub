@@ -16,7 +16,7 @@
     "cypress:run": "cypress run"
   },
   "dependencies": {
-    "axios": "^1.4.0",
+    "axios": "^1.10.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vue3-lazyload": "^0.3.8",
@@ -30,7 +30,7 @@
     "@vue/test-utils": "^2.4.6",
     "cypress": "^14.4.0",
     "dotenv": "^16.5.0",
-    "eslint": "^9.27.0",
+    "eslint": "^9.29.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-vue": "^10.1.0",
     "globals": "^16.2.0",
