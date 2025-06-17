@@ -460,9 +460,6 @@ jobs:
               echo "Running database migrations..."
               python manage.py migrate --noinput
 
-              echo "Collecting static files (Django)..."
-              python manage.py collectstatic --noinput
-
               deactivate
               echo "Deactivated virtual environment."
               cd "$APP_DIR" # Go back to the main app directory for chown
