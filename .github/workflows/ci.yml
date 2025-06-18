@@ -178,6 +178,19 @@ jobs:
       - name: Install wait-on globally
         run: npm install -g wait-on
 
+      - name: Create backend .env file for testing
+        run: |
+          cd backend
+          cat > .env << EOF
+          # Backend environment variables for Production
+          EMAIL_HOST_USER=${{ secrets.PROD_EMAIL_HOST_USER }}
+          EMAIL_HOST_PASSWORD=${{ secrets.PROD_EMAIL_HOST_PASSWORD }}
+          GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}
+          DJANGO_DEBUG=False
+          DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}
+          EOF
+          echo "Created backend .env file for testing."
+
       # Setup database and test data
       - name: Setup Django database
         run: |
