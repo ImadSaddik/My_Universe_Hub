@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="background-image" />
+    <div class="background-image" aria-hidden="true" />
     <div v-if="isLoggedIn && archive.length !== 0" class="mt-3">
       <GallerySection
         :archive="archive"
@@ -16,9 +16,9 @@
     <div v-if="!isLoggedIn || archive.length === 0">
       <div class="container d-flex align-items-center justify-content-center" style="height: calc(100vh - 3.5rem)">
         <div class="row">
-          <h5 class="nav-link m-0">
+          <p class="nav-link m-0">
             {{ getMessage() }}
-          </h5>
+          </p>
         </div>
       </div>
     </div>

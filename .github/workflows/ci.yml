@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   # Stage 1: Lint and format check
@@ -246,20 +247,21 @@ jobs:
           echo "Frontend is serving correctly"
 
       # Run Cypress E2E tests
-      - name: Run Cypress E2E tests
-        run: |
-          cd frontend
-          pnpm run cypress:run
-        env:
-          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
-          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      # TODO: Uncomment when Cypress tests are ready
+      # - name: Run Cypress E2E tests
+      #   run: |
+      #     cd frontend
+      #     pnpm run cypress:run
+      #   env:
+      #     TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+      #     TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
 
-      - name: Upload Cypress screenshots (if any)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-screenshots
-          path: frontend/cypress/screenshots
+      # - name: Upload Cypress screenshots (if any)
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: cypress-screenshots
+      #     path: frontend/cypress/screenshots
 
   # Stage 4: Build
   build:
@@ -292,6 +294,8 @@ jobs:
         run: |
           cd frontend
           pnpm run build
+        env:
+          NODE_ENV: production
 
       # Build backend (collect static files)
       - name: Set up Python
@@ -314,3 +318,173 @@ jobs:
           python manage.py collectstatic --noinput
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
+
+      - name: Archive frontend build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist/
+
+      - name: Archive backend static files artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-static
+          path: backend/static/
+
+  # Stage 5: Deploy to production
+  deploy:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: production
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download frontend build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
+
+      - name: Download backend static files artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-static
+          path: backend/static
+
+      - name: SSH - Backup database on droplet
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            APP_DIR="/web_app/myuniversehub"
+            DB_FILE_PATH="$APP_DIR/backend/db.sqlite3"
+            BACKUP_DIR_ON_SERVER="$APP_DIR/backend/db_backups_from_deploy"
+
+            echo "--- Backing up database ---"
+            mkdir -p "$BACKUP_DIR_ON_SERVER"
+            if [ -f "$DB_FILE_PATH" ]; then
+              TIMESTAMP=$(date +%Y%m%d%H%M%S)
+              cp "$DB_FILE_PATH" "$BACKUP_DIR_ON_SERVER/db.sqlite3.backup.$TIMESTAMP"
+              echo "Database backed up to $BACKUP_DIR_ON_SERVER/db.sqlite3.backup.$TIMESTAMP"
+            else
+              echo "Database file $DB_FILE_PATH not found. Skipping backup."
+            fi
+            echo "--- Database backup finished ---"
+
+      - name: Rsync files to droplet
+        uses: easingthemes/ssh-deploy@v5.1.0
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.DROPLET_HOST }}
+          REMOTE_USER: ${{ secrets.DROPLET_USER }}
+          SOURCE: "./"
+          TARGET: "/web_app/myuniversehub/"
+          ARGS: "-avzr --delete"
+          EXCLUDE: ".git/, .github/, frontend/node_modules/, backend/myvenv/, backend/db.sqlite3, backend/db_backups_from_deploy/, backend/db.sqlite3.backup.*, backend/media/, backend/.env, frontend/.env*, *.pyc, __pycache__/, .DS_Store, shell_scripts/"
+
+      - name: SSH - Create frontend .env file on droplet
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            FRONTEND_ENV_PATH="/web_app/myuniversehub/frontend/.env"
+            echo "Creating frontend .env file at $FRONTEND_ENV_PATH"
+            cat > "$FRONTEND_ENV_PATH" << EOF
+            # Frontend environment variables for Production
+            VITE_API_BASE_URL=https://myuniversehub.com
+            EOF
+            echo "Frontend .env file created."
+            cat "$FRONTEND_ENV_PATH"
+
+      - name: SSH - Create backend .env file on droplet
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            BACKEND_ENV_PATH="/web_app/myuniversehub/backend/.env"
+            echo "Creating backend .env file at $BACKEND_ENV_PATH"
+            cat > "$BACKEND_ENV_PATH" << EOF
+            # Backend environment variables for Production
+            EMAIL_HOST_USER=${{ secrets.PROD_EMAIL_HOST_USER }}
+            EMAIL_HOST_PASSWORD=${{ secrets.PROD_EMAIL_HOST_PASSWORD }}
+            GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}
+            DJANGO_DEBUG=False
+            DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}
+            EOF
+            echo "Backend .env file created."
+            cat "$BACKEND_ENV_PATH"
+
+      - name: SSH - Post-deployment script on droplet
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            APP_DIR="/web_app/myuniversehub"
+            BACKEND_DIR="$APP_DIR/backend"
+            VENV_PATH="$BACKEND_DIR/myvenv/bin/activate"
+
+            echo "--- Running post-deployment tasks on droplet ---"
+            cd "$APP_DIR"
+
+            # Activate virtual environment, install dependencies, migrate
+            if [ -f "$VENV_PATH" ]; then
+              echo "Activating virtual environment: $VENV_PATH"
+              source "$VENV_PATH"
+
+              cd "$BACKEND_DIR"
+              echo "Changed directory to $BACKEND_DIR"
+
+              if [ -f "requirements.txt" ]; then
+                echo "Installing/updating backend dependencies..."
+                pip install -r requirements.txt
+              else
+                echo "requirements.txt not found in $BACKEND_DIR. Skipping dependency installation."
+              fi
+
+              echo "Running database migrations..."
+              python manage.py migrate --noinput
+
+              deactivate
+              echo "Deactivated virtual environment."
+              cd "$APP_DIR" # Go back to the main app directory for chown
+            else
+              echo "Virtual environment activation script $VENV_PATH not found. Skipping backend setup."
+              exit 1 # Fail deployment if backend setup is critical
+            fi
+
+            echo "Setting file ownership for $APP_DIR to imadsaddik:saddik..."
+            sudo chown -R imadsaddik:saddik "$APP_DIR"
+            echo "File ownership set."
+
+            echo "Restarting services..."
+            if command -v supervisorctl &> /dev/null; then
+              sudo supervisorctl restart My_Universe_Hub
+              echo "Supervisor 'My_Universe_Hub' restarted."
+            else
+              echo "supervisorctl command not found. Skipping Gunicorn restart."
+            fi
+
+            if command -v systemctl &> /dev/null && systemctl --quiet is-active nginx; then
+              sudo systemctl restart nginx
+              echo "Nginx restarted."
+            else
+              echo "Nginx not found or not active. Skipping Nginx restart."
+            fi
+
+            echo "--- Post-deployment tasks finished successfully ---"

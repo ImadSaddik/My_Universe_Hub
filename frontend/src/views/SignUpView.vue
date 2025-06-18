@@ -3,7 +3,12 @@
     <div class="row w-100 m-0 p-0 d-flex justify-content-center">
       <div class="col col-md-7 px-3 px-lg-4 outer-card-container">
         <h1 class="fs-1 fw-bold text-black mb-4">Sign Up</h1>
-        <div v-if="showAlertDialog" class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+        <div
+          v-if="showAlertDialog"
+          id="signup-error"
+          class="alert alert-danger alert-dismissible fade show rounded-3"
+          role="alert"
+        >
           <div v-for="error in errors" :key="error"><i class="fas fa-times-circle me-1" /> {{ error }}</div>
           <button
             type="button"
@@ -16,52 +21,70 @@
         <form v-if="!hideForm" @submit.prevent="submitForm">
           <label for="exampleInputUsername" class="mb-1 text-black">Username</label>
           <div class="input-container">
-            <i class="fas fa-user input-icon" />
+            <i class="fas fa-user input-icon" aria-hidden="true" />
             <input
               id="exampleInputUsername"
               v-model="username"
               type="text"
               class="input-field"
-              placeholder="Username"
+              placeholder="John Doe"
+              :aria-describedby="showAlertDialog ? 'signup-error' : null"
             />
           </div>
 
           <label for="exampleInputEmail" class="mb-1 text-black">Email</label>
           <div class="input-container">
-            <i class="fas fa-envelope input-icon" />
-            <input id="exampleInputEmail" v-model="email" class="input-field" placeholder="Email" type="email" />
+            <i class="fas fa-envelope input-icon" aria-hidden="true" />
+            <input
+              id="exampleInputEmail"
+              v-model="email"
+              class="input-field"
+              placeholder="your.email@example.com"
+              type="email"
+              :aria-describedby="showAlertDialog ? 'signup-error' : null"
+            />
           </div>
 
           <label for="exampleInputPassword1" class="mb-1 text-black">Password</label>
           <div class="input-container">
-            <i class="fas fa-lock input-icon" />
+            <i class="fas fa-lock input-icon" aria-hidden="true" />
             <input
               id="exampleInputPassword1"
               v-model="password"
               class="input-field"
               placeholder="Password"
               :type="showHidePassword ? 'password' : 'text'"
+              :aria-describedby="showAlertDialog ? 'signup-error' : null"
             />
             <i
               class="fas toggle-password-icon"
               :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
+              :aria-label="showHidePassword ? 'Show password' : 'Hide password'"
+              :aria-expanded="!showHidePassword"
+              role="button"
+              tabindex="0"
               @click="togglePasswordVisibility"
             />
           </div>
 
           <label for="exampleInputPassword2" class="mb-1 text-black">Repeat password</label>
           <div class="input-container">
-            <i class="fas fa-lock input-icon" />
+            <i class="fas fa-lock input-icon" aria-hidden="true" />
             <input
               id="exampleInputPassword2"
               v-model="repeatPassword"
               class="input-field"
               placeholder="Repeat password"
               :type="showHidePassword ? 'password' : 'text'"
+              :aria-describedby="showAlertDialog ? 'signup-error' : null"
             />
             <i
               class="fas toggle-password-icon"
               :class="showHidePassword ? 'fa-eye' : 'fa-eye-slash'"
+              :aria-label="showHidePassword ? 'Show password' : 'Hide password'"
+              :aria-expanded="!showHidePassword"
+              role="button"
+              tabindex="0"
               @click="togglePasswordVisibility"
             />
           </div>

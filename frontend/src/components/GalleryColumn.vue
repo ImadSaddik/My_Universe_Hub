@@ -7,14 +7,22 @@
           data-cy="gallery-item-image"
           :src="item.image_url"
           class="img-fluid image-container"
-          alt=""
+          :alt="`APOD image: ${item.title} by ${item.authors}`"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
+          role="button"
+          tabindex="0"
           @click="$emit('selectedItem', item)"
+          @keyup.enter="$emit('selectedItem', item)"
         />
         <div class="row m-0">
           <div class="col py-1 d-flex align-items-center marquee-container">
-            <img data-cy="gallery-item-app-logo" src="../assets/logos/galaxy_logo.svg" alt="" style="width: 2rem" />
+            <img
+              data-cy="gallery-item-app-logo"
+              src="../assets/logos/galaxy_logo.svg"
+              alt="MyUniverseHub galaxy logo"
+              style="width: 2rem"
+            />
             <p data-cy="gallery-item-title" class="custom-small-text m-0 ms-3 fw-bold">
               {{ item.title }}
             </p>
@@ -25,7 +33,10 @@
                 v-if="item.image_is_liked"
                 data-cy="gallery-item-unlike-or-like"
                 class="like-icon-container d-flex align-items-center"
+                role="button"
+                tabindex="0"
                 @click="unlikeImage(item)"
+                @keydown.enter="unlikeImage(item)"
               >
                 {{ item.image_likes_count }}
                 <i type="button" class="ms-2 fa-solid fa-heart fa-xl" style="color: #f66151" />
@@ -34,7 +45,10 @@
                 v-else
                 data-cy="gallery-item-unlike-or-like"
                 class="like-icon-container d-flex align-items-center"
+                role="button"
+                tabindex="0"
                 @click="likeImage(item)"
+                @keydown.enter="likeImage(item)"
               >
                 {{ item.image_likes_count }}
                 <i type="button" class="ms-2 fa-regular fa-heart fa-xl" />
@@ -144,6 +158,10 @@ export default {
 
 .image-container:hover {
   display: block;
+}
+
+.image-container:focus {
+  outline: 2px solid blue;
 }
 
 .like-icon-container {

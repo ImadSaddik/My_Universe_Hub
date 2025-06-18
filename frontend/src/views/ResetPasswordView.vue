@@ -14,8 +14,13 @@
           />
         </div>
 
-        <div v-if="errorOccurred" class="alert alert-danger alert-dismissible fade show" role="alert">
-          <i class="fas fa-times-circle me-1" /> {{ errorMessage }}
+        <div
+          v-if="errorOccurred"
+          id="reset-password-error"
+          class="alert alert-danger alert-dismissible fade show"
+          role="alert"
+        >
+          <i class="fas fa-times-circle me-1" aria-hidden="true" /> {{ errorMessage }}
           <button
             type="button"
             class="btn-close"
@@ -28,12 +33,19 @@
         <label for="exampleInputEmail" class="mb-1 text-black">Email</label>
         <div class="input-container">
           <i class="fas fa-envelope input-icon" />
-          <input id="exampleInputEmail" v-model="email" class="input-field" placeholder="Email" type="email" />
+          <input
+            id="exampleInputEmail"
+            v-model="email"
+            class="input-field"
+            placeholder="your.email@example.com"
+            type="email"
+            :aria-describedby="errorOccurred ? 'reset-password-error' : null"
+          />
         </div>
 
         <button class="custom-btn custom-btn-white my-3" @click="resetPassword">Submit</button>
         <p class="text-black text-center m-0 my-2">
-          Go back to the <router-link to="/login"> Log in </router-link> page.
+          Go back to the <router-link to="/login"> Log In</router-link> page.
         </p>
       </div>
     </div>
