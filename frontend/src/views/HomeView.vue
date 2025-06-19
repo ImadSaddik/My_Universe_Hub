@@ -1,14 +1,19 @@
 <template>
-  <SearchSection @search="(query) => search(query)" />
-  <GallerySection
-    :archive="getUpdatedArchive"
-    :should-show-load-more-button="shouldShowLoadMoreButton"
-    :search-result-count="searchArchiveSize"
-    @selected-item="(value) => (selectedItem = value)"
-    @increase-limit="increaseLimit()"
-  />
-  <BackToTopVue />
-  <ImageDetails :item="selectedItem" />
+  <ApodStatusOverlay />
+
+  <!-- Up state -->
+  <div v-if="apodStatus === 'up'">
+    <SearchSection @search="(query) => search(query)" />
+    <GallerySection
+      :archive="getUpdatedArchive"
+      :should-show-load-more-button="shouldShowLoadMoreButton"
+      :search-result-count="searchArchiveSize"
+      @selected-item="(value) => (selectedItem = value)"
+      @increase-limit="increaseLimit()"
+    />
+    <BackToTopVue />
+    <ImageDetails :item="selectedItem" />
+  </div>
 </template>
 
 <script>
@@ -17,6 +22,7 @@ import SearchSection from "@/components/SearchSection.vue";
 import GallerySection from "@/components/GallerySection.vue";
 import BackToTopVue from "@/components/BackToTop.vue";
 import ImageDetails from "@/components/ImageDetails.vue";
+import ApodStatusOverlay from "@/components/ApodStatusOverlay.vue";
 
 export default {
   name: "HomeView",
@@ -25,6 +31,7 @@ export default {
     GallerySection,
     BackToTopVue,
     ImageDetails,
+    ApodStatusOverlay,
   },
   data() {
     return {
@@ -39,6 +46,9 @@ export default {
     };
   },
   computed: {
+    apodStatus() {
+      return this.$store.state.apodStatus;
+    },
     getUpdatedArchive() {
       const archive = this.query.trim().length === 0 ? this.archive : this.searchArchive;
 
@@ -59,13 +69,17 @@ export default {
       }
     },
   },
+  watch: {
+    apodStatus(newStatus, oldStatus) {
+      if (newStatus === "up" && oldStatus !== "up") {
+        this.getArchive();
+        this.getArchiveSize();
+      }
+    },
+  },
   created() {
     document.title = "Home";
     this.$store.commit("setSelectedNavbarItem", "home");
-  },
-  async mounted() {
-    await this.getArchive();
-    await this.getArchiveSize();
   },
   methods: {
     async search(query) {
