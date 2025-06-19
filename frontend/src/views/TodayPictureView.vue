@@ -1,5 +1,7 @@
 <template>
-  <div class="container pt-2 pt-sm-5">
+  <ApodStatusOverlay />
+
+  <div v-if="apodStatus === 'up'" class="container pt-2 pt-sm-5">
     <div v-if="!error">
       <div v-if="isTodayEntryAvailable">
         <div class="row m-0 my-3 d-flex flex-column">
@@ -88,10 +90,13 @@
 
 <script>
 import axios from "axios";
+import ApodStatusOverlay from "@/components/ApodStatusOverlay.vue";
 
 export default {
   name: "TodayPictureView",
-  components: {},
+  components: {
+    ApodStatusOverlay,
+  },
   data() {
     return {
       data: null,
@@ -99,6 +104,9 @@ export default {
     };
   },
   computed: {
+    apodStatus() {
+      return this.$store.state.apodStatus;
+    },
     isLoggedIn() {
       return this.$store.state.token !== "";
     },
@@ -117,11 +125,15 @@ export default {
       }
     },
   },
+  watch: {
+    apodStatus(newStatus, oldStatus) {
+      if (newStatus === "up" && oldStatus !== "up") {
+        this.getTodayPicture();
+      }
+    },
+  },
   created() {
     document.title = "Today's Picture";
-  },
-  async mounted() {
-    await this.getTodayPicture();
   },
   methods: {
     async getTodayPicture() {
