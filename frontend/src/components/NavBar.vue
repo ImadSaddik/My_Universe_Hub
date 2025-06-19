@@ -95,11 +95,15 @@
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
               data-bs-title="APOD health status"
+              tabindex="0"
+              role="status"
+              aria-live="polite"
               class="border-container d-flex align-items-center text-dark me-2"
               style="cursor: default"
+              :aria-label="getApodStatusText"
             >
               {{ getApodStatusText }}
-              <i :class="getApodStatusIcon" />
+              <i :class="getApodStatusIcon" aria-hidden="true" />
             </div>
 
             <!-- GitHub logo and star count -->
@@ -176,7 +180,7 @@ export default {
       NONE: "",
       starCount: 0,
       githubRepoUrl: "https://github.com/ImadSaddik/My_Universe_Hub",
-      apodStatus: "checking",
+      apodStatus: this.$store.state.apodStatus || "checking",
     };
   },
   computed: {
@@ -253,6 +257,7 @@ export default {
     },
     async checkApodHealth() {
       this.apodStatus = "checking";
+      this.$store.commit("setApodStatus", this.apodStatus);
       try {
         const response = await axios.get("/api/v1/apod-health/");
         this.apodStatus = response.data.status;
@@ -260,6 +265,7 @@ export default {
         console.error("Error checking APOD health:", error);
         this.apodStatus = "down";
       }
+      this.$store.commit("setApodStatus", this.apodStatus);
     },
   },
 };
