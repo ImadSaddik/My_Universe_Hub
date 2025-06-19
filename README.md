@@ -3,6 +3,7 @@
 [![CI pipeline status](https://github.com/ImadSaddik/My_Universe_Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/ImadSaddik/My_Universe_Hub/actions/workflows/ci.yml)
 [![Website status](https://img.shields.io/website?url=https%3A%2F%2Fmyuniversehub.com%2F&up_message=online&down_message=offline)](https://myuniversehub.com/)
 [![GitHub license](https://img.shields.io/github/license/ImadSaddik/My_Universe_Hub)](https://github.com/ImadSaddik/My_Universe_Hub/blob/main/LICENSE)
+[![codecov](https://codecov.io/gh/ImadSaddik/My_Universe_Hub/graph/badge.svg)](https://codecov.io/gh/ImadSaddik/My_Universe_Hub)
 
 ![myuniversehub](./frontend/src/assets/logos/my_universe_hub_full_logo.svg)
 
