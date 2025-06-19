@@ -1,5 +1,9 @@
 # My Universe Hub - APOD, Reimagined
 
+[![CI pipeline status](https://github.com/ImadSaddik/My_Universe_Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/ImadSaddik/My_Universe_Hub/actions/workflows/ci.yml)
+[![Website status](https://img.shields.io/website?url=https%3A%2F%2Fmyuniversehub.com%2F&up_message=online&down_message=offline)](https://myuniversehub.com/)
+[![GitHub license](https://img.shields.io/github/license/ImadSaddik/My_Universe_Hub)](https://github.com/ImadSaddik/My_Universe_Hub/blob/main/LICENSE)
+
 ![myuniversehub](./frontend/src/assets/logos/my_universe_hub_full_logo.svg)
 
 ## The story
