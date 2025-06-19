@@ -123,10 +123,16 @@ jobs:
 
       - name: Run backend unit tests
         run: |
-          pytest
+          pytest --cov --cov-branch --cov-report=xml
         env:
           DJANGO_SETTINGS_MODULE: backend.settings
           "GOOGLE_API_KEY": ${{ secrets.GOOGLE_API_KEY }}
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: ImadSaddik/My_Universe_Hub
 
   # Stage 3: E2E tests
   e2e-tests:
