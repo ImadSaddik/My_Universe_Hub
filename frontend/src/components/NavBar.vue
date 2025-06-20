@@ -91,21 +91,21 @@
 
           <div class="col-auto d-flex p-0">
             <!-- APOD health status indicator -->
-            <div
+            <a
+              :href="apodUrl"
               data-cy="apod-status-indicator"
+              target="_blank"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
               data-bs-title="APOD health status"
-              tabindex="0"
               role="status"
               aria-live="polite"
               class="border-container d-flex align-items-center text-dark me-2"
-              style="cursor: default"
               :aria-label="getApodStatusText"
             >
               {{ getApodStatusText }}
               <i :class="getApodStatusIcon" aria-hidden="true" />
-            </div>
+            </a>
 
             <!-- GitHub logo and star count -->
             <a
@@ -181,6 +181,7 @@ export default {
       NONE: "",
       starCount: 0,
       githubRepoUrl: "https://github.com/ImadSaddik/My_Universe_Hub",
+      apodUrl: "https://apod.nasa.gov/apod/archivepix.html",
     };
   },
   computed: {
