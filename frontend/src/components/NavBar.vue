@@ -88,7 +88,8 @@
             </RouterLink>
             <hr class="d-block d-lg-none" />
           </div>
-          <div class="col-auto d-flex p-0 align-items-center">
+
+          <div class="col-auto d-flex p-0">
             <!-- APOD health status indicator -->
             <div
               data-cy="apod-status-indicator"
