@@ -1,7 +1,7 @@
 <template>
   <!-- Checking state -->
   <div v-if="apodStatus === 'checking'" class="overlay" role="status" aria-live="polite" aria-busy="true">
-    <div class="text-center">
+    <div class="container text-center">
       <div class="spinner-border" role="status" aria-label="Loading" style="width: 3rem; height: 3rem">
         <span class="visually-hidden">Loading...</span>
       </div>
@@ -11,7 +11,7 @@
 
   <!-- Down state -->
   <div v-else-if="apodStatus === 'down'" class="overlay" role="alert" aria-live="assertive">
-    <div class="text-center">
+    <div class="container text-center">
       <h4 class="alert-heading"><i class="fas fa-meteor me-2" aria-hidden="true" />APOD service unavailable</h4>
       <p class="mt-3 mb-0">
         We're currently unable to connect to NASA's Astronomy Picture of the Day (APOD) service. Please try again later.
