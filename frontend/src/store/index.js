@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default createStore({
   state: {
+    apodStatus: "checking",
     isAuthenticated: false,
     token: localStorage.getItem("token") || "",
     email: localStorage.getItem("email") || "",
@@ -26,6 +27,9 @@ export default createStore({
     },
     setSelectedNavbarItem(state, selectedNavbarItem) {
       state.selectedNavbarItem = selectedNavbarItem;
+    },
+    setApodStatus(state, status) {
+      state.apodStatus = status;
     },
   },
   actions: {

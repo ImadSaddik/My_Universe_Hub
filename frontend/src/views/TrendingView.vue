@@ -1,5 +1,7 @@
 <template>
-  <div class="mt-3">
+  <ApodStatusOverlay />
+
+  <div v-if="apodStatus === 'up'" class="mt-3">
     <GallerySection
       :archive="getArchive"
       :should-show-load-more-button="shouldShowLoadMoreButton"
@@ -16,6 +18,7 @@ import axios from "axios";
 import GallerySection from "@/components/GallerySection.vue";
 import BackToTopVue from "@/components/BackToTop.vue";
 import ImageDetails from "@/components/ImageDetails.vue";
+import ApodStatusOverlay from "@/components/ApodStatusOverlay.vue";
 
 export default {
   name: "TrendingView",
@@ -23,6 +26,7 @@ export default {
     GallerySection,
     BackToTopVue,
     ImageDetails,
+    ApodStatusOverlay,
   },
   data() {
     return {
@@ -33,6 +37,9 @@ export default {
     };
   },
   computed: {
+    apodStatus() {
+      return this.$store.state.apodStatus;
+    },
     getArchive() {
       if (this.isUserLoggedOff) {
         return this.removeLikes();
@@ -47,12 +54,22 @@ export default {
       return this.archive.length < this.archiveFullSize;
     },
   },
+  watch: {
+    apodStatus(newStatus, oldStatus) {
+      if (newStatus === "up" && oldStatus !== "up") {
+        this.getTrendingArchive();
+        this.getTrendingArchiveSize();
+      }
+    },
+  },
   created() {
     document.title = "Trending";
   },
   async mounted() {
-    await this.getTrendingArchive();
-    await this.getTrendingArchiveSize();
+    if (this.apodStatus === "up") {
+      await this.getTrendingArchive();
+      await this.getTrendingArchiveSize();
+    }
   },
   methods: {
     async getTrendingArchive() {

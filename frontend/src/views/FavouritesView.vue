@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <ApodStatusOverlay />
+
+  <div v-if="apodStatus === 'up'">
     <div class="background-image" aria-hidden="true" />
     <div v-if="isLoggedIn && archive.length !== 0" class="mt-3">
       <GallerySection
@@ -30,6 +32,7 @@ import axios from "axios";
 import GallerySection from "@/components/GallerySection.vue";
 import BackToTopVue from "@/components/BackToTop.vue";
 import ImageDetails from "@/components/ImageDetails.vue";
+import ApodStatusOverlay from "@/components/ApodStatusOverlay.vue";
 
 export default {
   name: "FavouritesView",
@@ -37,6 +40,7 @@ export default {
     GallerySection,
     BackToTopVue,
     ImageDetails,
+    ApodStatusOverlay,
   },
   data() {
     return {
@@ -47,6 +51,9 @@ export default {
     };
   },
   computed: {
+    apodStatus() {
+      return this.$store.state.apodStatus;
+    },
     isLoggedIn() {
       return this.$store.state.token !== "";
     },
@@ -57,12 +64,22 @@ export default {
       return this.archive.length < this.archiveFullSize;
     },
   },
+  watch: {
+    apodStatus(newStatus, oldStatus) {
+      if (newStatus === "up" && oldStatus !== "up") {
+        this.getFavouritesArchive();
+        this.getFavouritesArchiveSize();
+      }
+    },
+  },
   created() {
     document.title = "Favourites";
   },
   async mounted() {
-    await this.getFavouritesArchive();
-    await this.getFavouritesArchiveSize();
+    if (this.apodStatus === "up") {
+      await this.getFavouritesArchive();
+      await this.getFavouritesArchiveSize();
+    }
   },
   methods: {
     async increaseLimit() {

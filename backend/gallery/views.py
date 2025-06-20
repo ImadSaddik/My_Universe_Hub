@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 
+import requests
 from django.db.models import Q
 from django.http import HttpResponseBadRequest, JsonResponse
 from rest_framework.decorators import api_view
@@ -167,3 +168,15 @@ def resetPassword(request: Request) -> JsonResponse | HttpResponseBadRequest:
 
     except UserAccount.DoesNotExist:
         return HttpResponseBadRequest("User not found!")
+
+
+@api_view(["GET"])
+def apod_health_check(request: Request) -> JsonResponse:
+    try:
+        response = requests.head("https://apod.nasa.gov/apod/archivepix.html", timeout=5)
+        if response.ok:
+            return JsonResponse({"status": "up"})
+        else:
+            return JsonResponse({"status": "down"})
+    except requests.exceptions.RequestException:
+        return JsonResponse({"status": "down"})
