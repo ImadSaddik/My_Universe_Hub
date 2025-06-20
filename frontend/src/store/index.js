@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default createStore({
   state: {
-    apodStatus: "down",
+    apodStatus: "checking",
     isAuthenticated: false,
     token: localStorage.getItem("token") || "",
     email: localStorage.getItem("email") || "",
