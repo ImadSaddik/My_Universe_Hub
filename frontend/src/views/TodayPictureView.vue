@@ -135,6 +135,11 @@ export default {
   created() {
     document.title = "Today's Picture";
   },
+  async mounted() {
+    if (this.apodStatus === "up") {
+      await this.getTodayPicture();
+    }
+  },
   methods: {
     async getTodayPicture() {
       await axios

@@ -75,6 +75,12 @@ export default {
   created() {
     document.title = "Favourites";
   },
+  async mounted() {
+    if (this.apodStatus === "up") {
+      await this.getFavouritesArchive();
+      await this.getFavouritesArchiveSize();
+    }
+  },
   methods: {
     async increaseLimit() {
       await this.getFavouritesArchive();

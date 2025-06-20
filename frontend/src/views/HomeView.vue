@@ -81,6 +81,12 @@ export default {
     document.title = "Home";
     this.$store.commit("setSelectedNavbarItem", "home");
   },
+  async mounted() {
+    if (this.apodStatus === "up") {
+      await this.getArchive();
+      await this.getArchiveSize();
+    }
+  },
   methods: {
     async search(query) {
       this.query = query;

@@ -65,6 +65,12 @@ export default {
   created() {
     document.title = "Trending";
   },
+  async mounted() {
+    if (this.apodStatus === "up") {
+      await this.getTrendingArchive();
+      await this.getTrendingArchiveSize();
+    }
+  },
   methods: {
     async getTrendingArchive() {
       const start_index = this.archive.length;
