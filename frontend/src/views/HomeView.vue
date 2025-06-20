@@ -86,7 +86,7 @@ export default {
       await this.getArchive();
       await this.getArchiveSize();
     }
-    await logUserVisit();
+    await this.logUserVisit();
   },
   methods: {
     async search(query) {
@@ -188,10 +188,17 @@ export default {
     },
     async logUserVisit() {
       const email = localStorage.getItem("email");
-      if (email) {
-        await axios.post("/api/v1/log_user_visit/", { email: email }).catch((error) => {
-          console.error("Error logging user visit:", error);
-        });
+      const userVisitedTheWebsite = this.$store.state.userVisitedTheWebsite;
+
+      if (email && !userVisitedTheWebsite) {
+        await axios
+          .post("/api/v1/log_user_visit/", { email: email })
+          .then(() => {
+            this.$store.commit("setUserVisitedTheWebsite", true);
+          })
+          .catch((error) => {
+            console.error("Error logging user visit:", error);
+          });
       }
     },
   },
