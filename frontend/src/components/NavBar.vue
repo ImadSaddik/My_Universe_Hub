@@ -180,10 +180,12 @@ export default {
       NONE: "",
       starCount: 0,
       githubRepoUrl: "https://github.com/ImadSaddik/My_Universe_Hub",
-      apodStatus: this.$store.state.apodStatus || "checking",
     };
   },
   computed: {
+    apodStatus() {
+      return this.$store.state.apodStatus;
+    },
     isLoggedOff() {
       return this.$store.state.token === "";
     },
@@ -256,16 +258,14 @@ export default {
       }
     },
     async checkApodHealth() {
-      this.apodStatus = "checking";
-      this.$store.commit("setApodStatus", this.apodStatus);
+      this.$store.commit("setApodStatus", "checking");
       try {
         const response = await axios.get("/api/v1/apod-health/");
-        this.apodStatus = response.data.status;
+        this.$store.commit("setApodStatus", response.data.status);
       } catch (error) {
         console.error("Error checking APOD health:", error);
-        this.apodStatus = "down";
+        this.$store.commit("setApodStatus", "down");
       }
-      this.$store.commit("setApodStatus", this.apodStatus);
     },
   },
 };
