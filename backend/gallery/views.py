@@ -173,7 +173,7 @@ def resetPassword(request: Request) -> JsonResponse | HttpResponseBadRequest:
 def apod_health_check(request: Request) -> JsonResponse:
     try:
         response = requests.head("https://apod.nasa.gov/apod/archivepix.html", timeout=5)
-        if response.status_code == 200:
+        if response.ok:
             return JsonResponse({"status": "up"})
         else:
             return JsonResponse({"status": "down"})
