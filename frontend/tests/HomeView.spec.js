@@ -12,6 +12,7 @@ const createMockStore = (initialState = {}) => {
   const defaultState = {
     token: "",
     selectedNavbarItem: "home",
+    apodStatus: "up",
   };
 
   mockSetSelectedNavbarItem = vi.fn((state, item) => {
