@@ -87,13 +87,13 @@ class Comment(models.Model):
 
 
 class UserVisit(models.Model):
-    email = models.EmailField()
+    user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     ip_address = models.GenericIPAddressField(null=True, blank=True)
     user_agent = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.email} visited at {self.timestamp}"
+        return f"{self.user.email} visited at {self.timestamp}"
 
     class Meta:
         ordering = ["-timestamp"]

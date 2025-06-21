@@ -190,14 +190,17 @@ def log_user_visit(request: Request) -> JsonResponse | HttpResponseBadRequest:
         if not email:
             return HttpResponseBadRequest("Email is required.")
 
+        user = UserAccount.objects.get(email=email)
         ip_address = request.META.get("REMOTE_ADDR")
         user_agent = request.META.get("HTTP_USER_AGENT", "")[:255]
 
         UserVisit.objects.create(
-            email=email,
+            user=user,
             ip_address=ip_address,
             user_agent=user_agent,
         )
         return JsonResponse({"message": "Visit logged."})
+    except UserAccount.DoesNotExist:
+        return HttpResponseBadRequest("User not found.")
     except Exception as e:
         return HttpResponseBadRequest(str(e))
