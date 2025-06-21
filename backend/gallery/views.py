@@ -14,7 +14,7 @@ from .apod_scrapper import add_non_existing_images
 from .models import Gallery, UserAccount, UserVisit
 from .serializers import GallerySerializer
 
-logger = logging.getLogger("gallery")
+logger = logging.getLogger(__name__)
 
 
 class getArchive(APIView):
