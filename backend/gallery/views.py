@@ -289,9 +289,16 @@ def log_user_visit(request: Request) -> JsonResponse | HttpResponseBadRequest:
             logger.error("Email is required in log_user_visit.")
             return HttpResponseBadRequest("Email is required.")
 
+        # According to https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Forwarded-For
+        # The syntax for the X-Forwarded-For header is a comma-separated list of IP addresses.
+        # The first IP address in the list is the original client IP address.
+        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+        if x_forwarded_for:
+            ip_address = x_forwarded_for.split(",")[0].strip()
+        else:
+            ip_address = request.META.get("REMOTE_ADDR", "")
+
         user = UserAccount.objects.get(email=email)
-        remote_address = request.META.get("REMOTE_ADDR", "")
-        ip_address = request.META.get("HTTP_X_FORWARDED_FOR", remote_address)
         user_agent = request.META.get("HTTP_USER_AGENT", "")[:255]
 
         UserVisit.objects.create(
