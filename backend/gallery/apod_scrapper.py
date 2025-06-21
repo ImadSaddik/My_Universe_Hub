@@ -1,3 +1,4 @@
+import logging
 import os
 from datetime import datetime
 
@@ -8,6 +9,8 @@ from bs4.element import Tag
 from dotenv import load_dotenv
 
 from .models import Gallery
+
+logger = logging.getLogger(__name__)
 
 
 def add_non_existing_images() -> None:
@@ -21,10 +24,10 @@ def add_non_existing_images() -> None:
         item["date"] = convert_date(item["date"])
         try:
             Gallery.objects.get(date=item["date"])
-            print(f"{item['date']} is already in the database.")
+            logger.info(f"{item['date']} is already in the database.")
             break
         except Gallery.DoesNotExist:
-            print(f"{item['date']} is not in the database.")
+            logger.info(f"{item['date']} is not in the database.")
             entry = Gallery.objects.create(
                 date=item["date"],
                 title=item["title"],
@@ -32,7 +35,6 @@ def add_non_existing_images() -> None:
                 image_url=item["image_url"],
                 authors=item["authors"],
             )
-
             entry.save()
 
 
