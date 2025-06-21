@@ -12,6 +12,7 @@ const createMockStore = (initialState = {}) => {
   const defaultState = {
     token: "",
     selectedNavbarItem: "home",
+    apodStatus: "up",
   };
 
   mockSetSelectedNavbarItem = vi.fn((state, item) => {
@@ -46,6 +47,7 @@ const getWrapper = (store) => {
 vi.mock("axios", () => ({
   default: {
     get: vi.fn(() => Promise.resolve({ data: [] })),
+    post: vi.fn(() => Promise.resolve({ data: {} })),
     defaults: { headers: { common: {} } },
   },
 }));

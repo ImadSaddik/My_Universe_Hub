@@ -88,7 +88,25 @@
             </RouterLink>
             <hr class="d-block d-lg-none" />
           </div>
-          <div class="col-auto d-flex p-0 align-items-center">
+
+          <div class="col-auto d-flex p-0">
+            <!-- APOD health status indicator -->
+            <a
+              :href="apodUrl"
+              data-cy="apod-status-indicator"
+              target="_blank"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              data-bs-title="APOD health status"
+              role="status"
+              aria-live="polite"
+              class="border-container d-flex align-items-center text-dark me-2"
+              :aria-label="getApodStatusText"
+            >
+              {{ getApodStatusText }}
+              <i :class="getApodStatusIcon" aria-hidden="true" />
+            </a>
+
             <!-- GitHub logo and star count -->
             <a
               :href="githubRepoUrl"
@@ -163,9 +181,13 @@ export default {
       NONE: "",
       starCount: 0,
       githubRepoUrl: "https://github.com/ImadSaddik/My_Universe_Hub",
+      apodUrl: "https://apod.nasa.gov/apod/archivepix.html",
     };
   },
   computed: {
+    apodStatus() {
+      return this.$store.state.apodStatus;
+    },
     isLoggedOff() {
       return this.$store.state.token === "";
     },
@@ -175,9 +197,34 @@ export default {
     getSelectedNavbarItem() {
       return this.$store.state.selectedNavbarItem;
     },
+    getApodStatusIcon() {
+      if (this.apodStatus === "checking") {
+        return "ms-2 fa-solid fa-hurricane fa-spin";
+      }
+      if (this.apodStatus === "up") {
+        return "ms-2 fa-solid fa-circle text-success";
+      }
+      if (this.apodStatus === "down") {
+        return "ms-2 fa-solid fa-circle text-danger";
+      }
+      return "";
+    },
+    getApodStatusText() {
+      if (this.apodStatus === "checking") {
+        return "Checking";
+      }
+      if (this.apodStatus === "up") {
+        return "APOD is up";
+      }
+      if (this.apodStatus === "down") {
+        return "APOD is down";
+      }
+      return "";
+    },
   },
   async mounted() {
     await this.fetchGitHubStars();
+    await this.checkApodHealth();
   },
   methods: {
     getNavbarItemClass(page) {
@@ -210,6 +257,16 @@ export default {
           .catch((error) => {});
       } catch (error) {
         console.error("Error fetching GitHub star count:", error);
+      }
+    },
+    async checkApodHealth() {
+      this.$store.commit("setApodStatus", "checking");
+      try {
+        const response = await axios.get("/api/v1/apod-health/");
+        this.$store.commit("setApodStatus", response.data.status);
+      } catch (error) {
+        console.error("Error checking APOD health:", error);
+        this.$store.commit("setApodStatus", "down");
       }
     },
   },

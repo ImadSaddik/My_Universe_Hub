@@ -1,5 +1,11 @@
 # My Universe Hub - APOD, Reimagined
 
+[![CI pipeline status](https://github.com/ImadSaddik/My_Universe_Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/ImadSaddik/My_Universe_Hub/actions/workflows/ci.yml)
+[![GitHub license](https://img.shields.io/github/license/ImadSaddik/My_Universe_Hub)](https://github.com/ImadSaddik/My_Universe_Hub/blob/main/LICENSE)
+[![codecov](https://codecov.io/gh/ImadSaddik/My_Universe_Hub/graph/badge.svg)](https://codecov.io/gh/ImadSaddik/My_Universe_Hub)
+[![My Universe Hub Status](https://img.shields.io/website?url=https%3A%2F%2Fmyuniversehub.com%2F&up_message=online&down_message=offline&label=My%20Universe%20Hub)](https://myuniversehub.com/)
+[![APOD Status](https://img.shields.io/website?url=https%3A%2F%2Fapod.nasa.gov%2Fapod%2Farchivepix.html&up_message=online&down_message=offline&label=APOD)](https://apod.nasa.gov/apod/archivepix.html)
+
 ![myuniversehub](./frontend/src/assets/logos/my_universe_hub_full_logo.svg)
 
 ## The story

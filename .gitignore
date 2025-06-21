@@ -295,6 +295,7 @@ dist
 
 staticfiles/
 static/
+logs/
 
 playwright-report/
 test-results/
