@@ -290,7 +290,8 @@ def log_user_visit(request: Request) -> JsonResponse | HttpResponseBadRequest:
             return HttpResponseBadRequest("Email is required.")
 
         user = UserAccount.objects.get(email=email)
-        ip_address = request.META.get("HTTP_X_FORWARDED_FOR")
+        remote_address = request.META.get("REMOTE_ADDR", "")
+        ip_address = request.META.get("HTTP_X_FORWARDED_FOR", remote_address)
         user_agent = request.META.get("HTTP_USER_AGENT", "")[:255]
 
         UserVisit.objects.create(
