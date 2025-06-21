@@ -34,7 +34,7 @@ class getArchiveSize(APIView):
     def get(self, request: Request) -> Response:
         try:
             entries = Gallery.objects.all()
-            response = {"count": len(entries)}
+            response = {"count": entries.count()}
             logger.info(f"Archive size: {response['count']}")
             return Response(response)
         except Exception as e:
@@ -153,7 +153,7 @@ def searchSize(request: Request, query: str) -> Response:
         search_pattern = r"\b(?:" + "|".join(search_words) + r")\b"
 
         entries = Gallery.objects.filter(Q(explanation__iregex=search_pattern))
-        response = {"count": len(entries)}
+        response = {"count": entries.count()}
 
         logger.info(f"Found {response['count']} entries for size query: {query}")
         return Response(response)
@@ -184,7 +184,7 @@ def getSortedArchiveSize(request: Request) -> Response:
 
     try:
         entries = Gallery.objects.order_by("-image_likes_count")
-        response = {"count": len(entries)}
+        response = {"count": entries.count()}
 
         logger.info(f"Sorted archive size: {response['count']}")
         return Response(response)
@@ -225,7 +225,7 @@ def getFavouritesArchiveSize(request: Request, email: str) -> Response:
         user = UserAccount.objects.get(email=email)
         entries = Gallery.objects.filter(liked_by_users=user)
 
-        response = {"count": len(entries)}
+        response = {"count": entries.count()}
         logger.info(f"Fetched size of favourites archive for user: {email}: {response['count']}")
         return Response(response)
     except UserAccount.DoesNotExist:
