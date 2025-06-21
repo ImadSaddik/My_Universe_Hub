@@ -95,7 +95,7 @@ def likeImage(request: Request) -> JsonResponse | HttpResponseBadRequest:
         return HttpResponseBadRequest("Invalid JSON!")
     except Exception as e:
         logger.error(f"Error in likeImage: {e}")
-        return HttpResponseBadRequest("Image not found!")
+        return HttpResponseBadRequest("Something went wrong while liking the image!")
 
 
 @api_view(["POST"])
@@ -122,7 +122,7 @@ def unlikeImage(request: Request) -> JsonResponse | HttpResponseBadRequest:
         return HttpResponseBadRequest("Invalid JSON!")
     except Exception as e:
         logger.error(f"Error in unlikeImage: {e}")
-        return HttpResponseBadRequest("Image not found!")
+        return HttpResponseBadRequest("Something went wrong while unliking the image!")
 
 
 @api_view(["GET"])
