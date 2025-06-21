@@ -52,4 +52,4 @@ def test_unlike_image_invalid():
     response = client.post(url, data, format="json")
 
     assert response.status_code == 400
-    assert b"Image not found" in response.content
+    assert b"Something went wrong while unliking the image!" in response.content
