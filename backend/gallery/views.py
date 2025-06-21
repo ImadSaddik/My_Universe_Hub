@@ -47,16 +47,16 @@ def getTodayPicture(request: Request) -> Response | HttpResponseBadRequest:
     logger.info("Fetching today's image from the database...")
 
     try:
-        todayEntry = Gallery.objects.all()[0]
+        todayEntry = Gallery.objects.all().first()
         today = datetime.now().today().date()
 
-        if today != todayEntry.date:
+        if todayEntry and today != todayEntry.date:
             logger.info("Today's image is not in the database. Adding it now...")
 
             add_non_existing_images()
-            todayEntry = Gallery.objects.all()[0]
+            todayEntry = Gallery.objects.all().first()
 
-            if today != todayEntry.date:
+            if todayEntry and today != todayEntry.date:
                 logger.warning("Today's image is still not available after adding new images.")
                 return HttpResponseBadRequest("Today's image is not available!")
 
