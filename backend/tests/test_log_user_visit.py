@@ -22,6 +22,45 @@ def test_log_user_visit_with_all_data():
     all_user_visits = UserVisit.objects.all()
     assert len(all_user_visits) == 1
     assert all_user_visits[0].user == user
+    assert all_user_visits[0].ip_address == "127.0.0.1"
+
+
+@pytest.mark.django_db
+def test_log_user_visit_with_x_forwarded_for_single_ip():
+    email = "test.xff1@example.com"
+    user = create_test_user(email=email)
+
+    client = APIClient()
+    url = reverse(viewname="log_user_visit")
+    data = {"email": email}
+    headers = {"HTTP_X_FORWARDED_FOR": "203.0.113.1"}
+    response = client.post(url, data, format="json", **headers)
+
+    assert response.status_code == 200
+    assert response.json()["message"] == "Visit logged."
+
+    visit = UserVisit.objects.last()
+    assert visit.user == user
+    assert visit.ip_address == "203.0.113.1"
+
+
+@pytest.mark.django_db
+def test_log_user_visit_with_x_forwarded_for_multiple_ips():
+    email = "test.xff2@example.com"
+    user = create_test_user(email=email)
+
+    client = APIClient()
+    url = reverse(viewname="log_user_visit")
+    data = {"email": email}
+    headers = {"HTTP_X_FORWARDED_FOR": "203.0.113.2, 70.41.3.18, 150.172.238.178"}
+    response = client.post(url, data, format="json", **headers)
+
+    assert response.status_code == 200
+    assert response.json()["message"] == "Visit logged."
+
+    visit = UserVisit.objects.last()
+    assert visit.user == user
+    assert visit.ip_address == "203.0.113.2"
 
 
 @pytest.mark.django_db
