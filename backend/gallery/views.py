@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .apod_scrapper import add_non_existing_images
-from .models import Gallery, UserAccount
+from .models import Gallery, UserAccount, UserVisit
 from .serializers import GallerySerializer
 
 
@@ -180,3 +180,27 @@ def apod_health_check(request: Request) -> JsonResponse:
             return JsonResponse({"status": "down"})
     except requests.exceptions.RequestException:
         return JsonResponse({"status": "down"})
+
+
+@api_view(["POST"])
+def log_user_visit(request: Request) -> JsonResponse | HttpResponseBadRequest:
+    try:
+        data = json.loads(request.body)
+        email = data.get("email")
+        if not email:
+            return HttpResponseBadRequest("Email is required.")
+
+        user = UserAccount.objects.get(email=email)
+        ip_address = request.META.get("REMOTE_ADDR")
+        user_agent = request.META.get("HTTP_USER_AGENT", "")[:255]
+
+        UserVisit.objects.create(
+            user=user,
+            ip_address=ip_address,
+            user_agent=user_agent,
+        )
+        return JsonResponse({"message": "Visit logged."})
+    except UserAccount.DoesNotExist:
+        return HttpResponseBadRequest("User not found.")
+    except Exception as e:
+        return HttpResponseBadRequest(str(e))

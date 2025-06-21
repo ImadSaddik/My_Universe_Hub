@@ -20,4 +20,5 @@ urlpatterns = [
     path("favourites/<str:email>/count/", views.getFavouritesArchiveSize, name="get_favourites_archive_size"),
     path("reset_password/", views.resetPassword, name="reset_password"),
     path("apod-health/", views.apod_health_check, name="apod_health_check"),
+    path("log_user_visit/", views.log_user_visit, name="log_user_visit"),
 ]
