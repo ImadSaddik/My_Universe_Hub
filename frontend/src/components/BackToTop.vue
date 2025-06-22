@@ -2,7 +2,7 @@
   <div>
     <img
       v-show="showBackToTopButton"
-      data-cy="scroll-to-top-button"
+      data-testid="scroll-to-top-button"
       src="../assets/circle-arrow-up-solid.svg"
       type="button"
       class="img go-up-button"
