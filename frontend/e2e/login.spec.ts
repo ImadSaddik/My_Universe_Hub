@@ -42,8 +42,7 @@ test.describe("Login Feature", () => {
     await submitButton.click();
 
     // Wait for successful redirect
-    const baseUrl = process.env.TEST_BASE_URL;
-    await expect(page).toHaveURL(`${baseUrl}/`);
+    await expect(page).toHaveURL("/");
     await expect(page).toHaveTitle("Home");
   });
 });
