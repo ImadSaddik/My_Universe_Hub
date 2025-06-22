@@ -124,9 +124,9 @@
             </a>
 
             <!-- Log in icon -->
-            <a
+            <RouterLink
               v-show="isLoggedOff"
-              href="/login"
+              to="/login"
               data-testid="nav-link-login"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
@@ -139,7 +139,7 @@
             >
               Log In
               <i type="button" class="ms-2 fa-solid fa-arrow-right-to-bracket fa-lg" style="color: #000" />
-            </a>
+            </RouterLink>
 
             <!-- Log out icon -->
             <div
