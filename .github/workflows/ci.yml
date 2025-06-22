@@ -176,10 +176,10 @@ jobs:
           cd frontend
           pnpm install
 
-      - name: Install Cypress binary
+      - name: Install Playwright browsers
         run: |
           cd frontend
-          pnpm exec cypress install
+          pnpm exec playwright install --with-deps
 
       - name: Install wait-on globally
         run: npm install -g wait-on
@@ -234,13 +234,11 @@ jobs:
         run: |
           cd frontend
           pnpm run dev &
-        env:
-          VITE_API_BASE_URL: http://localhost:8000
 
       - name: Wait for frontend to be ready
         run: wait-on http://localhost:8080 --timeout 60000
 
-      # Debug: Test API endpoints before running Cypress
+      # Debug: Test API endpoints before running E2E tests
       - name: Test API connectivity
         run: |
           echo "Testing backend API..."
@@ -252,22 +250,18 @@ jobs:
           curl -f http://localhost:8080 || exit 1
           echo "Frontend is serving correctly"
 
-      # Run Cypress E2E tests
-      # TODO: Uncomment when Cypress tests are ready
-      # - name: Run Cypress E2E tests
-      #   run: |
-      #     cd frontend
-      #     pnpm run cypress:run
-      #   env:
-      #     TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
-      #     TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      # Run Playwright E2E tests
+      - name: Run Playwright tests
+        run: |
+          cd frontend
+          pnpm e2e
 
-      # - name: Upload Cypress screenshots (if any)
-      #   if: always()
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: cypress-screenshots
-      #     path: frontend/cypress/screenshots
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: frontend/playwright-report/
 
   # Stage 4: Build
   build:
