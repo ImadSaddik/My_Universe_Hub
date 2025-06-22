@@ -93,23 +93,23 @@ describe("NavBar.vue", () => {
       "nav-link-about",
     ];
     expectedLinkSelectors.forEach((selector) => {
-      expect(wrapper.find(`[data-test="${selector}"]`).exists()).toBe(true);
+      expect(wrapper.find(`[data-testid="${selector}"]`).exists()).toBe(true);
     });
   });
 
   it("renders the retrieved number of stars", async () => {
-    const starCount = wrapper.find("[data-test='github-star-count']");
+    const starCount = wrapper.find("[data-testid='github-star-count']");
     expect(starCount.exists()).toBe(true);
     expect(starCount.text()).toBe("3647");
   });
 
   it("renders log in button and hides log out button when not authenticated", () => {
-    const loginLink = wrapper.find("[data-test='nav-link-login']");
+    const loginLink = wrapper.find("[data-testid='nav-link-login']");
     expect(loginLink.exists()).toBe(true);
     expect(loginLink.isVisible()).toBe(true);
     expect(loginLink.text()).toBe("Log In");
 
-    const logoutLink = wrapper.find("[data-test='nav-link-logout']");
+    const logoutLink = wrapper.find("[data-testid='nav-link-logout']");
     expect(logoutLink.exists()).toBe(true);
     expect(logoutLink.isVisible()).toBe(false);
     expect(logoutLink.text()).toBe("Log Out");
@@ -119,18 +119,18 @@ describe("NavBar.vue", () => {
     store = createMockStore({ token: "fake-token" });
     wrapper = getWrapper(store);
 
-    const loginLink = wrapper.find("[data-test='nav-link-login']");
+    const loginLink = wrapper.find("[data-testid='nav-link-login']");
     expect(loginLink.exists()).toBe(true);
     expect(loginLink.isVisible()).toBe(false);
 
-    const logoutLink = wrapper.find("[data-test='nav-link-logout']");
+    const logoutLink = wrapper.find("[data-testid='nav-link-logout']");
     expect(logoutLink.exists()).toBe(true);
     expect(logoutLink.isVisible()).toBe(true);
     expect(logoutLink.text()).toBe("Log Out");
   });
 
   it("emits logged-out event and clears localStorage and store when log out button is clicked", async () => {
-    const logoutLink = wrapper.find("[data-test='nav-link-logout']");
+    const logoutLink = wrapper.find("[data-testid='nav-link-logout']");
     await logoutLink.trigger("click");
     expect(wrapper.emitted("logged-out")).toBeTruthy();
     expect(localStorageMock.removeItem).toHaveBeenCalledWith("token");
@@ -138,13 +138,13 @@ describe("NavBar.vue", () => {
   });
 
   it("renders the app logo", () => {
-    const logo = wrapper.find("[data-test='app-logo']");
+    const logo = wrapper.find("[data-testid='app-logo']");
     expect(logo.exists()).toBe(true);
     expect(logo.attributes("src")).toBe("/src/assets/logos/galaxy_logo.svg");
   });
 
   it("calls handleNavbarItemClick and updates localStorage when 'About' link is clicked", async () => {
-    const aboutLink = wrapper.find("[data-test='nav-link-about']");
+    const aboutLink = wrapper.find("[data-testid='nav-link-about']");
     expect(aboutLink.exists()).toBe(true);
 
     const handleNavbarItemClickSpy = vi.spyOn(wrapper.vm, "handleNavbarItemClick");
@@ -163,7 +163,7 @@ describe("NavBar.vue", () => {
   });
 
   it("calls handleNavbarItemClick and updates localStorage when 'Contribute' link is clicked", async () => {
-    const contributeLink = wrapper.find("[data-test='nav-link-contribute']");
+    const contributeLink = wrapper.find("[data-testid='nav-link-contribute']");
     expect(contributeLink.exists()).toBe(true);
 
     const handleNavbarItemClickSpy = vi.spyOn(wrapper.vm, "handleNavbarItemClick");
@@ -182,7 +182,7 @@ describe("NavBar.vue", () => {
   });
 
   it("calls handleNavbarItemClick and updates localStorage when 'Favourites' link is clicked", async () => {
-    const favouritesLink = wrapper.find("[data-test='nav-link-favourites']");
+    const favouritesLink = wrapper.find("[data-testid='nav-link-favourites']");
     expect(favouritesLink.exists()).toBe(true);
 
     const handleNavbarItemClickSpy = vi.spyOn(wrapper.vm, "handleNavbarItemClick");
@@ -201,7 +201,7 @@ describe("NavBar.vue", () => {
   });
 
   it("calls handleNavbarItemClick and updates localStorage when 'Trending' link is clicked", async () => {
-    const trendingLink = wrapper.find("[data-test='nav-link-trending']");
+    const trendingLink = wrapper.find("[data-testid='nav-link-trending']");
     expect(trendingLink.exists()).toBe(true);
 
     const handleNavbarItemClickSpy = vi.spyOn(wrapper.vm, "handleNavbarItemClick");
@@ -220,7 +220,7 @@ describe("NavBar.vue", () => {
   });
 
   it("calls handleNavbarItemClick and updates localStorage when 'Today' link is clicked", async () => {
-    const todayLink = wrapper.find("[data-test='nav-link-today']");
+    const todayLink = wrapper.find("[data-testid='nav-link-today']");
     expect(todayLink.exists()).toBe(true);
 
     const handleNavbarItemClickSpy = vi.spyOn(wrapper.vm, "handleNavbarItemClick");
@@ -239,7 +239,7 @@ describe("NavBar.vue", () => {
   });
 
   it("calls handleNavbarItemClick and updates localStorage when 'Home' link is clicked", async () => {
-    const homeLink = wrapper.find("[data-test='nav-link-home']");
+    const homeLink = wrapper.find("[data-testid='nav-link-home']");
     expect(homeLink.exists()).toBe(true);
 
     const handleNavbarItemClickSpy = vi.spyOn(wrapper.vm, "handleNavbarItemClick");
@@ -258,7 +258,7 @@ describe("NavBar.vue", () => {
   });
 
   it("calls handleNavbarItemClick and updates localStorage when 'App logo' link is clicked", async () => {
-    const appLogoLink = wrapper.find("[data-test='nav-link-app-logo']");
+    const appLogoLink = wrapper.find("[data-testid='nav-link-app-logo']");
     expect(appLogoLink.exists()).toBe(true);
 
     const handleNavbarItemClickSpy = vi.spyOn(wrapper.vm, "handleNavbarItemClick");
@@ -274,37 +274,37 @@ describe("NavBar.vue", () => {
   });
 
   it("checks if the 'About' link has the correct to", () => {
-    const aboutLink = wrapper.find("[data-test='nav-link-about']");
+    const aboutLink = wrapper.find("[data-testid='nav-link-about']");
     expect(aboutLink.attributes("to")).toBe("/about");
   });
 
   it("checks if the 'Contribute' link has the correct to", () => {
-    const contributeLink = wrapper.find("[data-test='nav-link-contribute']");
+    const contributeLink = wrapper.find("[data-testid='nav-link-contribute']");
     expect(contributeLink.attributes("to")).toBe("/contribute");
   });
 
   it("checks if the 'Favourites' link has the correct to", () => {
-    const favouritesLink = wrapper.find("[data-test='nav-link-favourites']");
+    const favouritesLink = wrapper.find("[data-testid='nav-link-favourites']");
     expect(favouritesLink.attributes("to")).toBe("/favourites");
   });
 
   it("checks if the 'Trending' link has the correct to", () => {
-    const trendingLink = wrapper.find("[data-test='nav-link-trending']");
+    const trendingLink = wrapper.find("[data-testid='nav-link-trending']");
     expect(trendingLink.attributes("to")).toBe("/trending");
   });
 
   it("checks if the 'Today' link has the correct to", () => {
-    const todayLink = wrapper.find("[data-test='nav-link-today']");
+    const todayLink = wrapper.find("[data-testid='nav-link-today']");
     expect(todayLink.attributes("to")).toBe("/today");
   });
 
   it("checks if the 'Home' link has the correct to", () => {
-    const homeLink = wrapper.find("[data-test='nav-link-home']");
+    const homeLink = wrapper.find("[data-testid='nav-link-home']");
     expect(homeLink.attributes("to")).toBe("/");
   });
 
   it("checks if the 'App logo' link has the correct to", () => {
-    const appLogoLink = wrapper.find("[data-test='nav-link-app-logo']");
+    const appLogoLink = wrapper.find("[data-testid='nav-link-app-logo']");
     expect(appLogoLink.attributes("to")).toBe("/");
   });
 
@@ -319,7 +319,7 @@ describe("NavBar.vue", () => {
     axios.defaults.headers.common.Authorization = `Token ${initialToken}`;
 
     // Ensure the logout button is visible and click it
-    const logoutButton = wrapper.find("[data-test='nav-link-logout']");
+    const logoutButton = wrapper.find("[data-testid='nav-link-logout']");
     expect(logoutButton.exists()).toBe(true);
     expect(logoutButton.isVisible()).toBe(true);
 
