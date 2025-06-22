@@ -15,7 +15,10 @@
           :src="item.image_url"
           class="img-fluid rounded-4"
           :alt="`APOD image: ${item.title} by ${item.authors}`"
+          role="button"
+          tabindex="0"
           @click="downloadImage"
+          @keydown.enter="downloadImage"
         />
       </div>
     </div>
