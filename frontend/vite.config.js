@@ -18,7 +18,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    include: ["tests/**/*.spec.{js,ts,jsx,tsx}"],
+    include: ["tests/unit/**/*.spec.{js,ts,jsx,tsx}"],
     coverage: {
       enabled: true,
       provider: "v8",
