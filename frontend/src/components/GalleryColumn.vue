@@ -13,7 +13,7 @@
           role="button"
           tabindex="0"
           @click="$emit('selectedItem', item)"
-          @keyup.enter="$emit('selectedItem', item)"
+          @keydown.enter="selectAndShowModal(item)"
         />
         <div class="row m-0">
           <div class="col py-1 d-flex align-items-center marquee-container">
@@ -147,6 +147,14 @@ export default {
           item.image_likes_count -= 1;
         })
         .catch((error) => {});
+    },
+    selectAndShowModal(item) {
+      this.$emit("selectedItem", item);
+      const modal = document.getElementById("exampleModal");
+      if (modal) {
+        const modalInstance = bootstrap.Modal.getInstance(modal) || new bootstrap.Modal(modal);
+        modalInstance.show();
+      }
     },
   },
 };

@@ -17,12 +17,15 @@
             alt="MyUniverseHub galaxy logo"
           />
           <div class="col d-flex align-items-center justify-content-end">
-            <div v-if="isLoggedIn" data-testid="modal-heart-and-count-container" class="me-2 me-sm-3">
+            <div v-if="isLoggedIn" data-testid="modal-heart-and-count-container">
               <div
                 v-if="item.image_is_liked"
                 data-testid="modal-like-count-text-container"
                 class="like-icon-container d-flex align-items-center"
+                role="button"
+                tabindex="0"
                 @click="unlikeImage(item)"
+                @keydown.enter="unlikeImage(item)"
               >
                 {{ item.image_likes_count }}
                 <i type="button" class="ms-2 fa-solid fa-heart fa-xl" style="color: #f66151" />
@@ -31,26 +34,39 @@
                 v-else
                 data-testid="modal-like-count-text-container"
                 class="like-icon-container d-flex align-items-center"
+                role="button"
+                tabindex="0"
                 @click="likeImage(item)"
+                @keydown.enter="likeImage(item)"
               >
                 {{ item.image_likes_count }}
                 <i type="button" class="ms-2 fa-regular fa-heart fa-xl" />
               </div>
             </div>
-            <div v-else data-testid="modal-heart-and-count-container" class="me-2 me-sm-3">
+            <div v-else data-testid="modal-heart-and-count-container">
               <div data-testid="modal-like-count-text-container" class="like-icon-container d-flex align-items-center">
                 {{ item.image_likes_count }}
                 <i :disabled="!isLoggedIn" class="ms-2 fa-regular fa-heart fa-xl" style="color: #77767b" />
               </div>
             </div>
 
-            <i
-              data-testid="modal-download-icon"
-              type="button"
-              class="fa-solid fa-download fa-xl me-2 me-sm-3"
-              @click="downloadImage(item)"
-            />
-            <i data-testid="modal-close-icon" type="button" class="fa-solid fa-xmark fa-2xl" data-bs-dismiss="modal" />
+            <div class="p-2 p-sm-2" role="button" tabindex="0" @keydown.enter="downloadImage(item)">
+              <i
+                data-testid="modal-download-icon"
+                type="button"
+                class="fa-solid fa-download fa-xl"
+                @click="downloadImage(item)"
+              />
+            </div>
+
+            <div class="p-2 p-sm-2" role="button" tabindex="0" @keydown.enter="closeModal">
+              <i
+                data-testid="modal-close-icon"
+                type="button"
+                class="fa-solid fa-xmark fa-2xl"
+                data-bs-dismiss="modal"
+              />
+            </div>
           </div>
         </div>
         <div class="modal-body" data-testid="modal-body">
@@ -137,6 +153,13 @@ export default {
       document.body.appendChild(anchorTag);
       anchorTag.click();
       document.body.removeChild(anchorTag);
+    },
+    closeModal() {
+      const modal = document.getElementById("exampleModal");
+      if (modal) {
+        const modalInstance = bootstrap.Modal.getInstance(modal) || new bootstrap.Modal(modal);
+        modalInstance.hide();
+      }
     },
   },
 };
