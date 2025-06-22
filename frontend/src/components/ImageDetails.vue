@@ -53,7 +53,7 @@
             <i data-testid="modal-close-icon" type="button" class="fa-solid fa-xmark fa-2xl" data-bs-dismiss="modal" />
           </div>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" data-testid="modal-body">
           <ModalBody :item="item" />
         </div>
       </div>
