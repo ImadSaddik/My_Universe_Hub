@@ -1,27 +1,32 @@
+// Run this command in the terminal to list the installed extensions for a specific profile:
+// Replace <profile-name> with the name of your profile.
+// code --list-extensions --show-versions --profile <profile-name>
+
 {
   "recommendations": [
-		"vue.volar",
-		"shenjiaolong.vue-helper",
-		"vitest.explorer",
+    "vue.volar",
+    "shenjiaolong.vue-helper",
+    "vitest.explorer",
     "dbaeumer.vscode-eslint",
-		"esbenp.prettier-vscode",
+    "esbenp.prettier-vscode",
 
-		"formulahendry.auto-close-tag",
-		"formulahendry.auto-rename-tag",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
 
-		"github.copilot",
-		"github.copilot-chat",
+    "github.copilot",
+    "github.copilot-chat",
 
-		"kevinrose.vsc-python-indent",
-		"ms-python.autopep8",
-		"ms-python.debugpy",
-		"ms-python.isort",
-		"ms-python.python",
-		"ms-python.vscode-pylance",
+    "kevinrose.vsc-python-indent",
+    "ms-python.autopep8",
+    "ms-python.debugpy",
+    "ms-python.isort",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-playwright.playwright",
 
-		"yzhang.markdown-all-in-one",
-		"vscode-icons-team.vscode-icons",
+    "yzhang.markdown-all-in-one",
+    "vscode-icons-team.vscode-icons",
 
-		"charliermarsh.ruff",
+    "charliermarsh.ruff"
   ]
 }

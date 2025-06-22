@@ -2,7 +2,7 @@
   <div class="container-fluid m-0 p-3">
     <div class="position-relative d-flex flex-column">
       <img
-        data-cy="background-image"
+        data-testid="background-image"
         src="../assets/home_page/search_background.jpg"
         class="img-fluid custom-image"
         alt="Panoramic view of Monument Valley desert landscape under a starry night sky with the Milky Way galaxy visible above the iconic red rock formations"
@@ -11,15 +11,15 @@
       <div class="container position-absolute top-50 start-50 translate-middle align-self-center">
         <div class="row px-sm-5 pb-sm-5">
           <div class="col px-4 px-sm-4">
-            <h1 data-cy="hero-title" class="title-text text-white">My Universe Hub</h1>
-            <p data-cy="hero-description" class="description-text text-white">
+            <h1 data-testid="hero-title" class="title-text text-white">My Universe Hub</h1>
+            <p data-testid="hero-description" class="description-text text-white">
               Discover images by entering keywords separated by commas. Find the image you are looking for.
             </p>
             <div class="input-container">
               <i class="fas fa-search input-icon" />
               <input
                 v-model="searchQuery"
-                data-cy="search-input"
+                data-testid="search-input"
                 type="text"
                 class="input-field"
                 placeholder="Andromeda, Jupiter, Pluto, M31"

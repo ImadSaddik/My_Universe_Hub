@@ -296,3 +296,11 @@ dist
 staticfiles/
 static/
 logs/
+
+playwright-report/
+test-results/
+playwright/.cache/
+.local-browsers/
+allure-results/
+.allure/
+playwright/.auth/

@@ -1,7 +1,7 @@
 <template>
   <div
     id="exampleModal"
-    data-cy="image-details-modal"
+    data-testid="image-details-modal"
     class="modal fade"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
@@ -11,16 +11,16 @@
       <div class="modal-content">
         <div class="modal-header">
           <img
-            data-cy="modal-app-logo"
+            data-testid="modal-app-logo"
             class="image-logo"
             src="../assets/logos/galaxy_logo.svg"
             alt="MyUniverseHub galaxy logo"
           />
           <div class="col d-flex align-items-center justify-content-end">
-            <div v-if="isLoggedIn" data-cy="modal-heart-and-count-container" class="me-2 me-sm-3">
+            <div v-if="isLoggedIn" data-testid="modal-heart-and-count-container" class="me-2 me-sm-3">
               <div
                 v-if="item.image_is_liked"
-                data-cy="modal-like-count-text-container"
+                data-testid="modal-like-count-text-container"
                 class="like-icon-container d-flex align-items-center"
                 @click="unlikeImage(item)"
               >
@@ -29,7 +29,7 @@
               </div>
               <div
                 v-else
-                data-cy="modal-like-count-text-container"
+                data-testid="modal-like-count-text-container"
                 class="like-icon-container d-flex align-items-center"
                 @click="likeImage(item)"
               >
@@ -37,23 +37,23 @@
                 <i type="button" class="ms-2 fa-regular fa-heart fa-xl" />
               </div>
             </div>
-            <div v-else data-cy="modal-heart-and-count-container" class="me-2 me-sm-3">
-              <div data-cy="modal-like-count-text-container" class="like-icon-container d-flex align-items-center">
+            <div v-else data-testid="modal-heart-and-count-container" class="me-2 me-sm-3">
+              <div data-testid="modal-like-count-text-container" class="like-icon-container d-flex align-items-center">
                 {{ item.image_likes_count }}
                 <i :disabled="!isLoggedIn" class="ms-2 fa-regular fa-heart fa-xl" style="color: #77767b" />
               </div>
             </div>
 
             <i
-              data-cy="modal-download-icon"
+              data-testid="modal-download-icon"
               type="button"
               class="fa-solid fa-download fa-xl me-2 me-sm-3"
               @click="downloadImage(item)"
             />
-            <i data-cy="modal-close-icon" type="button" class="fa-solid fa-xmark fa-2xl" data-bs-dismiss="modal" />
+            <i data-testid="modal-close-icon" type="button" class="fa-solid fa-xmark fa-2xl" data-bs-dismiss="modal" />
           </div>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" data-testid="modal-body">
           <ModalBody :item="item" />
         </div>
       </div>

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row my-1 my-sm-3">
       <div class="col d-flex justify-content-center">
-        <h1 data-cy="modal-title" class="custom-title-text">
+        <h1 data-testid="modal-title" class="custom-title-text">
           {{ item.title }}
         </h1>
       </div>
@@ -10,7 +10,7 @@
     <div class="row mt-4 mt-sm-4 mt-lg-5">
       <div class="col d-flex justify-content-center">
         <img
-          data-cy="modal-image"
+          data-testid="modal-image"
           type="button"
           :src="item.image_url"
           class="img-fluid rounded-4"
@@ -20,19 +20,21 @@
       </div>
     </div>
     <div class="row mt-4 mt-sm-4 mt-lg-5">
-      <p data-cy="modal-image-credit" class="custom-small-text text-center my-0">
+      <p data-testid="modal-image-credit" class="custom-small-text text-center my-0">
         <strong>Image credit:</strong> {{ item.authors }}
       </p>
     </div>
     <div class="row">
       <p class="custom-small-text my-0 text-center">
-        <b data-cy="modal-posted-date">Posted:</b> {{ item.date }} on
-        <a data-cy="modal-apod-link" href="https://apod.nasa.gov/" target="_blank" rel="noopener noreferrer">APOD</a>
+        <b data-testid="modal-posted-date">Posted:</b> {{ item.date }} on
+        <a data-testid="modal-apod-link" href="https://apod.nasa.gov/" target="_blank" rel="noopener noreferrer"
+          >APOD</a
+        >
       </p>
     </div>
     <div class="row mt-3 mt-lg-4 mb-3">
       <div class="col px-sm-3">
-        <p v-if="item.explanation" data-cy="modal-explanation" class="custom-small-text">
+        <p v-if="item.explanation" data-testid="modal-explanation" class="custom-small-text">
           <strong>Explanation:</strong>
           {{ item.explanation.substring(item.explanation.indexOf(":") + 1).trim() }}
         </p>

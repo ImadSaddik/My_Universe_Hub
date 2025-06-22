@@ -1,10 +1,10 @@
 <template>
   <div class="col-12 col-sm-6 col-lg-4 py-0">
-    <div v-for="(item, index) in archive" :key="index" data-cy="gallery-item" class="mb-3">
+    <div v-for="(item, index) in archive" :key="index" data-testid="gallery-item" class="mb-3">
       <div>
         <img
           v-lazy="item.image_url"
-          data-cy="gallery-item-image"
+          data-testid="gallery-item-image"
           :src="item.image_url"
           class="img-fluid image-container"
           :alt="`APOD image: ${item.title} by ${item.authors}`"
@@ -18,20 +18,20 @@
         <div class="row m-0">
           <div class="col py-1 d-flex align-items-center marquee-container">
             <img
-              data-cy="gallery-item-app-logo"
+              data-testid="gallery-item-app-logo"
               src="../assets/logos/galaxy_logo.svg"
               alt="MyUniverseHub galaxy logo"
               style="width: 2rem"
             />
-            <p data-cy="gallery-item-title" class="custom-small-text m-0 ms-3 fw-bold">
+            <p data-testid="gallery-item-title" class="custom-small-text m-0 ms-3 fw-bold">
               {{ item.title }}
             </p>
           </div>
-          <div data-cy="gallery-item-action" class="col-auto p-0 py-1">
+          <div data-testid="gallery-item-action" class="col-auto p-0 py-1">
             <div v-if="isLoggedIn">
               <div
                 v-if="item.image_is_liked"
-                data-cy="gallery-item-unlike-or-like"
+                data-testid="gallery-item-unlike-or-like"
                 class="like-icon-container d-flex align-items-center"
                 role="button"
                 tabindex="0"
@@ -43,7 +43,7 @@
               </div>
               <div
                 v-else
-                data-cy="gallery-item-unlike-or-like"
+                data-testid="gallery-item-unlike-or-like"
                 class="like-icon-container d-flex align-items-center"
                 role="button"
                 tabindex="0"
@@ -55,7 +55,7 @@
               </div>
             </div>
             <div v-else>
-              <div data-cy="gallery-item-unlike-or-like" class="like-icon-container d-flex align-items-center">
+              <div data-testid="gallery-item-unlike-or-like" class="like-icon-container d-flex align-items-center">
                 {{ item.image_likes_count }}
                 <i :disabled="!isLoggedIn" class="ms-2 fa-regular fa-heart fa-xl" style="color: #77767b" />
               </div>
@@ -63,10 +63,16 @@
           </div>
         </div>
         <div>
-          <p data-cy="gallery-item-image-credit" class="custom-small-text"><b>Image credit:</b> {{ item.authors }}</p>
+          <p data-testid="gallery-item-image-credit" class="custom-small-text">
+            <b>Image credit:</b> {{ item.authors }}
+          </p>
           <p class="custom-small-text">
-            <b data-cy="gallery-item-date">Posted:</b> {{ item.date }} on
-            <a data-cy="gallery-item-apod-link" href="https://apod.nasa.gov/" target="_blank" rel="noopener noreferrer"
+            <b data-testid="gallery-item-date">Posted:</b> {{ item.date }} on
+            <a
+              data-testid="gallery-item-apod-link"
+              href="https://apod.nasa.gov/"
+              target="_blank"
+              rel="noopener noreferrer"
               >APOD</a
             >
           </p>

@@ -30,7 +30,7 @@
               type="email"
               name="email"
               autocomplete="username"
-              data-cy="login-email"
+              data-testid="login-email"
               :aria-describedby="showAlertDialog ? 'login-error' : null"
             />
           </div>
@@ -46,7 +46,7 @@
               :type="showHidePassword ? 'password' : 'text'"
               name="password"
               autocomplete="current-password"
-              data-cy="login-password"
+              data-testid="login-password"
               :aria-describedby="showAlertDialog ? 'login-error' : null"
             />
             <i
@@ -60,7 +60,7 @@
             />
           </div>
 
-          <button data-cy="login-submit" type="submit" class="custom-btn custom-btn-white my-3">Log In</button>
+          <button data-testid="login-submit" type="submit" class="custom-btn custom-btn-white my-3">Log In</button>
           <p class="text-black text-center m-0 my-2">
             Forgot password?
             <router-link to="/reset_password"> Click here to reset it </router-link>

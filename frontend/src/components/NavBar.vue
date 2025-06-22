@@ -3,7 +3,7 @@
     <div class="container-fluid px-sm-3">
       <RouterLink
         class="navbar-brand p-0 m-0 me-5"
-        data-test="nav-link-app-logo"
+        data-testid="nav-link-app-logo"
         to="/"
         aria-label="Go to home page"
         role="button"
@@ -12,7 +12,7 @@
         @keydown.enter="handleNavbarItemClick(HOME_PAGE)"
       >
         <img
-          data-test="app-logo"
+          data-testid="app-logo"
           src="../assets/logos/galaxy_logo.svg"
           alt="MyUniverseHub galaxy logo"
           style="width: 2rem"
@@ -34,7 +34,7 @@
           <div class="col m-0 p-0 d-lg-flex align-items-center">
             <RouterLink
               class="nav-link"
-              data-test="nav-link-home"
+              data-testid="nav-link-home"
               :class="getNavbarItemClass(HOME_PAGE)"
               to="/"
               @click="handleNavbarItemClick(HOME_PAGE)"
@@ -43,7 +43,7 @@
             </RouterLink>
             <RouterLink
               class="nav-link"
-              data-test="nav-link-today"
+              data-testid="nav-link-today"
               :class="getNavbarItemClass(TODAY_PAGE)"
               to="/today"
               @click="handleNavbarItemClick(TODAY_PAGE)"
@@ -52,7 +52,7 @@
             </RouterLink>
             <RouterLink
               class="nav-link"
-              data-test="nav-link-trending"
+              data-testid="nav-link-trending"
               :class="getNavbarItemClass(TRENDING_PAGE)"
               to="/trending"
               @click="handleNavbarItemClick(TRENDING_PAGE)"
@@ -61,7 +61,7 @@
             </RouterLink>
             <RouterLink
               class="nav-link"
-              data-test="nav-link-favourites"
+              data-testid="nav-link-favourites"
               :class="getNavbarItemClass(FAVOURITES_PAGE)"
               to="/favourites"
               @click="handleNavbarItemClick(FAVOURITES_PAGE)"
@@ -70,7 +70,7 @@
             </RouterLink>
             <RouterLink
               class="nav-link"
-              data-test="nav-link-contribute"
+              data-testid="nav-link-contribute"
               :class="getNavbarItemClass(CONTRIBUTE_PAGE)"
               to="/contribute"
               @click="handleNavbarItemClick(CONTRIBUTE_PAGE)"
@@ -79,7 +79,7 @@
             </RouterLink>
             <RouterLink
               class="nav-link"
-              data-test="nav-link-about"
+              data-testid="nav-link-about"
               :class="getNavbarItemClass(ABOUT_PAGE)"
               to="/about"
               @click="handleNavbarItemClick(ABOUT_PAGE)"
@@ -93,7 +93,7 @@
             <!-- APOD health status indicator -->
             <a
               :href="apodUrl"
-              data-cy="apod-status-indicator"
+              data-testid="apod-status-indicator"
               target="_blank"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
@@ -110,7 +110,7 @@
             <!-- GitHub logo and star count -->
             <a
               :href="githubRepoUrl"
-              data-cy="github-link"
+              data-testid="github-link"
               target="_blank"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
@@ -120,14 +120,14 @@
               <div>
                 <i class="fab fa-github fa-lg" />
               </div>
-              <span class="ms-2" data-test="github-star-count">{{ starCount }}</span>
+              <span class="ms-2" data-testid="github-star-count">{{ starCount }}</span>
             </a>
 
             <!-- Log in icon -->
             <a
               v-show="isLoggedOff"
               href="/login"
-              data-test="nav-link-login"
+              data-testid="nav-link-login"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
               data-bs-title="Log In"
@@ -144,7 +144,7 @@
             <!-- Log out icon -->
             <div
               v-show="!isLoggedOff"
-              data-test="nav-link-logout"
+              data-testid="nav-link-logout"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
               data-bs-title="Log out"

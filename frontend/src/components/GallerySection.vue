@@ -2,7 +2,7 @@
   <div class="container-fluid m-0 py-0 px-3">
     <div v-if="searchResultCount == 0">
       <div class="row d-flex align-items-center justify-content-center" style="height: calc(20vh)">
-        <h5 data-cy="no-results-message" class="nav-link text-center">
+        <h5 data-testid="no-results-message" class="nav-link text-center">
           No images found for the search query 😔, try another one.
         </h5>
       </div>
@@ -21,7 +21,7 @@
         <div
           v-show="shouldShowLoadMoreButton"
           type="button"
-          data-cy="load-more-button"
+          data-testid="load-more-button"
           class="col custom-btn custom-btn-white py-4 d-flex align-items-center justify-content-center"
           :class="{ 'border-dark': isHovering }"
           role="button"
