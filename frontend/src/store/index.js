@@ -9,6 +9,7 @@ export default createStore({
     token: localStorage.getItem("token") || "",
     email: localStorage.getItem("email") || "",
     selectedNavbarItem: localStorage.getItem("selectedNavbarItem") || "",
+    errorMessages: [],
   },
   getters: {},
   mutations: {
@@ -34,6 +35,12 @@ export default createStore({
     },
     setUserVisitedTheWebsite(state, visited) {
       state.userVisitedTheWebsite = visited;
+    },
+    addErrorMessage(state, message) {
+      state.errorMessages.push({ id: Date.now() + Math.random(), message });
+    },
+    removeErrorMessage(state, id) {
+      state.errorMessages = state.errorMessages.filter((error) => error.id !== id);
     },
   },
   actions: {
