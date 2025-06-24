@@ -205,7 +205,7 @@ export default {
         return "ms-2 fa-solid fa-circle text-success";
       }
       if (this.apodStatus === "down") {
-        return "ms-2 fa-solid fa-circle text-danger";
+        return "ms-2 fa-solid fa-circle apod-down";
       }
       return "";
     },
@@ -293,5 +293,9 @@ a {
 .border-container:hover {
   background-color: #f0f0f0;
   border: 1px solid #aaa;
+}
+
+.apod-down {
+  color: #98242f;
 }
 </style>
