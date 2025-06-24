@@ -2,17 +2,20 @@
   <NavBar />
   <AcknowledgementBar />
   <router-view />
+  <ErrorNotification />
 </template>
 
 <script>
 import NavBar from "./components/NavBar.vue";
 import AcknowledgementBar from "./components/AcknowledgementBar.vue";
+import ErrorNotification from "./components/ErrorNotification.vue";
 
 export default {
   name: "App",
   components: {
     NavBar,
     AcknowledgementBar,
+    ErrorNotification,
   },
 };
 </script>
