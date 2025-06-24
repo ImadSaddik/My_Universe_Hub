@@ -9,7 +9,16 @@ export default createStore({
     token: localStorage.getItem("token") || "",
     email: localStorage.getItem("email") || "",
     selectedNavbarItem: localStorage.getItem("selectedNavbarItem") || "",
-    errorMessages: [],
+    errorMessages: [
+      // {
+      //   id: Date.now() + Math.random(),
+      //   message: "The backend is not responding. Please try again later. Please try again later Please try again later",
+      // },
+      // {
+      //   id: Date.now() + Math.random(),
+      //   message: "Another error.",
+      // },
+    ],
   },
   getters: {},
   mutations: {
@@ -37,7 +46,7 @@ export default createStore({
       state.userVisitedTheWebsite = visited;
     },
     addErrorMessage(state, message) {
-      state.errorMessages.push({ id: Date.now() + Math.random(), message });
+      state.errorMessages = [...state.errorMessages, { id: Date.now() + Math.random(), message }];
     },
     removeErrorMessage(state, id) {
       state.errorMessages = state.errorMessages.filter((error) => error.id !== id);
