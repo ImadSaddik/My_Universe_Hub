@@ -55,7 +55,6 @@ export default {
         .catch((error) => {
           this.activationSuccess = false;
           this.errorOccurred = true;
-          console.error(error);
         });
     },
   },

@@ -196,9 +196,7 @@ export default {
           .then(() => {
             this.$store.commit("setUserVisitedTheWebsite", true);
           })
-          .catch((error) => {
-            console.error("Error logging user visit:", error);
-          });
+          .catch((error) => {});
       }
     },
   },

@@ -255,9 +255,7 @@ export default {
             this.starCount = response.data.stargazers_count;
           })
           .catch((error) => {});
-      } catch (error) {
-        console.error("Error fetching GitHub star count:", error);
-      }
+      } catch (error) {}
     },
     async checkApodHealth() {
       this.$store.commit("setApodStatus", "checking");
@@ -265,7 +263,6 @@ export default {
         const response = await axios.get("/api/v1/apod-health/");
         this.$store.commit("setApodStatus", response.data.status);
       } catch (error) {
-        console.error("Error checking APOD health:", error);
         this.$store.commit("setApodStatus", "down");
       }
     },
