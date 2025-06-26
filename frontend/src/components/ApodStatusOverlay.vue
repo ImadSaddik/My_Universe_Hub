@@ -42,6 +42,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none; /* Allows clicks to pass through the overlay */
+  pointer-events: none;
+}
+
+.container {
+  pointer-events: auto;
 }
 </style>
