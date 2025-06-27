@@ -248,16 +248,14 @@ export default {
       this.$store.commit("setSelectedNavbarItem", item);
     },
     async fetchGitHubStars() {
-      try {
-        await axios
-          .get("https://api.github.com/repos/ImadSaddik/My_Universe_Hub")
-          .then((response) => {
-            this.starCount = response.data.stargazers_count;
-          })
-          .catch((error) => {
-            this.$store.commit("addErrorMessage", "Failed to fetch GitHub star count");
-          });
-      } catch (error) {}
+      await axios
+        .get("https://api.github.com/repos/ImadSaddik/My_Universe_Hub")
+        .then((response) => {
+          this.starCount = response.data.stargazers_count;
+        })
+        .catch((error) => {
+          this.$store.commit("addErrorMessage", "Failed to fetch GitHub star count");
+        });
     },
     async checkApodHealth() {
       this.$store.commit("setApodStatus", "checking");
