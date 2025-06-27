@@ -9,7 +9,7 @@
     >
       <span>{{ error.message }}</span>
       <i
-        class="fa-solid fa-xmark p-2 p-sm-2 close-button"
+        class="fa-solid fa-xmark fa-2xl p-2 p-sm-2 close-button"
         role="button"
         tabindex="0"
         aria-label="Close notification"
