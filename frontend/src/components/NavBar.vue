@@ -254,7 +254,9 @@ export default {
           .then((response) => {
             this.starCount = response.data.stargazers_count;
           })
-          .catch((error) => {});
+          .catch((error) => {
+            this.$store.commit("addErrorMessage", "Failed to fetch GitHub star count");
+          });
       } catch (error) {}
     },
     async checkApodHealth() {

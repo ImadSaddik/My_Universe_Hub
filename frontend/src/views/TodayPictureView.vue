@@ -183,7 +183,9 @@ export default {
           item.image_is_liked = true;
           item.image_likes_count += 1;
         })
-        .catch((error) => {});
+        .catch((error) => {
+          this.$store.commit("addErrorMessage", "Failed to like the image");
+        });
     },
     async unlikeImage(item) {
       const data = JSON.stringify({
@@ -202,7 +204,9 @@ export default {
           item.image_is_liked = false;
           item.image_likes_count -= 1;
         })
-        .catch((error) => {});
+        .catch((error) => {
+          this.$store.commit("addErrorMessage", "Failed to remove the like from the image");
+        });
     },
   },
 };
