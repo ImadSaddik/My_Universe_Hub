@@ -9,16 +9,7 @@ export default createStore({
     token: localStorage.getItem("token") || "",
     email: localStorage.getItem("email") || "",
     selectedNavbarItem: localStorage.getItem("selectedNavbarItem") || "",
-    errorMessages: [
-      // {
-      //   id: Date.now() + Math.random(),
-      //   message: "The backend is not responding. Please try again later. Please try again later Please try again later",
-      // },
-      // {
-      //   id: Date.now() + Math.random(),
-      //   message: "Another error.",
-      // },
-    ],
+    errorMessages: [],
   },
   getters: {},
   mutations: {
