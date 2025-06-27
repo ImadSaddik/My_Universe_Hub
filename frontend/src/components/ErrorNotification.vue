@@ -110,6 +110,17 @@ export default {
   width: 500px;
 }
 
+@media (max-width: 600px) {
+  .error-notification {
+    width: 100%;
+  }
+
+  .error-notifications-container {
+    left: 1rem;
+    right: 1rem;
+  }
+}
+
 .close-button:focus {
   outline: 2px solid white;
 }
