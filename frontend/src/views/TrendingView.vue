@@ -80,7 +80,9 @@ export default {
         .then((response) => {
           this.archive.push(...response.data);
         })
-        .catch((error) => {});
+        .catch((error) => {
+          this.$store.commit("addErrorMessage", "Failed to fetch trending archive");
+        });
     },
     async getTrendingArchiveSize() {
       await axios
@@ -88,7 +90,9 @@ export default {
         .then((response) => {
           this.archiveFullSize = response.data.count;
         })
-        .catch((error) => {});
+        .catch((error) => {
+          this.$store.commit("addErrorMessage", "Failed to fetch trending archive size");
+        });
     },
     async increaseLimit() {
       await this.getTrendingArchive();

@@ -98,7 +98,9 @@ export default {
         .then((response) => {
           this.archive.push(...response.data);
         })
-        .catch((error) => {});
+        .catch((error) => {
+          this.$store.commit("addErrorMessage", "Failed to fetch favourites archive");
+        });
     },
     async getFavouritesArchiveSize() {
       if (!this.isLoggedIn) {
@@ -111,7 +113,9 @@ export default {
         .then((response) => {
           this.archiveFullSize = response.data.count;
         })
-        .catch((error) => {});
+        .catch((error) => {
+          this.$store.commit("addErrorMessage", "Failed to fetch favourites archive size");
+        });
     },
     removeItem(item) {
       const index = this.archive.indexOf(item);

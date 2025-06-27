@@ -118,7 +118,9 @@ export default {
         .then((response) => {
           this.archive.push(...response.data);
         })
-        .catch((error) => {});
+        .catch((error) => {
+          this.$store.commit("addErrorMessage", "Failed to fetch gallery archive");
+        });
     },
     async getArchiveSize() {
       await axios
@@ -126,7 +128,9 @@ export default {
         .then((response) => {
           this.archiveSize = response.data.count;
         })
-        .catch((error) => {});
+        .catch((error) => {
+          this.$store.commit("addErrorMessage", "Failed to fetch gallery archive size");
+        });
     },
     async getSearchArchive() {
       axios.defaults.headers.common.Authorization = "";
@@ -138,7 +142,9 @@ export default {
         .then((response) => {
           this.searchArchive.push(...response.data);
         })
-        .catch((error) => {});
+        .catch((error) => {
+          this.$store.commit("addErrorMessage", "Failed to get the search results");
+        });
     },
     async getSearchArchiveSize() {
       await axios
@@ -146,7 +152,9 @@ export default {
         .then((response) => {
           this.searchArchiveSize = response.data.count;
         })
-        .catch((error) => {});
+        .catch((error) => {
+          this.$store.commit("addErrorMessage", "Failed to fetch search results size");
+        });
     },
     removeLikes(archive) {
       for (let i = 0; i < archive.length; i++) {
@@ -197,7 +205,7 @@ export default {
             this.$store.commit("setUserVisitedTheWebsite", true);
           })
           .catch((error) => {
-            console.error("Error logging user visit:", error);
+            this.$store.commit("addErrorMessage", "Failed to log user visit");
           });
       }
     },

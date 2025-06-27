@@ -205,7 +205,7 @@ export default {
         return "ms-2 fa-solid fa-circle text-success";
       }
       if (this.apodStatus === "down") {
-        return "ms-2 fa-solid fa-circle text-danger";
+        return "ms-2 fa-solid fa-circle apod-down";
       }
       return "";
     },
@@ -248,16 +248,14 @@ export default {
       this.$store.commit("setSelectedNavbarItem", item);
     },
     async fetchGitHubStars() {
-      try {
-        await axios
-          .get("https://api.github.com/repos/ImadSaddik/My_Universe_Hub")
-          .then((response) => {
-            this.starCount = response.data.stargazers_count;
-          })
-          .catch((error) => {});
-      } catch (error) {
-        console.error("Error fetching GitHub star count:", error);
-      }
+      await axios
+        .get("https://api.github.com/repos/ImadSaddik/My_Universe_Hub")
+        .then((response) => {
+          this.starCount = response.data.stargazers_count;
+        })
+        .catch((error) => {
+          this.$store.commit("addErrorMessage", "Failed to fetch GitHub star count");
+        });
     },
     async checkApodHealth() {
       this.$store.commit("setApodStatus", "checking");
@@ -265,7 +263,6 @@ export default {
         const response = await axios.get("/api/v1/apod-health/");
         this.$store.commit("setApodStatus", response.data.status);
       } catch (error) {
-        console.error("Error checking APOD health:", error);
         this.$store.commit("setApodStatus", "down");
       }
     },
@@ -293,5 +290,9 @@ a {
 .border-container:hover {
   background-color: #f0f0f0;
   border: 1px solid #aaa;
+}
+
+.apod-down {
+  color: #98242f;
 }
 </style>
