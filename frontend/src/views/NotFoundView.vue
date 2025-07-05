@@ -44,4 +44,15 @@ export default {
   width: 200px;
   height: auto;
 }
+
+@media (max-width: 768px) {
+  .stars-and-galaxies-image {
+    width: 70%;
+    height: auto;
+  }
+
+  .telescope-image {
+    display: none;
+  }
+}
 </style>
