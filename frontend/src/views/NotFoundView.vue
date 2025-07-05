@@ -1,14 +1,20 @@
 <template>
-  <section class="container">
-    <h1 class="custom-title-text">404 - Page not found</h1>
+  <section class="container" aria-labelledby="error-heading">
+    <h1 id="error-heading" class="custom-title-text">404 - Page not found</h1>
     <p class="custom-small-text">Sorry, the page you are looking for does not exist.</p>
     <img
       class="stars-and-galaxies-image"
       src="../assets/logos/stars_and_galaxies.svg"
-      alt="MyUniverseHub galaxy logo"
+      alt="Decorative image of stars and galaxies representing the MyUniverseHub theme"
     />
   </section>
-  <img class="telescope-image" src="../assets/logos/telescope.svg" alt="Telescope logo" />
+  <img
+    class="telescope-image"
+    src="../assets/logos/telescope.svg"
+    alt="Telescope image"
+    aria-hidden="true"
+    role="presentation"
+  />
 </template>
 
 <script>
