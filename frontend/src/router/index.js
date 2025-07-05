@@ -69,8 +69,8 @@ const routes = [
     component: ContributeView,
   },
   {
-    path: "/:catchAll(.*)",
-    name: "notfound",
+    path: "/:pathMatch(.*)*",
+    name: "not_found",
     component: NotFoundView,
   },
 ];
