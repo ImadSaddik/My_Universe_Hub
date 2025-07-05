@@ -10,6 +10,7 @@ import ResetPasswordConfirmationView from "@/views/ResetPasswordConfirmationView
 import ActivateAccountView from "@/views/ActivateAccountView.vue";
 import AboutView from "@/views/AboutView.vue";
 import ContributeView from "@/views/ContributeView.vue";
+import NotFoundView from "@/views/NotFoundView.vue";
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
     path: "/contribute",
     name: "contribute",
     component: ContributeView,
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "notfound",
+    component: NotFoundView,
   },
 ];
 
