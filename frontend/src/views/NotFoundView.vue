@@ -15,7 +15,7 @@
 export default {
   name: "NotFoundView",
   created() {
-    document.title = "Page not found";
+    document.title = "404 - Page not found | MyUniverseHub";
     localStorage.setItem("selectedNavbarItem", "");
     this.$store.commit("setSelectedNavbarItem", "");
   },
