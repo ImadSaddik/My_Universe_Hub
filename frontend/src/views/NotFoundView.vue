@@ -1,11 +1,12 @@
 <template>
   <section class="container" aria-labelledby="error-heading">
-    <h1 id="error-heading" class="custom-title-text">404 - Page not found</h1>
-    <p class="custom-small-text">
+    <h1 id="error-heading" data-testid="error-heading" class="custom-title-text">404 - Page not found</h1>
+    <p data-testid="error-message" class="custom-small-text">
       Sorry, the page you are looking for does not exist.
       <router-link to="/">Return to Home</router-link>
     </p>
     <img
+      data-testid="stars-and-galaxies-image"
       class="stars-and-galaxies-image"
       src="../assets/logos/stars_and_galaxies.svg"
       alt=""
@@ -13,7 +14,14 @@
       role="presentation"
     />
   </section>
-  <img class="telescope-image" src="../assets/logos/telescope.svg" alt="" aria-hidden="true" role="presentation" />
+  <img
+    data-testid="telescope-image"
+    class="telescope-image"
+    src="../assets/logos/telescope.svg"
+    alt=""
+    aria-hidden="true"
+    role="presentation"
+  />
 </template>
 
 <script>
