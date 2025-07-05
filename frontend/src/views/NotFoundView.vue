@@ -8,16 +8,12 @@
     <img
       class="stars-and-galaxies-image"
       src="../assets/logos/stars_and_galaxies.svg"
-      alt="Decorative image of stars and galaxies representing the MyUniverseHub theme"
+      alt=""
+      aria-hidden="true"
+      role="presentation"
     />
   </section>
-  <img
-    class="telescope-image"
-    src="../assets/logos/telescope.svg"
-    alt="Telescope image"
-    aria-hidden="true"
-    role="presentation"
-  />
+  <img class="telescope-image" src="../assets/logos/telescope.svg" alt="" aria-hidden="true" role="presentation" />
 </template>
 
 <script>
