@@ -18,6 +18,7 @@
             <div class="input-container">
               <i class="fas fa-search input-icon" />
               <input
+                id="search-input"
                 v-model="searchQuery"
                 data-testid="search-input"
                 type="text"
