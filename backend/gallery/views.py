@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 class getArchive(APIView):
-    def get(self, request: Request, start_index: int, end_index: int) -> Response:
+    def get(self, request: Request, start_index: int, end_index: int) -> Response | HttpResponseBadRequest:
         try:
             entries = Gallery.objects.all()
             sliced_entries = entries[start_index:end_index]
@@ -31,7 +31,7 @@ class getArchive(APIView):
 
 
 class getArchiveSize(APIView):
-    def get(self, request: Request) -> Response:
+    def get(self, request: Request) -> Response | HttpResponseBadRequest:
         try:
             entries = Gallery.objects.all()
             response = {"count": entries.count()}
@@ -126,7 +126,7 @@ def unlikeImage(request: Request) -> JsonResponse | HttpResponseBadRequest:
 
 
 @api_view(["GET"])
-def search(request: Request, query: str, start_index: int, end_index: int) -> Response:
+def search(request: Request, query: str, start_index: int, end_index: int) -> Response | HttpResponseBadRequest:
     logger.info(f"Searching for query: {query} from index {start_index} to {end_index}")
 
     try:
@@ -145,7 +145,7 @@ def search(request: Request, query: str, start_index: int, end_index: int) -> Re
 
 
 @api_view(["GET"])
-def searchSize(request: Request, query: str) -> Response:
+def searchSize(request: Request, query: str) -> Response | HttpResponseBadRequest:
     logger.info(f"Searching for size of query: {query}")
 
     try:
@@ -163,7 +163,7 @@ def searchSize(request: Request, query: str) -> Response:
 
 
 @api_view(["GET"])
-def getSortedArchive(request: Request, start_index: int, end_index: int) -> Response:
+def getSortedArchive(request: Request, start_index: int, end_index: int) -> Response | HttpResponseBadRequest:
     logger.info(f"Fetching sorted archive from index {start_index} to {end_index}")
 
     try:
@@ -179,7 +179,7 @@ def getSortedArchive(request: Request, start_index: int, end_index: int) -> Resp
 
 
 @api_view(["GET"])
-def getSortedArchiveSize(request: Request) -> Response:
+def getSortedArchiveSize(request: Request) -> Response | HttpResponseBadRequest:
     logger.info("Fetching size of sorted archive.")
 
     try:
@@ -194,7 +194,9 @@ def getSortedArchiveSize(request: Request) -> Response:
 
 
 @api_view(["GET"])
-def getFavouritesArchive(request: Request, email: str, start_index: int, end_index: int) -> Response:
+def getFavouritesArchive(
+    request: Request, email: str, start_index: int, end_index: int
+) -> Response | HttpResponseBadRequest:
     logger.info(f"Fetching favourites archive for user: {email} from index {start_index} to {end_index}")
 
     try:
@@ -218,7 +220,7 @@ def getFavouritesArchive(request: Request, email: str, start_index: int, end_ind
 
 
 @api_view(["GET"])
-def getFavouritesArchiveSize(request: Request, email: str) -> Response:
+def getFavouritesArchiveSize(request: Request, email: str) -> Response | HttpResponseBadRequest:
     logger.info(f"Fetching size of favourites archive for user: {email}")
 
     try:
