@@ -1,7 +1,6 @@
 import pytest
 from django.urls import reverse
 from rest_framework.test import APIClient
-
 from utils import populate_database_with_test_data
 
 
@@ -16,8 +15,8 @@ def test_search_valid_input():
 
     client = APIClient()
     response = client.get(url)
-    assert response.status_code == 200
-    assert all("Andromeda" in item["explanation"] for item in response.data)
+    assert response.status_code == 200  # type: ignore
+    assert all("Andromeda" in item["explanation"] for item in response.data)  # type: ignore
 
 
 @pytest.mark.django_db
@@ -31,8 +30,8 @@ def test_search_invalid_input():
 
     client = APIClient()
     response = client.get(url)
-    assert response.status_code == 200
-    assert len(response.data) == 0
+    assert response.status_code == 200  # type: ignore
+    assert len(response.data) == 0  # type: ignore
 
 
 @pytest.mark.django_db
@@ -46,9 +45,9 @@ def test_search_multiple_keywords():
 
     client = APIClient()
     response = client.get(url)
-    assert response.status_code == 200
+    assert response.status_code == 200  # type: ignore
     # At least one result should match either Eclipse or M31
-    assert any(("Eclipse" in item["explanation"] or "M31" in item["explanation"]) for item in response.data)
+    assert any(("Eclipse" in item["explanation"] or "M31" in item["explanation"]) for item in response.data)  # type: ignore
 
 
 @pytest.mark.django_db
@@ -60,8 +59,8 @@ def test_search_size_valid_query():
     client = APIClient()
     response = client.get(url)
 
-    assert response.status_code == 200
-    assert response.data["count"] > 0
+    assert response.status_code == 200  # type: ignore
+    assert response.data["count"] > 0  # type: ignore
 
 
 @pytest.mark.django_db
@@ -73,5 +72,5 @@ def test_search_size_invalid_query():
     client = APIClient()
     response = client.get(url)
 
-    assert response.status_code == 200
-    assert response.data["count"] == 0
+    assert response.status_code == 200  # type: ignore
+    assert response.data["count"] == 0  # type: ignore

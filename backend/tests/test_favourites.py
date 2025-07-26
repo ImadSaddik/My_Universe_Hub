@@ -1,8 +1,7 @@
 import pytest
 from django.urls import reverse
-from rest_framework.test import APIClient
-
 from gallery.models import Gallery
+from rest_framework.test import APIClient
 from utils import create_test_user, populate_database_with_test_data
 
 
@@ -20,8 +19,8 @@ def test_no_favourites():
     client = APIClient()
     response = client.get(url)
 
-    assert response.status_code == 200
-    assert len(response.data) == 0
+    assert response.status_code == 200  # type: ignore
+    assert len(response.data) == 0  # type: ignore
 
 
 @pytest.mark.django_db
@@ -38,8 +37,8 @@ def test_available_favourites():
     data = {"date": date, "email": email}
     response = client.post(url, data, format="json")
 
-    assert response.status_code == 200
-    assert response.json()["message"] == "Image liked successfully!"
+    assert response.status_code == 200  # type: ignore
+    assert response.json()["message"] == "Image liked successfully!"  # type: ignore
 
     gallery = Gallery.objects.get(date=date)
     assert user in gallery.liked_by_users.all()
@@ -50,8 +49,8 @@ def test_available_favourites():
     url = reverse(viewname="get_favourites_archive", args=[email, start_index, end_index])
     response = client.get(url)
 
-    assert response.status_code == 200
-    assert len(response.data) == 1
+    assert response.status_code == 200  # type: ignore
+    assert len(response.data) == 1  # type: ignore
 
 
 @pytest.mark.django_db
@@ -65,9 +64,9 @@ def test_no_favourites_size():
     client = APIClient()
     response = client.get(url)
 
-    assert response.status_code == 200
-    assert "count" in response.data
-    assert response.data["count"] == 0, "Expected a count of 0 for favourites when no images are liked"
+    assert response.status_code == 200  # type: ignore
+    assert "count" in response.data  # type: ignore
+    assert response.data["count"] == 0, "Expected a count of 0 for favourites when no images are liked"  # type: ignore
 
 
 @pytest.mark.django_db
@@ -84,8 +83,8 @@ def test_available_favourites_size():
     data = {"date": date, "email": email}
     response = client.post(url, data, format="json")
 
-    assert response.status_code == 200
-    assert response.json()["message"] == "Image liked successfully!"
+    assert response.status_code == 200  # type: ignore
+    assert response.json()["message"] == "Image liked successfully!"  # type: ignore
 
     gallery = Gallery.objects.get(date=date)
     assert user in gallery.liked_by_users.all()
@@ -95,6 +94,6 @@ def test_available_favourites_size():
     client = APIClient()
     response = client.get(url)
 
-    assert response.status_code == 200
-    assert "count" in response.data
-    assert response.data["count"] == 1
+    assert response.status_code == 200  # type: ignore
+    assert "count" in response.data  # type: ignore
+    assert response.data["count"] == 1  # type: ignore

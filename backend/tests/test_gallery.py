@@ -1,7 +1,6 @@
 import pytest
 from django.urls import reverse
 from rest_framework.test import APIClient
-
 from utils import populate_database_with_test_data
 
 
@@ -15,8 +14,8 @@ def test_get_archive_data():
 
     client = APIClient()
     response = client.get(url)
-    assert response.status_code == 200
-    assert len(response.data) == count
+    assert response.status_code == 200  # type: ignore
+    assert len(response.data) == count  # type: ignore
 
 
 @pytest.mark.django_db
@@ -26,5 +25,5 @@ def test_get_archive_count():
     url = reverse(viewname="get_archive_size")
     client = APIClient()
     response = client.get(url)
-    assert response.status_code == 200
-    assert response.data["count"] == count
+    assert response.status_code == 200  # type: ignore
+    assert response.data["count"] == count  # type: ignore
