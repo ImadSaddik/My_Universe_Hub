@@ -1,5 +1,6 @@
 import logging
 import os
+import textwrap
 from datetime import datetime
 
 import google.generativeai as genai
@@ -97,18 +98,69 @@ def get_authors(url: str) -> str:
     return authors
 
 
-def extract_authors_with_gemini(center_tag: Tag) -> str:
+def extract_authors_with_gemini(html_code_to_process: Tag) -> str:
     load_dotenv()
     genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-    query = f"""Given the following HTML code snippet, your role is to extract the credit information from the center tag.
-The extracted credit information should be returned as a string and separated by a comma to denote multiple authors.
-Dont't include prefix text like "Image Credit" or "Illustration Credit".
+    system_prompt = textwrap.dedent(f"""
+    You are an expert text extraction AI. Your sole purpose is to extract author and credit information from a snippet of HTML code.
 
-The HTML code snippet is as follows:
-{center_tag}
-"""
+    Follow these rules precisely:
+    1.  Find the text that comes **after** the "Image Credit" or "Illustration Credit" line.
+    2.  Extract all names and sources, including the text inside `<a>` tags.
+    3.  Combine everything into a **single string**.
+    4.  Replace any semicolons (`;`) with commas (`,`).
 
-    model = genai.GenerativeModel("models/gemini-2.0-flash-001")
-    response = model.generate_content(query)
+    **CRITICAL:** Your response must **only** be the final extracted string. Do not write explanations, code, or any other text.
+
+    ---
+
+    ### Example 1
+
+    **Input HTML:**
+    ```html
+    <center>
+    <b> The Great Globular Cluster in Hercules </b> <br/>
+    <b>Image Credit &amp;
+    <a href="lib/about_apod.html#srapply">Copyright</a>:</b>
+    <a href="[https://www.distant-luminosity.com/about.html](https://www.distant-luminosity.com/about.html)">Jan Beckmann, Julian Zoller, Lukas Eisert, Wolfgang Hummel</a>
+    </center>
+    ````
+
+    **Output:**
+    `Jan Beckmann, Julian Zoller, Lukas Eisert, Wolfgang Hummel`
+
+    -----
+
+    ### Example 2
+
+    **Input HTML:**
+
+    ```html
+    <center>
+    <b> NGC 602: Oyster Star Cluster </b> <br>
+    <b> Image Credit: </b>
+    X-ray: Chandra: NASA/CXC/Univ.Potsdam/L.Oskinova et al; <br>
+    Optical: Hubble: NASA/STScI; Infrared: Spitzer: NASA/JPL-Caltech
+    </center>
+    ```
+
+    **Output:**
+    `X-ray: Chandra: NASA/CXC/Univ.Potsdam/L.Oskinova et al, Optical: Hubble: NASA/STScI, Infrared: Spitzer: NASA/JPL-Caltech`
+
+    -----
+
+    Now, process the following HTML.
+
+    **Input HTML:**
+
+    ```html
+    {html_code_to_process}
+    ```
+
+    **Output:**
+    """)
+
+    model = genai.GenerativeModel("models/gemini-2.5-flash")
+    response = model.generate_content(system_prompt)
     return response.text
