@@ -2,7 +2,6 @@ import datetime
 
 import pytest
 from bs4.element import Tag
-
 from gallery.apod_scrapper import convert_date, get_a_tags, get_authors, get_image_and_explanation, scrape_a_tag
 
 
@@ -54,7 +53,7 @@ def test_get_authors(apod_entry_url: str) -> None:
 
 def test_convert_date() -> None:
     date_str = "2025 June 03:"
-    converted_date = convert_date(date=date_str)
+    converted_date = convert_date(date_str=date_str)
 
     assert isinstance(converted_date, datetime.date), "Converted date should be a datetime.date object"
     assert converted_date.year == 2025, "Year should be 2025"

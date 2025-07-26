@@ -1,6 +1,7 @@
 import logging
 import os
-from datetime import datetime
+import textwrap
+from datetime import date, datetime
 
 import google.generativeai as genai
 import requests
@@ -38,9 +39,9 @@ def add_non_existing_images() -> None:
             entry.save()
 
 
-def convert_date(date: str) -> datetime.date:
-    date = date.replace(":", "")
-    return datetime.strptime(date, "%Y %B %d").date()
+def convert_date(date_str: str) -> date:
+    date_str = date_str.replace(":", "")
+    return datetime.strptime(date_str, "%Y %B %d").date()
 
 
 def get_a_tags() -> list[Tag]:
@@ -54,13 +55,13 @@ def get_a_tags() -> list[Tag]:
 def scrape_a_tag(a_tag: Tag) -> dict:
     dictionary = {}
 
-    date = a_tag.find_previous(string=True).strip()
+    date_str = a_tag.find_previous(string=True).strip()
     title = a_tag.text.strip()
     url = f"https://apod.nasa.gov/apod/{a_tag['href']}"
     image_url, explanation = get_image_and_explanation(url)
     authors = get_authors(url)
 
-    dictionary["date"] = date
+    dictionary["date"] = date_str
     dictionary["title"] = title
     dictionary["url"] = url
     dictionary["image_url"] = image_url
@@ -97,18 +98,69 @@ def get_authors(url: str) -> str:
     return authors
 
 
-def extract_authors_with_gemini(center_tag: Tag) -> str:
+def extract_authors_with_gemini(html_code_to_process: Tag) -> str:
     load_dotenv()
     genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-    query = f"""Given the following HTML code snippet, your role is to extract the credit information from the center tag.
-The extracted credit information should be returned as a string and separated by a comma to denote multiple authors.
-Dont't include prefix text like "Image Credit" or "Illustration Credit".
+    system_prompt = textwrap.dedent(f"""
+    You are an expert text extraction AI. Your sole purpose is to extract author and credit information from a snippet of HTML code.
 
-The HTML code snippet is as follows:
-{center_tag}
-"""
+    Follow these rules precisely:
+    1.  Find the text that comes **after** the "Image Credit" or "Illustration Credit" line.
+    2.  Extract all names and sources, including the text inside `<a>` tags.
+    3.  Combine everything into a **single string**.
+    4.  Replace any semicolons (`;`) with commas (`,`).
 
-    model = genai.GenerativeModel("models/gemini-2.0-flash-001")
-    response = model.generate_content(query)
+    **CRITICAL:** Your response must **only** be the final extracted string. Do not write explanations, code, or any other text.
+
+    ---
+
+    ### Example 1
+
+    **Input HTML:**
+    ```html
+    <center>
+    <b> The Great Globular Cluster in Hercules </b> <br/>
+    <b>Image Credit &amp;
+    <a href="lib/about_apod.html#srapply">Copyright</a>:</b>
+    <a href="[https://www.distant-luminosity.com/about.html](https://www.distant-luminosity.com/about.html)">Jan Beckmann, Julian Zoller, Lukas Eisert, Wolfgang Hummel</a>
+    </center>
+    ````
+
+    **Output:**
+    `Jan Beckmann, Julian Zoller, Lukas Eisert, Wolfgang Hummel`
+
+    -----
+
+    ### Example 2
+
+    **Input HTML:**
+
+    ```html
+    <center>
+    <b> NGC 602: Oyster Star Cluster </b> <br>
+    <b> Image Credit: </b>
+    X-ray: Chandra: NASA/CXC/Univ.Potsdam/L.Oskinova et al; <br>
+    Optical: Hubble: NASA/STScI; Infrared: Spitzer: NASA/JPL-Caltech
+    </center>
+    ```
+
+    **Output:**
+    `X-ray: Chandra: NASA/CXC/Univ.Potsdam/L.Oskinova et al, Optical: Hubble: NASA/STScI, Infrared: Spitzer: NASA/JPL-Caltech`
+
+    -----
+
+    Now, process the following HTML.
+
+    **Input HTML:**
+
+    ```html
+    {html_code_to_process}
+    ```
+
+    **Output:**
+    """)
+
+    model = genai.GenerativeModel("models/gemini-2.5-flash")
+    response = model.generate_content(system_prompt)
     return response.text
