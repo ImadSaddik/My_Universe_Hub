@@ -1,8 +1,7 @@
 import pytest
 from django.urls import reverse
-from rest_framework.test import APIClient
-
 from gallery.models import Gallery
+from rest_framework.test import APIClient
 from utils import create_test_user, populate_database_with_test_data
 
 
@@ -20,8 +19,8 @@ def test_sorted_archive():
     data = {"date": date, "email": email}
     response = client.post(url, data, format="json")
 
-    assert response.status_code == 200
-    assert response.json()["message"] == "Image liked successfully!"
+    assert response.status_code == 200  # type: ignore
+    assert response.json()["message"] == "Image liked successfully!"  # type: ignore
 
     gallery = Gallery.objects.get(date=date)
     assert user in gallery.liked_by_users.all()
@@ -32,14 +31,14 @@ def test_sorted_archive():
     url = reverse(viewname="get_sorted_archive", args=[start_index, end_index])
     response = client.get(url)
 
-    assert response.status_code == 200
-    assert len(response.data) > 0
+    assert response.status_code == 200  # type: ignore
+    assert len(response.data) > 0  # type: ignore
 
-    most_liked_image = response.data[0]
+    most_liked_image = response.data[0]  # type: ignore
     assert most_liked_image["date"] == date
 
     # Check that the rest of the images have 0 likes
-    for item in response.data[1:]:
+    for item in response.data[1:]:  # type: ignore
         assert item["image_likes_count"] == 0, f"Expected 0 likes for {item['date']}, found {item['image_likes_count']}"
 
 
@@ -51,6 +50,6 @@ def test_sorted_archive_size():
     client = APIClient()
     response = client.get(url)
 
-    assert response.status_code == 200
-    assert "count" in response.data
-    assert response.data["count"] > 0, "Expected a positive count of sorted archive entries"
+    assert response.status_code == 200  # type: ignore
+    assert "count" in response.data  # type: ignore
+    assert response.data["count"] > 0, "Expected a positive count of sorted archive entries"  # type: ignore

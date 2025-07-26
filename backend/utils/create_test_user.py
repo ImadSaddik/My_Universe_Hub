@@ -18,7 +18,7 @@ def create_test_user():
         print(f"Test user {email} already exists")
         return
 
-    _ = UserAccount.objects.create_user(email=email, name=name, password=password)
+    _ = UserAccount.objects.create_user(email=email, name=name, password=password)  # type: ignore
     print(f"Created test user: {email}")
 
 

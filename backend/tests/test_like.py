@@ -1,8 +1,7 @@
 import pytest
 from django.urls import reverse
-from rest_framework.test import APIClient
-
 from gallery.models import Gallery
+from rest_framework.test import APIClient
 from utils import create_test_user, populate_database_with_test_data
 
 
@@ -19,8 +18,8 @@ def test_like_image_valid():
     data = {"date": date, "email": email}
     response = client.post(url, data, format="json")
 
-    assert response.status_code == 200
-    assert response.json()["message"] == "Image liked successfully!"
+    assert response.status_code == 200  # type: ignore
+    assert response.json()["message"] == "Image liked successfully!"  # type: ignore
 
     gallery = Gallery.objects.get(date=date)
     assert user in gallery.liked_by_users.all()
@@ -39,5 +38,5 @@ def test_like_image_invalid():
     data = {"date": date, "email": email}
     response = client.post(url, data, format="json")
 
-    assert response.status_code == 400
-    assert b"Something went wrong while liking the image!" in response.content
+    assert response.status_code == 400  # type: ignore
+    assert b"Something went wrong while liking the image!" in response.content  # type: ignore
