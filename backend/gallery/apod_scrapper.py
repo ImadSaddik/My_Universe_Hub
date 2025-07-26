@@ -55,7 +55,7 @@ def get_a_tags() -> list[Tag]:
 def scrape_a_tag(a_tag: Tag) -> dict:
     dictionary = {}
 
-    date_str = a_tag.find_previous(string=True).strip()
+    date_str = a_tag.find_previous(string=True).strip()  # type: ignore
     title = a_tag.text.strip()
     url = f"https://apod.nasa.gov/apod/{a_tag['href']}"
     image_url, explanation = get_image_and_explanation(url)
@@ -71,7 +71,7 @@ def scrape_a_tag(a_tag: Tag) -> dict:
     return dictionary
 
 
-def get_image_and_explanation(url: str) -> tuple[str, str]:
+def get_image_and_explanation(url: str) -> tuple[str | None, str]:
     source = requests.get(url).text
     soup = BeautifulSoup(source, "lxml")
 
@@ -80,7 +80,7 @@ def get_image_and_explanation(url: str) -> tuple[str, str]:
     explanation = p_tags[2].get_text()
 
     try:
-        image_url = f"https://apod.nasa.gov/apod/{img_tag['src']}"
+        image_url = f"https://apod.nasa.gov/apod/{img_tag['src']}"  # type: ignore
     except Exception:
         image_url = None
 
