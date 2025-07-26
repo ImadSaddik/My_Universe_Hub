@@ -148,7 +148,7 @@ test.describe("Home page", () => {
     test("should show the modal with image details and correct structure when an item is clicked", async ({ page }) => {
       const galleryItems = page.getByTestId("gallery-item");
       await expect(galleryItems).toHaveCount(10);
-      await page.waitForTimeout(1500);
+      await page.waitForTimeout(3000);
 
       const firstItem = galleryItems.nth(0);
       await expect(firstItem).toBeVisible();
