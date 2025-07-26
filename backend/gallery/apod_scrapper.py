@@ -1,7 +1,7 @@
 import logging
 import os
 import textwrap
-from datetime import datetime
+from datetime import date, datetime
 
 import google.generativeai as genai
 import requests
@@ -39,9 +39,9 @@ def add_non_existing_images() -> None:
             entry.save()
 
 
-def convert_date(date: str) -> datetime.date:
-    date = date.replace(":", "")
-    return datetime.strptime(date, "%Y %B %d").date()
+def convert_date(date_str: str) -> date:
+    date_str = date_str.replace(":", "")
+    return datetime.strptime(date_str, "%Y %B %d").date()
 
 
 def get_a_tags() -> list[Tag]:
@@ -55,13 +55,13 @@ def get_a_tags() -> list[Tag]:
 def scrape_a_tag(a_tag: Tag) -> dict:
     dictionary = {}
 
-    date = a_tag.find_previous(string=True).strip()
+    date_str = a_tag.find_previous(string=True).strip()
     title = a_tag.text.strip()
     url = f"https://apod.nasa.gov/apod/{a_tag['href']}"
     image_url, explanation = get_image_and_explanation(url)
     authors = get_authors(url)
 
-    dictionary["date"] = date
+    dictionary["date"] = date_str
     dictionary["title"] = title
     dictionary["url"] = url
     dictionary["image_url"] = image_url
