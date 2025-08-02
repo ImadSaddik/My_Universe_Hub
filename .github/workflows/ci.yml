@@ -373,6 +373,8 @@ jobs:
               TIMESTAMP=$(date +%Y%m%d%H%M%S)
               cp "$DB_FILE_PATH" "$BACKUP_DIR_ON_SERVER/db.sqlite3.backup.$TIMESTAMP"
               echo "Database backed up to $BACKUP_DIR_ON_SERVER/db.sqlite3.backup.$TIMESTAMP"
+              # Keep only the 3 most recent backups, delete older ones
+              ls -1t "$BACKUP_DIR_ON_SERVER"/db.sqlite3.backup.* | tail -n +4 | xargs -r rm --
             else
               echo "Database file $DB_FILE_PATH not found. Skipping backup."
             fi
