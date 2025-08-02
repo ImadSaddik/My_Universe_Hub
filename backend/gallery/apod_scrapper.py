@@ -128,7 +128,7 @@ def extract_authors_with_gemini(html_code_to_process: Tag) -> str:
     ````
 
     **Output:**
-    `Jan Beckmann, Julian Zoller, Lukas Eisert, Wolfgang Hummel`
+    Jan Beckmann, Julian Zoller, Lukas Eisert, Wolfgang Hummel
 
     -----
 
@@ -146,7 +146,7 @@ def extract_authors_with_gemini(html_code_to_process: Tag) -> str:
     ```
 
     **Output:**
-    `X-ray: Chandra: NASA/CXC/Univ.Potsdam/L.Oskinova et al, Optical: Hubble: NASA/STScI, Infrared: Spitzer: NASA/JPL-Caltech`
+    X-ray: Chandra: NASA/CXC/Univ.Potsdam/L.Oskinova et al, Optical: Hubble: NASA/STScI, Infrared: Spitzer: NASA/JPL-Caltech
 
     -----
 
